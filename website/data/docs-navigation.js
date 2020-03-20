@@ -134,6 +134,7 @@ export default [
       'dispatch_payload',
       'env',
       'ephemeral_disk',
+      'expose',
       'group',
       'job',
       'logs',
