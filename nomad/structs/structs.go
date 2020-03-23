@@ -87,6 +87,7 @@ const (
 	ClusterMetadataRequestType
 	ServiceIdentityAccessorRegisterRequestType
 	ServiceIdentityAccessorDeregisterRequestType
+	ScalingEventRegisterRequestType
 )
 
 const (
@@ -1251,15 +1252,6 @@ type TaskGroupScaleStatus struct {
 	Healthy   int
 	Unhealthy int
 	Events    []ScalingEvent
-}
-
-// ScalingEvent represents a specific scaling event
-type ScalingEvent struct {
-	Reason *string
-	Error  *string
-	Meta   map[string]interface{}
-	Time   uint64
-	EvalID *string
 }
 
 type JobDispatchResponse struct {
@@ -3487,6 +3479,10 @@ const (
 	// JobTrackedVersions is the number of historic job versions that are
 	// kept.
 	JobTrackedVersions = 6
+
+	// TaskTrackedScalingEvents is the number of scaling events that are
+	// kept for a single task group.
+	TaskTrackedScalingEvents = 20
 )
 
 // Job is the scope of a scheduling request to Nomad. It is the largest
@@ -4628,6 +4624,43 @@ const (
 	// ReasonWithinPolicy describes restart events that are within policy
 	ReasonWithinPolicy = "Restart within policy"
 )
+
+// ScalingEvent describes a scaling event against a Job
+type ScalingEvent struct {
+	// msgpack omit empty fields during serialization
+	_struct bool `codec:",omitempty"` // nolint: structcheck
+
+	Namespace string
+	JobID     string
+	TaskGroup string
+
+	// Unix Nanosecond timestamp for the scaling event
+	Time int64
+
+	// Count is the new scaling count, if provided
+	Count *int64
+
+	// Reason is a possible message describing a non-error scaling event
+	Reason *string // A possible message explaining the termination of the task.
+
+	// Error is a possible message describing an error scaling condition
+	Error *string
+
+	// Meta is a map of metadata returned during a scaling event
+	Meta map[string]interface{}
+
+	// EvalID is the ID for an evaluation if one was created as part of a scaling event
+	EvalID *string
+}
+
+// ScalingEventRequest is by for Job.Scale endpoint
+// to register scaling events
+type ScalingEventRequest struct {
+	JobID        string
+	Group        string
+	ScalingEvent *ScalingEvent
+	WriteRequest
+}
 
 // ScalingPolicy specifies the scaling policy for a scaling target
 type ScalingPolicy struct {

@@ -5254,7 +5254,7 @@ func TestJobEndpoint_Scale(t *testing.T) {
 			structs.ScalingTargetGroup: job.TaskGroups[0].Name,
 		},
 		Count:  helper.Int64ToPtr(int64(count + 1)),
-		Reason: helper.StringToPtr("this should fail"),
+		Reason: helper.StringToPtr("because of the load"),
 		Meta: map[string]interface{}{
 			"metrics": map[string]string{
 				"1": "a",
@@ -5293,7 +5293,7 @@ func TestJobEndpoint_Scale_ACL(t *testing.T) {
 		Target: map[string]string{
 			structs.ScalingTargetGroup: job.TaskGroups[0].Name,
 		},
-		Reason: helper.StringToPtr("this should fail"),
+		Reason: helper.StringToPtr("because of the load"),
 		WriteRequest: structs.WriteRequest{
 			Region:    "global",
 			Namespace: job.Namespace,
@@ -5415,6 +5415,53 @@ func TestJobEndpoint_Scale_Invalid(t *testing.T) {
 	err = msgpackrpc.CallWithCodec(codec, "Job.Scale", scale, &resp)
 	require.Error(err)
 	require.Contains(err.Error(), "should not contain error and count")
+}
+
+func TestJobEndpoint_Scale_NoEval(t *testing.T) {
+	t.Parallel()
+	require := require.New(t)
+
+	s1, cleanupS1 := TestServer(t, nil)
+	defer cleanupS1()
+	codec := rpcClient(t, s1)
+	testutil.WaitForLeader(t, s1.RPC)
+	state := s1.fsm.State()
+
+	job := mock.Job()
+	err := state.UpsertJob(1000, job)
+	require.Nil(err)
+
+	scale := &structs.JobScaleRequest{
+		JobID: job.ID,
+		Target: map[string]string{
+			structs.ScalingTargetGroup: job.TaskGroups[0].Name,
+		},
+		Count:  nil,
+		Reason: helper.StringToPtr("something informative"),
+		Meta: map[string]interface{}{
+			"metrics": map[string]string{
+				"1": "a",
+				"2": "b",
+			},
+			"other": "value",
+		},
+		PolicyOverride: false,
+		WriteRequest: structs.WriteRequest{
+			Region:    "global",
+			Namespace: job.Namespace,
+		},
+	}
+	var resp structs.JobRegisterResponse
+	err = msgpackrpc.CallWithCodec(codec, "Job.Scale", scale, &resp)
+	require.NoError(err)
+	require.Empty(resp.EvalID)
+	require.Empty(resp.EvalCreateIndex)
+
+	events, err := state.ScalingEventsByJobID(nil, job.Namespace, job.ID)
+	require.NoError(err)
+	require.NotNil(events)
+	require.Contains(events, job.TaskGroups[0].Name)
+	require.NotEmpty(events[job.TaskGroups[0].Name])
 }
 
 func TestJobEndpoint_GetScaleStatus(t *testing.T) {

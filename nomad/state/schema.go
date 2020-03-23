@@ -738,7 +738,6 @@ func (s *ScalingPolicyTargetFieldIndex) PrefixFromArgs(args ...interface{}) ([]b
 }
 
 // scalingPolicyTableSchema returns the MemDB schema for the policy table.
-// This table is used to store the policies which are referenced by tokens
 func scalingPolicyTableSchema() *memdb.TableSchema {
 	return &memdb.TableSchema{
 		Name: "scaling_policy",

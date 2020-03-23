@@ -627,6 +627,66 @@ func (s *StateStore) DeleteDeployment(index uint64, deploymentIDs []string) erro
 	return nil
 }
 
+// UpsertScalingEvent is used to insert a new scaling event.
+// Only the most recent GroupTrackedScalingEvents will be kept.
+func (s *StateStore) UpsertScalingEvent(index uint64, event *structs.ScalingEvent) interface{} {
+	txn := s.db.Txn(true)
+	defer txn.Abort()
+
+	// Insert the new event
+	if err := txn.Insert("scaling_event", event); err != nil {
+		return fmt.Errorf("deployment lookup failed: %v", err)
+	}
+
+	// FINISH: delete older events if we have exceeded the maximum num tracked
+
+	// Update the indexes table for scaling_event
+	if err := txn.Insert("index", &IndexEntry{"scaling_event", index}); err != nil {
+		return fmt.Errorf("index update failed: %v", err)
+	}
+
+	txn.Commit()
+	return nil
+}
+
+func (s *StateStore) ScalingEventsByJobID(ws memdb.WatchSet, namespace, jobID string) (map[string][]*structs.ScalingEvent, error) {
+	txn := s.db.Txn(false)
+
+	// Read job from state store
+	_, existing, err := txn.FirstWatch("jobs", "id", namespace, jobID)
+	if err != nil {
+		return nil, fmt.Errorf("job lookup failed: %v", err)
+	}
+	if existing == nil {
+		return nil, nil
+	}
+
+	// Get an iterator over the scaling events
+	iter, err := txn.Get("scaling_event", "job", namespace, jobID)
+	if err != nil {
+		return nil, err
+	}
+
+	ws.Add(iter.WatchCh())
+
+	out := map[string][]*structs.ScalingEvent{}
+	for {
+		raw := iter.Next()
+		if raw == nil {
+			break
+		}
+		event := raw.(*structs.ScalingEvent)
+		out[event.TaskGroup] = append(out[event.TaskGroup], event)
+	}
+	for _, events := range out {
+		sort.Slice(events, func(i, j int) bool {
+			return events[i].Time > events[j].Time
+		})
+	}
+
+	return out, nil
+}
+
 // UpsertNode is used to register a node or update a node definition
 // This is assumed to be triggered by the client, so we retain the value
 // of drain/eligibility which is set by the scheduler.

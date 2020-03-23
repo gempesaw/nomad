@@ -48,6 +48,7 @@ const (
 	SchedulerConfigSnapshot
 	ClusterMetadataSnapshot
 	ServiceIdentityTokenAccessorSnapshot
+	ScalingEventsSnapshot
 )
 
 // LogApplier is the definition of a function that can apply a Raft log
@@ -260,6 +261,8 @@ func (n *nomadFSM) Apply(log *raft.Log) interface{} {
 		return n.applyUpsertSIAccessor(buf[1:], log.Index)
 	case structs.ServiceIdentityAccessorDeregisterRequestType:
 		return n.applyDeregisterSIAccessor(buf[1:], log.Index)
+	case structs.ScalingEventRegisterRequestType:
+		return n.applyUpsertScalingEvent(buf[1:], log.Index)
 	}
 
 	// Check enterprise only message types.
@@ -1527,6 +1530,21 @@ func (n *nomadFSM) reconcileQueuedAllocations(index uint64) error {
 			}
 		}
 	}
+	return nil
+}
+
+func (n *nomadFSM) applyUpsertScalingEvent(buf []byte, index uint64) interface{} {
+	defer metrics.MeasureSince([]string{"nomad", "fsm", "upsert_scaling_event"}, time.Now())
+	var req structs.ScalingEventRequest
+	if err := structs.Decode(buf, &req); err != nil {
+		panic(fmt.Errorf("failed to decode request: %v", err))
+	}
+
+	if err := n.state.UpsertScalingEvent(index, req.ScalingEvent); err != nil {
+		n.logger.Error("UpsertJob failed", "error", err)
+		return err
+	}
+
 	return nil
 }
 
