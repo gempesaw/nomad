@@ -43,12 +43,7 @@
     <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
     <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
 
-    <!-- Analytics scrpts -->
-    <script defer>
-      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
-    </script>
 
-    
   </head>
 
   <body id="page-guides-spark-configuration" class="layout-guides page-apache-spark-integration-configuration-properties">
@@ -448,154 +443,154 @@
     </div>
 
     <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
-      
+
   <h1 id="spark-configuration-properties">
   <a name="spark-configuration-properties" class="anchor" href="#spark-configuration-properties">&raquo;</a>
   Spark Configuration Properties
 </h1>
-<p>Spark <a href="https://spark.apache.org/docs/latest/configuration.html#available-properties">configuration properties</a> 
-are generally applicable to the Nomad integration. The properties listed below 
- are specific to running Spark on Nomad. Configuration properties can be set by 
+<p>Spark <a href="https://spark.apache.org/docs/latest/configuration.html#available-properties">configuration properties</a>
+are generally applicable to the Nomad integration. The properties listed below
+ are specific to running Spark on Nomad. Configuration properties can be set by
  adding <code>--conf [property]=[value]</code> to the <code>spark-submit</code> command.</p>
 
 <ul>
-<li><p><a name="spark-nomad-authtoken" /><a href="#spark-nomad-authtoken"><code>spark.nomad.authToken</code></a> <code>(string: nil)</code> - Specifies the secret key of the auth 
-token to use when accessing the API. This falls back to the NOMAD_TOKEN environment 
-variable. Note that if this configuration setting is set and the cluster deploy 
-mode is used, this setting will be propagated to the driver application in the 
-job spec. If it is not set and an auth token is taken from the NOMAD_TOKEN 
-environment variable, the token will not be propagated to the driver which will 
+<li><p><a name="spark-nomad-authtoken" /><a href="#spark-nomad-authtoken"><code>spark.nomad.authToken</code></a> <code>(string: nil)</code> - Specifies the secret key of the auth
+token to use when accessing the API. This falls back to the NOMAD_TOKEN environment
+variable. Note that if this configuration setting is set and the cluster deploy
+mode is used, this setting will be propagated to the driver application in the
+job spec. If it is not set and an auth token is taken from the NOMAD_TOKEN
+environment variable, the token will not be propagated to the driver which will
 require the driver to pick up its token from an environment variable.</p>
 </li>
-<li><p><a name="spark-nomad-cluster-expectimmediatescheduling" /><a href="#spark-nomad-cluster-expectimmediatescheduling"><code>spark.nomad.cluster.expectImmediateScheduling</code></a> <code>(bool: false)</code> - Specifies 
-that <code>spark-submit</code> should fail if Nomad is not able to schedule the job 
+<li><p><a name="spark-nomad-cluster-expectimmediatescheduling" /><a href="#spark-nomad-cluster-expectimmediatescheduling"><code>spark.nomad.cluster.expectImmediateScheduling</code></a> <code>(bool: false)</code> - Specifies
+that <code>spark-submit</code> should fail if Nomad is not able to schedule the job
 immediately.</p>
 </li>
-<li><p><a name="spark-nomad-cluster-monitoruntil" /><a href="#spark-nomad-cluster-monitoruntil"><code>spark.nomad.cluster.monitorUntil</code></a> <code>(string: &quot;submitted&quot;</code>) - Specifies the 
+<li><p><a name="spark-nomad-cluster-monitoruntil" /><a href="#spark-nomad-cluster-monitoruntil"><code>spark.nomad.cluster.monitorUntil</code></a> <code>(string: &quot;submitted&quot;</code>) - Specifies the
 length of time that <code>spark-submit</code> should monitor a Spark application in cluster
-mode. When set to <code>submitted</code>, <code>spark-submit</code> will return as soon as the 
-application has been submitted to the Nomad cluster. When set to <code>scheduled</code>, 
-<code>spark-submit</code> will return as soon as the Nomad job has been scheduled. When 
-set to <code>complete</code>, <code>spark-submit</code> will tail the output from the driver process 
+mode. When set to <code>submitted</code>, <code>spark-submit</code> will return as soon as the
+application has been submitted to the Nomad cluster. When set to <code>scheduled</code>,
+<code>spark-submit</code> will return as soon as the Nomad job has been scheduled. When
+set to <code>complete</code>, <code>spark-submit</code> will tail the output from the driver process
 and return when the job has completed.</p>
 </li>
-<li><p><a name="spark-nomad-datacenters" /><a href="#spark-nomad-datacenters"><code>spark.nomad.datacenters</code></a> <code>(string: dynamic)</code> - Specifies a comma-separated 
-list of Nomad datacenters to use. This property defaults to the datacenter of 
+<li><p><a name="spark-nomad-datacenters" /><a href="#spark-nomad-datacenters"><code>spark.nomad.datacenters</code></a> <code>(string: dynamic)</code> - Specifies a comma-separated
+list of Nomad datacenters to use. This property defaults to the datacenter of
 the first Nomad server contacted.</p>
 </li>
-<li><p><a name="spark-nomad-docker-email" /><a href="#spark-nomad-docker-email"><code>spark.nomad.docker.email</code></a> <code>(string: nil)</code> - Specifies the email address to 
-use when downloading the Docker image specified by 
-<a href="#spark.nomad.dockerImage">spark.nomad.dockerImage</a>. See the 
-<a href="https://www.nomadproject.io/docs/drivers/docker.html#authentication">Docker driver authentication</a> 
+<li><p><a name="spark-nomad-docker-email" /><a href="#spark-nomad-docker-email"><code>spark.nomad.docker.email</code></a> <code>(string: nil)</code> - Specifies the email address to
+use when downloading the Docker image specified by
+<a href="#spark.nomad.dockerImage">spark.nomad.dockerImage</a>. See the
+<a href="https://www.nomadproject.io/docs/drivers/docker.html#authentication">Docker driver authentication</a>
 docs for more information.</p>
 </li>
 <li><p><a name="spark-nomad-docker-password" /><a href="#spark-nomad-docker-password"><code>spark.nomad.docker.password</code></a> <code>(string: nil)</code> - Specifies the password to use
-when downloading the Docker image specified by 
-<a href="#spark.nomad.dockerImage">spark.nomad.dockerImage</a>. See the 
-<a href="https://www.nomadproject.io/docs/drivers/docker.html#authentication">Docker driver authentication</a> 
+when downloading the Docker image specified by
+<a href="#spark.nomad.dockerImage">spark.nomad.dockerImage</a>. See the
+<a href="https://www.nomadproject.io/docs/drivers/docker.html#authentication">Docker driver authentication</a>
 docs for more information.</p>
 </li>
-<li><p><a name="spark-nomad-docker-serveraddress" /><a href="#spark-nomad-docker-serveraddress"><code>spark.nomad.docker.serverAddress</code></a> <code>(string: nil)</code> - Specifies the server 
-address (domain/IP without the protocol) to use when downloading the Docker 
-image specified by <a href="#spark.nomad.dockerImage">spark.nomad.dockerImage</a>. Docker 
-Hub is used by default. See the 
-<a href="https://www.nomadproject.io/docs/drivers/docker.html#authentication">Docker driver authentication</a> 
+<li><p><a name="spark-nomad-docker-serveraddress" /><a href="#spark-nomad-docker-serveraddress"><code>spark.nomad.docker.serverAddress</code></a> <code>(string: nil)</code> - Specifies the server
+address (domain/IP without the protocol) to use when downloading the Docker
+image specified by <a href="#spark.nomad.dockerImage">spark.nomad.dockerImage</a>. Docker
+Hub is used by default. See the
+<a href="https://www.nomadproject.io/docs/drivers/docker.html#authentication">Docker driver authentication</a>
 docs for more information.</p>
 </li>
 <li><p><a name="spark-nomad-docker-username" /><a href="#spark-nomad-docker-username"><code>spark.nomad.docker.username</code></a> <code>(string: nil)</code> - Specifies the username to use
-when downloading the Docker image specified by 
-<a href="#spark-nomad-dockerImage">spark.nomad.dockerImage</a>. See the 
-<a href="https://www.nomadproject.io/docs/drivers/docker.html#authentication">Docker driver authentication</a> 
+when downloading the Docker image specified by
+<a href="#spark-nomad-dockerImage">spark.nomad.dockerImage</a>. See the
+<a href="https://www.nomadproject.io/docs/drivers/docker.html#authentication">Docker driver authentication</a>
 docs for more information.</p>
 </li>
-<li><p><a name="spark-nomad-dockerimage" /><a href="#spark-nomad-dockerimage"><code>spark.nomad.dockerImage</code></a> <code>(string: nil)</code> - Specifies the <code>URL</code> for the 
-<a href="https://www.nomadproject.io/docs/drivers/docker.html#image">Docker image</a> to 
-use to run Spark with Nomad&#39;s <code>docker</code> driver. When not specified, Nomad&#39;s 
+<li><p><a name="spark-nomad-dockerimage" /><a href="#spark-nomad-dockerimage"><code>spark.nomad.dockerImage</code></a> <code>(string: nil)</code> - Specifies the <code>URL</code> for the
+<a href="https://www.nomadproject.io/docs/drivers/docker.html#image">Docker image</a> to
+use to run Spark with Nomad&#39;s <code>docker</code> driver. When not specified, Nomad&#39;s
 <code>exec</code> driver will be used instead.</p>
 </li>
-<li><p><a name="spark-nomad-driver-cpu" /><a href="#spark-nomad-driver-cpu"><code>spark.nomad.driver.cpu</code></a> <code>(string: &quot;1000&quot;)</code> - Specifies the CPU in MHz that 
+<li><p><a name="spark-nomad-driver-cpu" /><a href="#spark-nomad-driver-cpu"><code>spark.nomad.driver.cpu</code></a> <code>(string: &quot;1000&quot;)</code> - Specifies the CPU in MHz that
 should be reserved for driver tasks.</p>
 </li>
-<li><p><a name="spark-nomad-driver-logmaxfilesize" /><a href="#spark-nomad-driver-logmaxfilesize"><code>spark.nomad.driver.logMaxFileSize</code></a> <code>(string: &quot;1m&quot;)</code> - Specifies the maximum 
+<li><p><a name="spark-nomad-driver-logmaxfilesize" /><a href="#spark-nomad-driver-logmaxfilesize"><code>spark.nomad.driver.logMaxFileSize</code></a> <code>(string: &quot;1m&quot;)</code> - Specifies the maximum
 size by time that Nomad should use for driver task log files.</p>
 </li>
 <li><p><a name="spark-nomad-driver-logmaxfiles" /><a href="#spark-nomad-driver-logmaxfiles"><code>spark.nomad.driver.logMaxFiles</code></a> <code>(string: &quot;5&quot;)</code> - Specifies the number of log
 files that Nomad should keep for driver tasks.</p>
 </li>
-<li><p><a name="spark-nomad-driver-networkmbits" /><a href="#spark-nomad-driver-networkmbits"><code>spark.nomad.driver.networkMBits</code></a> <code>(string: &quot;1&quot;)</code> - Specifies the network 
+<li><p><a name="spark-nomad-driver-networkmbits" /><a href="#spark-nomad-driver-networkmbits"><code>spark.nomad.driver.networkMBits</code></a> <code>(string: &quot;1&quot;)</code> - Specifies the network
 bandwidth that Nomad should allocate to driver tasks.</p>
 </li>
-<li><p><a name="spark-nomad-driver-retryattempts" /><a href="#spark-nomad-driver-retryattempts"><code>spark.nomad.driver.retryAttempts</code></a> <code>(string: &quot;5&quot;)</code> - Specifies the number of 
+<li><p><a name="spark-nomad-driver-retryattempts" /><a href="#spark-nomad-driver-retryattempts"><code>spark.nomad.driver.retryAttempts</code></a> <code>(string: &quot;5&quot;)</code> - Specifies the number of
 times that Nomad should retry driver task groups upon failure.</p>
 </li>
-<li><p><a name="spark-nomad-driver-retrydelay" /><a href="#spark-nomad-driver-retrydelay"><code>spark.nomad.driver.retryDelay</code></a> <code>(string: &quot;15s&quot;)</code> - Specifies the length of 
+<li><p><a name="spark-nomad-driver-retrydelay" /><a href="#spark-nomad-driver-retrydelay"><code>spark.nomad.driver.retryDelay</code></a> <code>(string: &quot;15s&quot;)</code> - Specifies the length of
 time that Nomad should wait before retrying driver task groups upon failure.</p>
 </li>
-<li><p><a name="spark-nomad-driver-retryinterval" /><a href="#spark-nomad-driver-retryinterval"><code>spark.nomad.driver.retryInterval</code></a> <code>(string: &quot;1d&quot;)</code> - Specifies Nomad&#39;s retry 
+<li><p><a name="spark-nomad-driver-retryinterval" /><a href="#spark-nomad-driver-retryinterval"><code>spark.nomad.driver.retryInterval</code></a> <code>(string: &quot;1d&quot;)</code> - Specifies Nomad&#39;s retry
 interval for driver task groups.</p>
 </li>
-<li><p><a name="spark-nomad-executor-cpu" /><a href="#spark-nomad-executor-cpu"><code>spark.nomad.executor.cpu</code></a> <code>(string: &quot;1000&quot;)</code> - Specifies the CPU in MHz that 
+<li><p><a name="spark-nomad-executor-cpu" /><a href="#spark-nomad-executor-cpu"><code>spark.nomad.executor.cpu</code></a> <code>(string: &quot;1000&quot;)</code> - Specifies the CPU in MHz that
 should be reserved for executor tasks.</p>
 </li>
 <li><p><a name="spark-nomad-executor-logmaxfilesize" /><a href="#spark-nomad-executor-logmaxfilesize"><code>spark.nomad.executor.logMaxFileSize</code></a> <code>(string: &quot;1m&quot;)</code> - Specifies the maximum
 size by time that Nomad should use for executor task log files.</p>
 </li>
-<li><p><a name="spark-nomad-executor-logmaxfiles" /><a href="#spark-nomad-executor-logmaxfiles"><code>spark.nomad.executor.logMaxFiles</code></a> <code>(string: &quot;5&quot;)</code> - Specifies the number of 
+<li><p><a name="spark-nomad-executor-logmaxfiles" /><a href="#spark-nomad-executor-logmaxfiles"><code>spark.nomad.executor.logMaxFiles</code></a> <code>(string: &quot;5&quot;)</code> - Specifies the number of
 log files that Nomad should keep for executor tasks.</p>
 </li>
-<li><p><a name="spark-nomad-executor-networkmbits" /><a href="#spark-nomad-executor-networkmbits"><code>spark.nomad.executor.networkMBits</code></a> <code>(string: &quot;1&quot;)</code> - Specifies the network 
+<li><p><a name="spark-nomad-executor-networkmbits" /><a href="#spark-nomad-executor-networkmbits"><code>spark.nomad.executor.networkMBits</code></a> <code>(string: &quot;1&quot;)</code> - Specifies the network
 bandwidth that Nomad should allocate to executor tasks.</p>
 </li>
 <li><p><a name="spark-nomad-executor-retryattempts" /><a href="#spark-nomad-executor-retryattempts"><code>spark.nomad.executor.retryAttempts</code></a> <code>(string: &quot;5&quot;)</code> - Specifies the number of
 times that Nomad should retry executor task groups upon failure.</p>
 </li>
-<li><p><a name="spark-nomad-executor-retrydelay" /><a href="#spark-nomad-executor-retrydelay"><code>spark.nomad.executor.retryDelay</code></a> <code>(string: &quot;15s&quot;)</code> - Specifies the length of 
+<li><p><a name="spark-nomad-executor-retrydelay" /><a href="#spark-nomad-executor-retrydelay"><code>spark.nomad.executor.retryDelay</code></a> <code>(string: &quot;15s&quot;)</code> - Specifies the length of
 time that Nomad should wait before retrying executor task groups upon failure.</p>
 </li>
-<li><p><a name="spark-nomad-executor-retryinterval" /><a href="#spark-nomad-executor-retryinterval"><code>spark.nomad.executor.retryInterval</code></a> <code>(string: &quot;1d&quot;)</code> - Specifies Nomad&#39;s retry 
+<li><p><a name="spark-nomad-executor-retryinterval" /><a href="#spark-nomad-executor-retryinterval"><code>spark.nomad.executor.retryInterval</code></a> <code>(string: &quot;1d&quot;)</code> - Specifies Nomad&#39;s retry
 interval for executor task groups.</p>
 </li>
-<li><p><a name="spark-nomad-job-template" /><a href="#spark-nomad-job-template"><code>spark.nomad.job.template</code></a> <code>(string: nil)</code> - Specifies the path to a JSON file 
-containing a Nomad job to use as a template. This can also be set with 
+<li><p><a name="spark-nomad-job-template" /><a href="#spark-nomad-job-template"><code>spark.nomad.job.template</code></a> <code>(string: nil)</code> - Specifies the path to a JSON file
+containing a Nomad job to use as a template. This can also be set with
 <code>spark-submit&#39;s --nomad-template</code> parameter.</p>
 </li>
-<li><p><a name="spark-nomad-namespace" /><a href="#spark-nomad-namespace"><code>spark.nomad.namespace</code></a> <code>(string: nil)</code> - Specifies the namespace to use. This 
-falls back first to the NOMAD_NAMESPACE environment variable and then to Nomad&#39;s 
+<li><p><a name="spark-nomad-namespace" /><a href="#spark-nomad-namespace"><code>spark.nomad.namespace</code></a> <code>(string: nil)</code> - Specifies the namespace to use. This
+falls back first to the NOMAD_NAMESPACE environment variable and then to Nomad&#39;s
 default namespace.</p>
 </li>
-<li><p><a name="spark-nomad-priority" /><a href="#spark-nomad-priority"><code>spark.nomad.priority</code></a> <code>(string: nil)</code> - Specifies the priority for the 
+<li><p><a name="spark-nomad-priority" /><a href="#spark-nomad-priority"><code>spark.nomad.priority</code></a> <code>(string: nil)</code> - Specifies the priority for the
 Nomad job.</p>
 </li>
-<li><p><a name="spark-nomad-region" /><a href="#spark-nomad-region"><code>spark.nomad.region</code></a> <code>(string: dynamic)</code> - Specifies the Nomad region to use. 
+<li><p><a name="spark-nomad-region" /><a href="#spark-nomad-region"><code>spark.nomad.region</code></a> <code>(string: dynamic)</code> - Specifies the Nomad region to use.
 This property defaults to the region of the first Nomad server contacted.</p>
 </li>
-<li><p><a name="spark-nomad-shuffle-cpu" /><a href="#spark-nomad-shuffle-cpu"><code>spark.nomad.shuffle.cpu</code></a> <code>(string: &quot;1000&quot;)</code> - Specifies the CPU in MHz that 
+<li><p><a name="spark-nomad-shuffle-cpu" /><a href="#spark-nomad-shuffle-cpu"><code>spark.nomad.shuffle.cpu</code></a> <code>(string: &quot;1000&quot;)</code> - Specifies the CPU in MHz that
 should be reserved for shuffle service tasks.</p>
 </li>
 <li><p><a name="spark-nomad-shuffle-logmaxfilesize" /><a href="#spark-nomad-shuffle-logmaxfilesize"><code>spark.nomad.shuffle.logMaxFileSize</code></a> <code>(string: &quot;1m&quot;)</code> - Specifies the maximum
 size by time that Nomad should use for shuffle service task log files..</p>
 </li>
-<li><p><a name="spark-nomad-shuffle-logmaxfiles" /><a href="#spark-nomad-shuffle-logmaxfiles"><code>spark.nomad.shuffle.logMaxFiles</code></a> <code>(string: &quot;5&quot;)</code> - Specifies the number of 
+<li><p><a name="spark-nomad-shuffle-logmaxfiles" /><a href="#spark-nomad-shuffle-logmaxfiles"><code>spark.nomad.shuffle.logMaxFiles</code></a> <code>(string: &quot;5&quot;)</code> - Specifies the number of
 log files that Nomad should keep for shuffle service tasks.</p>
 </li>
-<li><p><a name="spark-nomad-shuffle-memory" /><a href="#spark-nomad-shuffle-memory"><code>spark.nomad.shuffle.memory</code></a> <code>(string: &quot;256m&quot;)</code> - Specifies the memory that 
+<li><p><a name="spark-nomad-shuffle-memory" /><a href="#spark-nomad-shuffle-memory"><code>spark.nomad.shuffle.memory</code></a> <code>(string: &quot;256m&quot;)</code> - Specifies the memory that
 Nomad should allocate for the shuffle service tasks.</p>
 </li>
-<li><p><a name="spark-nomad-shuffle-networkmbits" /><a href="#spark-nomad-shuffle-networkmbits"><code>spark.nomad.shuffle.networkMBits</code></a> <code>(string: &quot;1&quot;)</code> - Specifies the network 
+<li><p><a name="spark-nomad-shuffle-networkmbits" /><a href="#spark-nomad-shuffle-networkmbits"><code>spark.nomad.shuffle.networkMBits</code></a> <code>(string: &quot;1&quot;)</code> - Specifies the network
 bandwidth that Nomad should allocate to shuffle service tasks.</p>
 </li>
-<li><p><a name="spark-nomad-sparkdistribution" /><a href="#spark-nomad-sparkdistribution"><code>spark.nomad.sparkDistribution</code></a> <code>(string: nil)</code> - Specifies the location of 
+<li><p><a name="spark-nomad-sparkdistribution" /><a href="#spark-nomad-sparkdistribution"><code>spark.nomad.sparkDistribution</code></a> <code>(string: nil)</code> - Specifies the location of
 the Spark distribution archive file to use.</p>
 </li>
 <li><p><a name="spark-nomad-tls-cacert" /><a href="#spark-nomad-tls-cacert"><code>spark.nomad.tls.caCert</code></a> <code>(string: nil)</code> - Specifies the path to a <code>.pem</code> file
-containing the certificate authority that should be used to validate the Nomad 
+containing the certificate authority that should be used to validate the Nomad
 server&#39;s TLS certificate.</p>
 </li>
-<li><p><a name="spark-nomad-tls-cert" /><a href="#spark-nomad-tls-cert"><code>spark.nomad.tls.cert</code></a> <code>(string: nil)</code> - Specifies the path to a <code>.pem</code> file 
+<li><p><a name="spark-nomad-tls-cert" /><a href="#spark-nomad-tls-cert"><code>spark.nomad.tls.cert</code></a> <code>(string: nil)</code> - Specifies the path to a <code>.pem</code> file
 containing the TLS certificate to present to the Nomad server.</p>
 </li>
 <li><p><a name="spark-nomad-tls-truststorepassword" /><a href="#spark-nomad-tls-truststorepassword"><code>spark.nomad.tls.trustStorePassword</code></a> <code>(string: nil)</code> - Specifies the path to a
-<code>.pem</code> file containing the private key corresponding to the certificate in 
+<code>.pem</code> file containing the private key corresponding to the certificate in
 <a href="#spark-nomad-tls-cert">spark.nomad.tls.cert</a>.</p>
 </li>
 </ul>

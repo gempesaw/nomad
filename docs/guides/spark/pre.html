@@ -43,12 +43,7 @@
     <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
     <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
 
-    <!-- Analytics scrpts -->
-    <script defer>
-      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
-    </script>
 
-    
   </head>
 
   <body id="page-guides-spark-pre" class="layout-guides page-apache-spark-integration-getting-started">
@@ -448,36 +443,36 @@
     </div>
 
     <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
-      
+
   <h1 id="getting-started">
   <a name="getting-started" class="anchor" href="#getting-started">&raquo;</a>
   Getting Started
 </h1>
-<p>To get started, you can use Nomad&#39;s example Terraform configuration to 
-automatically provision an environment in AWS, or you can manually provision a 
+<p>To get started, you can use Nomad&#39;s example Terraform configuration to
+automatically provision an environment in AWS, or you can manually provision a
 cluster.</p>
 <h2 id="provision-a-cluster-in-aws">
   <a name="provision-a-cluster-in-aws" class="anchor" href="#provision-a-cluster-in-aws">&raquo;</a>
   Provision a Cluster in AWS
 </h2>
-<p>Nomad&#39;s <a href="https://github.com/hashicorp/nomad/tree/master/terraform">Terraform configuration</a> 
+<p>Nomad&#39;s <a href="https://github.com/hashicorp/nomad/tree/master/terraform">Terraform configuration</a>
 can be used to quickly provision a Spark-enabled Nomad environment in
  AWS. The embedded <a href="https://github.com/hashicorp/nomad/tree/master/terraform/examples/spark">Spark example</a>
- provides for a quickstart experience that can be used in conjunction with 
- this guide. When you have a cluster up and running, you can proceed to 
+ provides for a quickstart experience that can be used in conjunction with
+ this guide. When you have a cluster up and running, you can proceed to
 <a href="/guides/spark/submit.html">Submitting applications</a>.</p>
 <h2 id="manually-provision-a-cluster">
   <a name="manually-provision-a-cluster" class="anchor" href="#manually-provision-a-cluster">&raquo;</a>
   Manually Provision a Cluster
 </h2>
-<p>To manually configure provision a cluster, see the Nomad 
-<a href="/intro/getting-started/install.html">Getting Started</a> guide. There are two 
-basic prerequisites to using the Spark integration once you have a cluster up 
+<p>To manually configure provision a cluster, see the Nomad
+<a href="/intro/getting-started/install.html">Getting Started</a> guide. There are two
+basic prerequisites to using the Spark integration once you have a cluster up
 and running:</p>
 
 <ul>
-<li><p>Access to a <a href="https://s3.amazonaws.com/nomad-spark/spark-2.1.0-bin-nomad.tgz">Spark distribution</a> 
-built with Nomad support. This is required for the machine that will submit 
+<li><p>Access to a <a href="https://s3.amazonaws.com/nomad-spark/spark-2.1.0-bin-nomad.tgz">Spark distribution</a>
+built with Nomad support. This is required for the machine that will submit
 applications as well as the Nomad tasks that will run the Spark executors.</p>
 </li>
 <li><p>A Java runtime environment (JRE) for the submitting machine and the executors.</p>
@@ -488,12 +483,12 @@ applications as well as the Nomad tasks that will run the Spark executors.</p>
   <a name="configure-the-submitting-machine" class="anchor" href="#configure-the-submitting-machine">&raquo;</a>
   Configure the Submitting Machine
 </h3>
-<p>To run Spark applications on Nomad, the submitting machine must have access to 
-the cluster and have the Nomad-enabled Spark distribution installed. The code 
+<p>To run Spark applications on Nomad, the submitting machine must have access to
+the cluster and have the Nomad-enabled Spark distribution installed. The code
 snippets below walk through installing Java and Spark on Ubuntu:</p>
 <p>Install Java:</p>
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">sudo </span>add-apt-repository <span class="nt">-y</span> ppa:openjdk-r/ppa
-<span class="nv">$ </span><span class="nb">sudo </span>apt-get update 
+<span class="nv">$ </span><span class="nb">sudo </span>apt-get update
 <span class="nv">$ </span><span class="nb">sudo </span>apt-get install <span class="nt">-y</span> openjdk-8-jdk
 <span class="nv">$ JAVA_HOME</span><span class="o">=</span><span class="k">$(</span>readlink <span class="nt">-f</span> /usr/bin/java | sed <span class="s2">"s:bin/java::"</span><span class="k">)</span>
 </code></pre></div><p>Install Spark:</p>
@@ -506,10 +501,10 @@ snippets below walk through installing Java and Spark on Ubuntu:</p>
   <a name="executor-access-to-the-spark-distribution" class="anchor" href="#executor-access-to-the-spark-distribution">&raquo;</a>
   Executor Access to the Spark Distribution
 </h3>
-<p>When running on Nomad, Spark creates Nomad tasks to run executors for use by the 
-application&#39;s driver program. The executor tasks need access to a JRE, a Spark 
-distribution built with Nomad support, and (in cluster mode) the Spark 
-application itself. By default, Nomad will only place Spark executors on client 
+<p>When running on Nomad, Spark creates Nomad tasks to run executors for use by the
+application&#39;s driver program. The executor tasks need access to a JRE, a Spark
+distribution built with Nomad support, and (in cluster mode) the Spark
+application itself. By default, Nomad will only place Spark executors on client
 nodes that have the Java runtime installed (version 7 or higher).</p>
 <p>In this example, the Spark distribution and the Spark application JAR file are
 being pulled from Amazon S3:</p>
@@ -524,19 +519,19 @@ being pulled from Amazon S3:</p>
   <a name="using-a-docker-image" class="anchor" href="#using-a-docker-image">&raquo;</a>
   Using a Docker Image
 </h3>
-<p>An alternative to installing the JRE on every client node is to set the 
+<p>An alternative to installing the JRE on every client node is to set the
 <a href="/guides/spark/configuration.html#spark-nomad-dockerimage">spark.nomad.dockerImage</a>
- configuration property to the URL of a Docker image that has the Java runtime 
-installed. If set, Nomad will use the <code>docker</code> driver to run Spark executors in 
-a container created from the image. The 
-<a href="/guides/spark/configuration.html#spark-nomad-dockerauth">spark.nomad.dockerAuth</a> 
+ configuration property to the URL of a Docker image that has the Java runtime
+installed. If set, Nomad will use the <code>docker</code> driver to run Spark executors in
+a container created from the image. The
+<a href="/guides/spark/configuration.html#spark-nomad-dockerauth">spark.nomad.dockerAuth</a>
  configuration property can be set to a JSON object to provide Docker repository
  authentication configuration.</p>
-<p>When using a Docker image, both the Spark distribution and the application 
+<p>When using a Docker image, both the Spark distribution and the application
 itself can be included (in which case local URLs can be used for <code>spark-submit</code>).</p>
-<p>Here, we include <a href="/guides/spark/configuration.html#spark-nomad-dockerimage">spark.nomad.dockerImage</a> 
-and use local paths for 
-<a href="/guides/spark/configuration.html#spark-nomad-sparkdistribution">spark.nomad.sparkDistribution</a> 
+<p>Here, we include <a href="/guides/spark/configuration.html#spark-nomad-dockerimage">spark.nomad.dockerImage</a>
+and use local paths for
+<a href="/guides/spark/configuration.html#spark-nomad-sparkdistribution">spark.nomad.sparkDistribution</a>
 and the application JAR file:</p>
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>spark-submit <span class="se">\</span>
     <span class="nt">--class</span> org.apache.spark.examples.JavaSparkPi <span class="se">\</span>

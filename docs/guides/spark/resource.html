@@ -43,12 +43,7 @@
     <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
     <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
 
-    <!-- Analytics scrpts -->
-    <script defer>
-      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
-    </script>
 
-    
   </head>
 
   <body id="page-guides-spark-resource" class="layout-guides page-apache-spark-integration-resource-allocation">
@@ -448,13 +443,13 @@
     </div>
 
     <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
-      
+
   <h1 id="resource-allocation">
   <a name="resource-allocation" class="anchor" href="#resource-allocation">&raquo;</a>
   Resource Allocation
 </h1>
-<p>Resource allocation can be configured using a job template or through 
-configuration properties. Here is a sample template in HCL syntax (this would 
+<p>Resource allocation can be configured using a job template or through
+configuration properties. Here is a sample template in HCL syntax (this would
 need to be converted to JSON):</p>
 <div class="highlight"><pre class="highlight hcl"><code><span class="n">job</span> <span class="s2">"template"</span> <span class="p">{</span>
   <span class="n">group</span> <span class="s2">"group-name"</span> <span class="p">{</span>
@@ -479,8 +474,8 @@ need to be converted to JSON):</p>
   <a name="memory" class="anchor" href="#memory">&raquo;</a>
   Memory
 </h2>
-<p>The standard Spark memory properties will be propagated to Nomad to control 
-task resource allocation: <code>spark.driver.memory</code> (set by <code>--driver-memory</code>) and 
+<p>The standard Spark memory properties will be propagated to Nomad to control
+task resource allocation: <code>spark.driver.memory</code> (set by <code>--driver-memory</code>) and
 <code>spark.executor.memory</code> (set by <code>--executor-memory</code>). You can additionally specify
  <a href="/guides/spark/configuration.html#spark-nomad-shuffle-memory">spark.nomad.shuffle.memory</a>
   to control how much memory Nomad allocates to  shuffle service tasks.</p>
@@ -488,39 +483,39 @@ task resource allocation: <code>spark.driver.memory</code> (set by <code>--drive
   <a name="cpu" class="anchor" href="#cpu">&raquo;</a>
   CPU
 </h2>
-<p>Spark sizes its thread pools and allocates tasks based on the number of CPU 
-cores available. Nomad manages CPU allocation in terms of processing speed 
-rather than number of cores. When running Spark on Nomad, you can control how 
-much CPU share Nomad will allocate to tasks using the 
-<a href="/guides/spark/configuration.html#spark-nomad-driver-cpu">spark.nomad.driver.cpu</a> 
-(set by <code>--driver-cpu</code>), 
-<a href="/guides/spark/configuration.html#spark-nomad-executor-cpu">spark.nomad.executor.cpu</a> 
-(set by <code>--executor-cpu</code>) and 
-<a href="/guides/spark/configuration.html#spark-nomad-shuffle-cpu">spark.nomad.shuffle.cpu</a> 
-properties. When running on Nomad, executors will be configured to use one core 
-by default, meaning they will only pull a single 1-core task at a time. You can 
-set the <code>spark.executor.cores</code> property (set by <code>--executor-cores</code>) to allow 
+<p>Spark sizes its thread pools and allocates tasks based on the number of CPU
+cores available. Nomad manages CPU allocation in terms of processing speed
+rather than number of cores. When running Spark on Nomad, you can control how
+much CPU share Nomad will allocate to tasks using the
+<a href="/guides/spark/configuration.html#spark-nomad-driver-cpu">spark.nomad.driver.cpu</a>
+(set by <code>--driver-cpu</code>),
+<a href="/guides/spark/configuration.html#spark-nomad-executor-cpu">spark.nomad.executor.cpu</a>
+(set by <code>--executor-cpu</code>) and
+<a href="/guides/spark/configuration.html#spark-nomad-shuffle-cpu">spark.nomad.shuffle.cpu</a>
+properties. When running on Nomad, executors will be configured to use one core
+by default, meaning they will only pull a single 1-core task at a time. You can
+set the <code>spark.executor.cores</code> property (set by <code>--executor-cores</code>) to allow
 more tasks to be executed concurrently on a single executor.</p>
 <h2 id="network">
   <a name="network" class="anchor" href="#network">&raquo;</a>
   Network
 </h2>
-<p>Nomad does not restrict the network bandwidth of running tasks, bit it does 
-allocate a non-zero number of Mbit/s to each task and uses this when bin packing 
-task groups onto Nomad clients. Spark defaults to requesting the minimum of 1 
-Mbit/s per task, but you can change this with the 
-<a href="/guides/spark/configuration.html#spark-nomad-driver-networkmbits">spark.nomad.driver.networkMBits</a>, 
+<p>Nomad does not restrict the network bandwidth of running tasks, bit it does
+allocate a non-zero number of Mbit/s to each task and uses this when bin packing
+task groups onto Nomad clients. Spark defaults to requesting the minimum of 1
+Mbit/s per task, but you can change this with the
+<a href="/guides/spark/configuration.html#spark-nomad-driver-networkmbits">spark.nomad.driver.networkMBits</a>,
 <a href="/guides/spark/configuration.html#spark-nomad-executor-networkmbits">spark.nomad.executor.networkMBits</a>, and
-<a href="/guides/spark/configuration.html#spark-nomad-shuffle-networkmbits">spark.nomad.shuffle.networkMBits</a> 
+<a href="/guides/spark/configuration.html#spark-nomad-shuffle-networkmbits">spark.nomad.shuffle.networkMBits</a>
 properties.</p>
 <h2 id="log-rotation">
   <a name="log-rotation" class="anchor" href="#log-rotation">&raquo;</a>
   Log rotation
 </h2>
-<p>Nomad performs log rotation on the <code>stdout</code> and <code>stderr</code> of its tasks. You can 
-configure the number number and size of log files it will keep for driver and 
-executor task groups using 
-<a href="/guides/spark/configuration.html#spark-nomad-driver-logmaxfiles">spark.nomad.driver.logMaxFiles</a> 
+<p>Nomad performs log rotation on the <code>stdout</code> and <code>stderr</code> of its tasks. You can
+configure the number number and size of log files it will keep for driver and
+executor task groups using
+<a href="/guides/spark/configuration.html#spark-nomad-driver-logmaxfiles">spark.nomad.driver.logMaxFiles</a>
 and <a href="/guides/spark/configuration.html#spark-nomad-executor-logmaxfiles">spark.nomad.executor.logMaxFiles</a>.</p>
 <h2 id="next-steps">
   <a name="next-steps" class="anchor" href="#next-steps">&raquo;</a>

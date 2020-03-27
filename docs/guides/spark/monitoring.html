@@ -43,12 +43,7 @@
     <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
     <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
 
-    <!-- Analytics scrpts -->
-    <script defer>
-      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
-    </script>
 
-    
   </head>
 
   <body id="page-guides-spark-monitoring" class="layout-guides page-apache-spark-integration-monitoring-output">
@@ -448,36 +443,36 @@
     </div>
 
     <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
-      
+
   <h1 id="monitoring-spark-application-output">
   <a name="monitoring-spark-application-output" class="anchor" href="#monitoring-spark-application-output">&raquo;</a>
   Monitoring Spark Application Output
 </h1>
 <p>By default, <code>spark-submit</code> in <code>cluster</code> mode will submit your application
- to the Nomad cluster and return immediately. You can use the 
- <a href="/guides/spark/configuration.html#spark-nomad-cluster-monitoruntil">spark.nomad.cluster.monitorUntil</a> configuration property to have 
- <code>spark-submit</code> monitor the job continuously. Note that, with this flag set, 
+ to the Nomad cluster and return immediately. You can use the
+ <a href="/guides/spark/configuration.html#spark-nomad-cluster-monitoruntil">spark.nomad.cluster.monitorUntil</a> configuration property to have
+ <code>spark-submit</code> monitor the job continuously. Note that, with this flag set,
  killing <code>spark-submit</code> will <em>not</em> stop the spark application, since it will be
   running independently in the Nomad cluster.</p>
 <h2 id="spark-ui">
   <a name="spark-ui" class="anchor" href="#spark-ui">&raquo;</a>
   Spark UI
 </h2>
-<p>In cluster mode, if <code>spark.ui.enabled</code> is set to <code>true</code> (as by default), the 
+<p>In cluster mode, if <code>spark.ui.enabled</code> is set to <code>true</code> (as by default), the
 Spark web UI will be dynamically allocated a port. The Web UI will be exposed by
- Nomad as a service, and the UI’s <code>URL</code> will appear in the Spark driver’s log. By 
-default, the Spark web UI will terminate when the application finishes. This can 
-be problematic when debugging an application. You can delay termination by 
-setting <code>spark.ui.stopDelay</code> (e.g. <code>5m</code> for 5 minutes). Note that this will 
+ Nomad as a service, and the UI’s <code>URL</code> will appear in the Spark driver’s log. By
+default, the Spark web UI will terminate when the application finishes. This can
+be problematic when debugging an application. You can delay termination by
+setting <code>spark.ui.stopDelay</code> (e.g. <code>5m</code> for 5 minutes). Note that this will
 cause the driver process to continue to run. You can force termination
  immediately on the “Jobs” page of the web UI.</p>
 <h2 id="spark-history-server">
   <a name="spark-history-server" class="anchor" href="#spark-history-server">&raquo;</a>
   Spark History Server
 </h2>
-<p>It is possible to reconstruct the web UI of a completed application using 
-Spark’s <a href="https://spark.apache.org/docs/latest/monitoring.html#viewing-after-the-fact">history server</a>. 
-The history server requires the event log to have been written to an accessible 
+<p>It is possible to reconstruct the web UI of a completed application using
+Spark’s <a href="https://spark.apache.org/docs/latest/monitoring.html#viewing-after-the-fact">history server</a>.
+The history server requires the event log to have been written to an accessible
 location like <a href="/guides/spark/hdfs.html">HDFS</a> or Amazon S3.</p>
 <p>Sample history server job file:</p>
 <div class="highlight"><pre class="highlight hcl"><code><span class="n">job</span> <span class="s2">"spark-history-server"</span> <span class="p">{</span>
@@ -526,16 +521,16 @@ location like <a href="/guides/spark/hdfs.html">HDFS</a> or Amazon S3.</p>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div><p>The job file above can also be found <a href="https://github.com/hashicorp/nomad/blob/master/terraform/examples/spark/spark-history-server-hdfs.nomad">here</a>.</p>
-<p>To run the history server, first <a href="/guides/spark/hdfs.html">deploy HDFS</a> and then 
+<p>To run the history server, first <a href="/guides/spark/hdfs.html">deploy HDFS</a> and then
 create a directory in HDFS to store events:</p>
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>hdfs dfs <span class="nt">-fs</span> hdfs://hdfs.service.consul:8020 <span class="nt">-mkdir</span> /spark-events
 </code></pre></div><p>You can then deploy the history server with:</p>
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>nomad job run spark-history-server-hdfs.nomad
 </code></pre></div><p>You can get the private IP for the history server with a Consul DNS lookup:</p>
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>dig spark-history.service.consul
-</code></pre></div><p>Find the public IP that corresponds to the private IP returned by the <code>dig</code> 
+</code></pre></div><p>Find the public IP that corresponds to the private IP returned by the <code>dig</code>
 command above. You can access the history server at <a href="http://PUBLIC_IP:18080">http://PUBLIC_IP:18080</a>.</p>
-<p>Use the <code>spark.eventLog.enabled</code> and <code>spark.eventLog.dir</code> configuration 
+<p>Use the <code>spark.eventLog.enabled</code> and <code>spark.eventLog.dir</code> configuration
 properties in <code>spark-submit</code> to log events for a given application:</p>
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>spark-submit <span class="se">\</span>
     <span class="nt">--class</span> org.apache.spark.examples.JavaSparkPi <span class="se">\</span>
@@ -552,9 +547,9 @@ properties in <code>spark-submit</code> to log events for a given application:</
   Logs
 </h2>
 <p>Nomad clients collect the <code>stderr</code> and <code>stdout</code> of running tasks. The CLI or the
- HTTP API can be used to inspect logs, as documented in 
+ HTTP API can be used to inspect logs, as documented in
 <a href="https://www.nomadproject.io/guides/operating-a-job/accessing-logs.html">Accessing Logs</a>.
-In cluster mode, the <code>stderr</code> and <code>stdout</code> of the <code>driver</code> application can be 
+In cluster mode, the <code>stderr</code> and <code>stdout</code> of the <code>driver</code> application can be
 accessed in the same way. The <a href="https://www.nomadproject.io/guides/operating-a-job/accessing-logs.html#log-shipper-pattern">Log Shipper Pattern</a> uses sidecar tasks to forward logs to a central location. This
 can be done using a job template as follows:</p>
 <div class="highlight"><pre class="highlight hcl"><code><span class="n">job</span> <span class="s2">"template"</span> <span class="p">{</span>

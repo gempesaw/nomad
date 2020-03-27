@@ -43,12 +43,7 @@
     <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
     <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
 
-    <!-- Analytics scrpts -->
-    <script defer>
-      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
-    </script>
 
-    
   </head>
 
   <body id="page-guides-spark-hdfs" class="layout-guides page-apache-spark-integration-using-hdfs">
@@ -448,22 +443,22 @@
     </div>
 
     <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
-      
+
   <h1 id="using-hdfs">
   <a name="using-hdfs" class="anchor" href="#using-hdfs">&raquo;</a>
   Using HDFS
 </h1>
-<p><a href="https://en.wikipedia.org/wiki/Apache_Hadoop#Hadoop_distributed_file_system">HDFS</a> 
-is a distributed, replicated and scalable file system written for the Hadoop 
-framework. Spark was designed to read from and write to HDFS, since it is 
-common for Spark applications to perform data-intensive processing over large 
+<p><a href="https://en.wikipedia.org/wiki/Apache_Hadoop#Hadoop_distributed_file_system">HDFS</a>
+is a distributed, replicated and scalable file system written for the Hadoop
+framework. Spark was designed to read from and write to HDFS, since it is
+common for Spark applications to perform data-intensive processing over large
 datasets. HDFS can be deployed as its own Nomad job.</p>
 <h2 id="running-hdfs-on-nomad">
   <a name="running-hdfs-on-nomad" class="anchor" href="#running-hdfs-on-nomad">&raquo;</a>
   Running HDFS on Nomad
 </h2>
 <p>A sample HDFS job file can be found <a href="https://github.com/hashicorp/nomad/blob/master/terraform/examples/spark/hdfs.nomad">here</a>.
-It has two task groups, one for the HDFS NameNode and one for the 
+It has two task groups, one for the HDFS NameNode and one for the
 DataNodes. Both task groups use a <a href="https://github.com/hashicorp/nomad/tree/master/terraform/examples/spark/docker/hdfs">Docker image</a> that includes Hadoop:</p>
 <div class="highlight"><pre class="highlight hcl"><code>  <span class="n">group</span> <span class="s2">"NameNode"</span> <span class="p">{</span>
 
@@ -479,7 +474,7 @@ DataNodes. Both task groups use a <a href="https://github.com/hashicorp/nomad/tr
       <span class="n">config</span> <span class="p">{</span>
         <span class="n">image</span> <span class="o">=</span> <span class="s2">"rcgenova/hadoop-2.7.3"</span>
         <span class="n">command</span> <span class="o">=</span> <span class="s2">"bash"</span>
-        <span class="n">args</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">"-c"</span><span class="p">,</span> <span class="s2">"hdfs namenode -format &amp;&amp; exec hdfs namenode 
+        <span class="n">args</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">"-c"</span><span class="p">,</span> <span class="s2">"hdfs namenode -format &amp;&amp; exec hdfs namenode
           -D fs.defaultFS=hdfs://${NOMAD_ADDR_ipc}/ -D dfs.permissions.enabled=false"</span> <span class="p">]</span>
         <span class="n">network_mode</span> <span class="o">=</span> <span class="s2">"host"</span>
         <span class="n">port_map</span> <span class="p">{</span>
@@ -507,7 +502,7 @@ DataNodes. Both task groups use a <a href="https://github.com/hashicorp/nomad/tr
       <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
-</code></pre></div><p>The NameNode task registers itself in Consul as <code>hdfs</code>. This enables the 
+</code></pre></div><p>The NameNode task registers itself in Consul as <code>hdfs</code>. This enables the
 DataNodes to generically reference the NameNode:</p>
 <div class="highlight"><pre class="highlight hcl"><code>  <span class="n">group</span> <span class="s2">"DataNode"</span> <span class="p">{</span>
 
@@ -554,9 +549,9 @@ DataNodes to generically reference the NameNode:</p>
 
     <span class="p">}</span>
   <span class="p">}</span>
-</code></pre></div><p>Another viable option for DataNode task group is to use a dedicated 
-<a href="https://www.nomadproject.io/docs/runtime/schedulers.html#system">system</a> job. 
-This will deploy a DataNode to every client node in the system, which may or may 
+</code></pre></div><p>Another viable option for DataNode task group is to use a dedicated
+<a href="https://www.nomadproject.io/docs/runtime/schedulers.html#system">system</a> job.
+This will deploy a DataNode to every client node in the system, which may or may
 not be desirable depending on your use case.</p>
 <p>The HDFS job can be deployed using the <code>nomad job run</code> command:</p>
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>nomad job run hdfs.nomad
@@ -564,14 +559,14 @@ not be desirable depending on your use case.</p>
   <a name="production-deployment-considerations" class="anchor" href="#production-deployment-considerations">&raquo;</a>
   Production Deployment Considerations
 </h2>
-<p>A production deployment will typically have redundant NameNodes in an 
-active/passive configuration (which requires ZooKeeper). See <a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithNFS.html">HDFS High 
+<p>A production deployment will typically have redundant NameNodes in an
+active/passive configuration (which requires ZooKeeper). See <a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithNFS.html">HDFS High
 Availability</a>.</p>
 <h2 id="next-steps">
   <a name="next-steps" class="anchor" href="#next-steps">&raquo;</a>
   Next Steps
 </h2>
-<p>Learn how to <a href="/guides/spark/monitoring.html">monitor the output</a> of your 
+<p>Learn how to <a href="/guides/spark/monitoring.html">monitor the output</a> of your
 Spark applications.</p>
 
 

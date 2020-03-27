@@ -43,12 +43,7 @@
     <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
     <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
 
-    <!-- Analytics scrpts -->
-    <script defer>
-      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
-    </script>
 
-    
   </head>
 
   <body id="page-guides-spark-customizing" class="layout-guides page-apache-spark-integration-customizing-applications">
@@ -448,12 +443,12 @@
     </div>
 
     <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
-      
+
   <h1 id="customizing-applications">
   <a name="customizing-applications" class="anchor" href="#customizing-applications">&raquo;</a>
   Customizing Applications
 </h1>
-<p>There are two ways to customize the Nomad job that Spark creates to run an 
+<p>There are two ways to customize the Nomad job that Spark creates to run an
 application:</p>
 
 <ul>
@@ -466,8 +461,8 @@ application:</p>
   <a name="using-the-default-job-template" class="anchor" href="#using-the-default-job-template">&raquo;</a>
   Using the Default Job Template
 </h2>
-<p>The Spark integration will use a generic job template by default. The template 
-includes groups and tasks for the driver, executors and (optionally) the 
+<p>The Spark integration will use a generic job template by default. The template
+includes groups and tasks for the driver, executors and (optionally) the
 <a href="/guides/spark/dynamic.html">shuffle service</a>. The job itself and the tasks that
  are created have the <code>spark.nomad.role</code> meta value defined accordingly:</p>
 <div class="highlight"><pre class="highlight hcl"><code><span class="n">job</span> <span class="s2">"structure"</span> <span class="p">{</span>
@@ -501,38 +496,38 @@ includes groups and tasks for the driver, executors and (optionally) the
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p>The default template can be customized indirectly by explicitly <a href="/guides/spark/configuration.html">setting 
+</code></pre></div><p>The default template can be customized indirectly by explicitly <a href="/guides/spark/configuration.html">setting
 configuration properties</a>.</p>
 <h2 id="using-a-custom-job-template">
   <a name="using-a-custom-job-template" class="anchor" href="#using-a-custom-job-template">&raquo;</a>
   Using a Custom Job Template
 </h2>
-<p>An alternative to using the default template is to set the 
-<code>spark.nomad.job.template</code> configuration property to the path of a file 
+<p>An alternative to using the default template is to set the
+<code>spark.nomad.job.template</code> configuration property to the path of a file
 containing a custom job template. There are two important considerations:</p>
 
 <ul>
-<li><p>The template must use the JSON format. You can convert an HCL jobspec to 
+<li><p>The template must use the JSON format. You can convert an HCL jobspec to
 JSON by running <code>nomad job run -output &lt;job.nomad&gt;</code>.</p>
 </li>
-<li><p><a name="spark-nomad-job-template" /><a href="#spark-nomad-job-template"><code>spark.nomad.job.template</code></a> should be set to a path on the submitting 
-machine, not to a URL (even in cluster mode). The template does not need to 
+<li><p><a name="spark-nomad-job-template" /><a href="#spark-nomad-job-template"><code>spark.nomad.job.template</code></a> should be set to a path on the submitting
+machine, not to a URL (even in cluster mode). The template does not need to
 be accessible to the driver or executors.</p>
 </li>
 </ul>
-<p>Using a job template you can override Spark’s default resource utilization, add 
-additional metadata or constraints, set environment variables, add sidecar 
-tasks and utilize the Consul and Vault integration. The template does 
-not need to be a complete Nomad job specification, since Spark will add 
-everything necessary to run your the application. For example, your template 
-might set <code>job</code> metadata, but not contain any task groups, making it an 
+<p>Using a job template you can override Spark’s default resource utilization, add
+additional metadata or constraints, set environment variables, add sidecar
+tasks and utilize the Consul and Vault integration. The template does
+not need to be a complete Nomad job specification, since Spark will add
+everything necessary to run your the application. For example, your template
+might set <code>job</code> metadata, but not contain any task groups, making it an
 incomplete Nomad job specification but still a valid template to use with Spark.</p>
-<p>To customize the driver task group, include a task group in your template that 
+<p>To customize the driver task group, include a task group in your template that
 has a task that contains a <code>spark.nomad.role</code> meta value set to <code>driver</code>.</p>
-<p>To customize the executor task group, include a task group in your template that 
-has a task that contains a <code>spark.nomad.role</code> meta value set to <code>executor</code> or 
+<p>To customize the executor task group, include a task group in your template that
+has a task that contains a <code>spark.nomad.role</code> meta value set to <code>executor</code> or
 <code>shuffle</code>.</p>
-<p>The following template adds a <code>meta</code> value at the job level and an environment 
+<p>The following template adds a <code>meta</code> value at the job level and an environment
 variable to the executor task group:</p>
 <div class="highlight"><pre class="highlight hcl"><code><span class="n">job</span> <span class="s2">"template"</span> <span class="p">{</span>
 
@@ -571,7 +566,7 @@ variable to the executor task group:</p>
   <a name="next-steps" class="anchor" href="#next-steps">&raquo;</a>
   Next Steps
 </h2>
-<p>Learn how to <a href="/guides/spark/resource.html">allocate resources</a> for your Spark 
+<p>Learn how to <a href="/guides/spark/resource.html">allocate resources</a> for your Spark
 applications.</p>
 
 

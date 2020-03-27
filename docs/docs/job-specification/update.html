@@ -43,12 +43,7 @@
     <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
     <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
 
-    <!-- Analytics scrpts -->
-    <script defer>
-      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
-    </script>
 
-    
   </head>
 
   <body id="page-docs-job-specification-update" class="layout-docs page-update-stanza-job-specification">
@@ -813,7 +808,7 @@
     </div>
 
     <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
-      
+
   <h1 id="update-stanza">
   <a name="update-stanza" class="anchor" href="#update-stanza">&raquo;</a>
   <code>update</code> Stanza
@@ -1014,7 +1009,7 @@ task groups.</p>
     <span class="o">...</span>
 
     <span class="n">update</span> <span class="p">{</span>
-      <span class="n">canary</span> <span class="o">=</span> <span class="mi">1</span>      
+      <span class="n">canary</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="p">}</span>
   <span class="p">}</span>
 
@@ -1022,7 +1017,7 @@ task groups.</p>
     <span class="o">...</span>
 
     <span class="n">update</span> <span class="p">{</span>
-      <span class="n">min_healthy_time</span> <span class="o">=</span> <span class="s2">"3m"</span> 
+      <span class="n">min_healthy_time</span> <span class="o">=</span> <span class="s2">"3m"</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -1040,7 +1035,7 @@ becomes:</p>
 
 <span class="n">group</span> <span class="s2">"two"</span> <span class="p">{</span>
   <span class="n">update</span> <span class="p">{</span>
-    <span class="n">min_healthy_time</span> <span class="o">=</span> <span class="s2">"3m"</span> 
+    <span class="n">min_healthy_time</span> <span class="o">=</span> <span class="s2">"3m"</span>
     <span class="n">max_parallel</span>     <span class="o">=</span> <span class="mi">2</span>
     <span class="n">health_check</span>     <span class="o">=</span> <span class="s2">"task_states"</span>
     <span class="n">healthy_deadline</span> <span class="o">=</span> <span class="s2">"10m"</span>

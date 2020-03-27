@@ -43,12 +43,7 @@
     <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
     <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
 
-    <!-- Analytics scrpts -->
-    <script defer>
-      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
-    </script>
 
-    
   </head>
 
   <body id="page-guides-spark-submit" class="layout-guides page-apache-spark-integration-submitting-applications">
@@ -448,37 +443,37 @@
     </div>
 
     <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
-      
+
   <h1 id="submitting-applications">
   <a name="submitting-applications" class="anchor" href="#submitting-applications">&raquo;</a>
   Submitting Applications
 </h1>
-<p>The <a href="https://spark.apache.org/docs/latest/submitting-applications.html"><code>spark-submit</code></a> 
-script located in Spark’s <code>bin</code> directory is used to launch applications on a 
-cluster. Spark applications can be submitted to Nomad in either <code>client</code> mode 
+<p>The <a href="https://spark.apache.org/docs/latest/submitting-applications.html"><code>spark-submit</code></a>
+script located in Spark’s <code>bin</code> directory is used to launch applications on a
+cluster. Spark applications can be submitted to Nomad in either <code>client</code> mode
 or <code>cluster</code> mode.</p>
 <h2 id="client-mode">
   <a name="client-mode" class="anchor" href="#client-mode">&raquo;</a>
   Client Mode
 </h2>
-<p>In <code>client</code> mode, the application driver runs on a machine that is not 
-necessarily in the Nomad cluster. The driver’s <code>SparkContext</code> creates a Nomad 
-job to run Spark executors. The executors connect to the driver and run Spark 
-tasks on behalf of the application. When the driver’s SparkContext is stopped, 
-the executors are shut down. Note that the machine running the driver or 
-<code>spark-submit</code> needs to be reachable from the Nomad clients so that the 
+<p>In <code>client</code> mode, the application driver runs on a machine that is not
+necessarily in the Nomad cluster. The driver’s <code>SparkContext</code> creates a Nomad
+job to run Spark executors. The executors connect to the driver and run Spark
+tasks on behalf of the application. When the driver’s SparkContext is stopped,
+the executors are shut down. Note that the machine running the driver or
+<code>spark-submit</code> needs to be reachable from the Nomad clients so that the
 executors can connect to it.</p>
-<p>In <code>client</code> mode, application resources need to start out present on the 
-submitting machine, so JAR files (both the primary JAR and those added with the 
-<code>--jars</code> option) can not be specified using <code>http:</code> or <code>https:</code> URLs. You can 
+<p>In <code>client</code> mode, application resources need to start out present on the
+submitting machine, so JAR files (both the primary JAR and those added with the
+<code>--jars</code> option) can not be specified using <code>http:</code> or <code>https:</code> URLs. You can
 either use files on the submitting machine (either as raw paths or <code>file:</code> URLs)
 , or use <code>local:</code> URLs to indicate that the files are independently available on
- both the submitting machine and all of the Nomad clients where the executors 
+ both the submitting machine and all of the Nomad clients where the executors
  might run.</p>
-<p>In this mode, the <code>spark-submit</code> invocation doesn’t return until the application 
-has finished running, and killing the <code>spark-submit</code> process kills the 
+<p>In this mode, the <code>spark-submit</code> invocation doesn’t return until the application
+has finished running, and killing the <code>spark-submit</code> process kills the
 application.</p>
-<p>In this example, the <code>spark-submit</code> command is used to run the <code>SparkPi</code> sample 
+<p>In this example, the <code>spark-submit</code> command is used to run the <code>SparkPi</code> sample
 application:</p>
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>spark-submit <span class="nt">--class</span> org.apache.spark.examples.SparkPi <span class="se">\</span>
     <span class="nt">--master</span> nomad <span class="se">\</span>
@@ -489,20 +484,20 @@ application:</p>
   <a name="cluster-mode" class="anchor" href="#cluster-mode">&raquo;</a>
   Cluster Mode
 </h2>
-<p>In cluster mode, the <code>spark-submit</code> process creates a Nomad job to run the Spark 
+<p>In cluster mode, the <code>spark-submit</code> process creates a Nomad job to run the Spark
 application driver itself. The driver’s <code>SparkContext</code> then adds Spark executors
- to the Nomad job. The executors connect to the driver and run Spark tasks on 
- behalf of the application. When the driver’s <code>SparkContext</code> is stopped, the 
+ to the Nomad job. The executors connect to the driver and run Spark tasks on
+ behalf of the application. When the driver’s <code>SparkContext</code> is stopped, the
  executors are shut down.</p>
-<p>In cluster mode, application resources need to be hosted somewhere accessible 
-to the Nomad cluster, so JARs (both the primary JAR and those added with the 
-<code>--jars</code> option) can’t be specified using raw paths or <code>file:</code> URLs. You can either 
-use <code>http:</code> or <code>https:</code> URLs, or use <code>local:</code> URLs to indicate that the files are 
-independently available on all of the Nomad clients where the driver and executors 
+<p>In cluster mode, application resources need to be hosted somewhere accessible
+to the Nomad cluster, so JARs (both the primary JAR and those added with the
+<code>--jars</code> option) can’t be specified using raw paths or <code>file:</code> URLs. You can either
+use <code>http:</code> or <code>https:</code> URLs, or use <code>local:</code> URLs to indicate that the files are
+independently available on all of the Nomad clients where the driver and executors
 might run.</p>
-<p>Note that in cluster mode, the Nomad master URL needs to be routable from both 
-the submitting machine and the Nomad client node that runs the driver. If the 
-Nomad cluster is integrated with Consul, you may want to use a DNS name for the 
+<p>Note that in cluster mode, the Nomad master URL needs to be routable from both
+the submitting machine and the Nomad client node that runs the driver. If the
+Nomad cluster is integrated with Consul, you may want to use a DNS name for the
 Nomad service served by Consul.</p>
 <p>For example, to submit an application in cluster mode:</p>
 <div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>spark-submit <span class="nt">--class</span> org.apache.spark.examples.SparkPi <span class="se">\</span>
