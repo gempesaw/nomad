@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Securing Nomad&#x27;s cluster communication with TLS is important for both security and easing operations. Nomad can use mutual TLS (mTLS) for authenticating for all HTTP and RPC communication.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-d0ced218.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-194x194-bb8de46a.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/android-chrome-192x192-9f336178.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-10aa6ba6.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-330a0dd1.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-479e3179.svg" color="#25BA81">
+    <meta name="apple-mobile-web-app-title" content="HashiCorp Nomad">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="application-name" content="HashiCorp Nomad">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="msapplication-TileColor" content="#25BA81">
+    <meta name="msapplication-TileImage" content="/assets/images/favicons/mstile-144x144-7f37eaf2.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:url" content="https://www.nomadproject.io/guides/securing-nomad.html" />
+    <meta property="og:title" content="Securing Nomad with TLS - Nomad by HashiCorp" />
+    <meta property="og:site_name" content="Nomad by HashiCorp"/>
+    <meta property="og:image" content="https://www.nomadproject.io/assets/images/og-image-e0e8d18d.png"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="1200"/>
+    <meta property="og:description" content="Securing Nomad&#x27;s cluster communication with TLS is important for both security and easing operations. Nomad can use mutual TLS (mTLS) for authenticating for all HTTP and RPC communication." />
+
+    <title>Securing Nomad with TLS - Nomad by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b44b5029.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-guides-securing-nomad" class="layout-guides page-securing-nomad-with-tls">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Nomad fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" class="logo" height="50">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/api/index.html">API</a></li>
+                  <li><a href="/resources.html">Resources</a></li>
+                  <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+                  <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/nomad">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" height="42">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/api/index.html">API</a></li>
+    <li><a href="/community.html">Community</a></li>
+    <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+    <li><a href="/security.html">Security</a></li>
+    <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/nomad">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+            <ul class="nav docs-sidenav">
+
+      <li>
+        <a href="/guides/acl.html">ACLs</a>
+      </li>
+
+      <li>
+        <a href="/guides/spark/spark.html">Apache Spark Integration</a>
+        <ul class="nav">
+          <li>
+            <a href="/guides/spark/pre.html">Getting Started</a>
+          </li>
+          <li>
+            <a href="/guides/spark/submit.html">Submitting Applications</a>
+          </li>
+          <li>
+            <a href="/guides/spark/customizing.html">Customizing Applications</a>
+          </li>
+          <li>
+            <a href="/guides/spark/resource.html">Resource Allocation</a>
+          </li>
+          <li>
+            <a href="/guides/spark/dynamic.html">Dynamic Executors</a>
+          </li>
+          <li>
+            <a href="/guides/spark/hdfs.html">Using HDFS</a>
+          </li>
+          <li>
+            <a href="/guides/spark/monitoring.html">Monitoring Output</a>
+          </li>
+          <li>
+            <a href="/guides/spark/configuration.html">Configuration Properties</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/guides/cluster/bootstrapping.html">Bootstrapping Clusters</a>
+        <ul class="nav">
+          <li>
+            <a href="/guides/cluster/automatic.html">Automatic</a>
+          </li>
+          <li>
+            <a href="/guides/cluster/autopilot.html">Autopilot</a>
+          </li>
+          <li>
+            <a href="/guides/cluster/manual.html">Manual</a>
+          </li>
+          <li>
+            <a href="/guides/cluster/federation.html">Federation</a>
+          </li>
+          <li>
+            <a href="/guides/cluster/requirements.html">Requirements</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/guides/node-draining.html">Decommissioning Nodes</a>
+      </li>
+
+      <li>
+        <a href="/guides/namespaces.html">Namespaces</a>
+      </li>
+
+      <li>
+        <a href="/guides/operating-a-job/index.html">Operating a Job</a>
+        <ul class="nav">
+          <li>
+            <a href="/guides/operating-a-job/configuring-tasks.html">Configuring Tasks</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/submitting-jobs.html">Submitting Jobs</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/inspecting-state.html">Inspecting State</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/accessing-logs.html">Accessing Logs</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/resource-utilization.html">Resource Utilization</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/update-strategies/index.html">Update Strategies</a>
+            <ul class="nav">
+              <li>
+                <a href="/guides/operating-a-job/update-strategies/rolling-upgrades.html">Rolling Upgrades</a>
+              </li>
+              <li>
+                <a href="/guides/operating-a-job/update-strategies/blue-green-and-canary-deployments.html">Blue/Green &amp; Canary</a>
+              </li>
+              <li>
+                <a href="/guides/operating-a-job/update-strategies/handling-signals.html">Handling Signals</a>
+              </li>
+            </ul>
+          </li>
+           <li>
+                      <a href="/guides/operating-a-job/failure-handling-strategies/index.html">Failure Recovery Strategies</a>
+                      <ul class="nav">
+                        <li>
+                          <a href="/guides/operating-a-job/failure-handling-strategies/restart.html">Local Restarts</a>
+                        </li>
+                        <li>
+                          <a href="/guides/operating-a-job/failure-handling-strategies/check-restart.html">Check Restarts</a>
+                        </li>
+                        <li>
+                          <a href="/guides/operating-a-job/failure-handling-strategies/reschedule.html">Rescheduling</a>
+                        </li>
+                      </ul>
+                    </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/guides/outage.html">Outage Recovery</a>
+      </li>
+
+      <li>
+        <a href="/guides/quotas.html">Resource Quotas</a>
+      </li>
+
+      <li class="active">
+        <a href="/guides/securing-nomad.html">Securing Nomad</a>
+      </li>
+
+      <li>
+        <a href="/guides/sentinel-policy.html">Sentinel Policies</a>
+        <ul class="nav">
+          <li>
+            <a href="/guides/sentinel/job.html">Job Object</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/guides/ui.html">Web UI</a>
+      </li>
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="securing-nomad-with-tls">
+  <a name="securing-nomad-with-tls" class="anchor" href="#securing-nomad-with-tls">&raquo;</a>
+  Securing Nomad with TLS
+</h1>
+<p>Securing Nomad&#39;s cluster communication is not only important for security but
+can even ease operations by preventing mistakes and misconfigurations. Nomad
+optionally uses mutual <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security">TLS</a> (mTLS) for all HTTP and RPC communication.
+Nomad&#39;s use of mTLS provides the following properties:</p>
+
+<ul>
+<li>Prevent unauthorized Nomad access
+</li>
+<li>Prevent observing or tampering with Nomad communication
+</li>
+<li>Prevent client/server role or region misconfigurations
+</li>
+<li>Prevent other services from masquerading as Nomad agents
+</li>
+</ul>
+<p>Preventing region misconfigurations is a property of Nomad&#39;s mTLS not commonly
+found in the TLS implementations on the public Internet.  While most uses of
+TLS verify the identity of the server you are connecting to based on a domain
+name such as <code>example.com</code>, Nomad verifies the node you are connecting to is in
+the expected region and configured for the expected role (e.g.
+<code>client.us-west.nomad</code>). This also prevents other services who may have access
+to certificates signed by the same private CA from masquerading as Nomad
+agents. If certificates were identified based on hostname/IP then any other
+service on a host could masquerade as a Nomad agent.</p>
+<p>Correctly configuring TLS can be a complex process, especially given the wide
+range of deployment methodologies. If you use the sample
+<a href="https://raw.githubusercontent.com/hashicorp/nomad/master/demo/vagrant/Vagrantfile">Vagrantfile</a> from the <a href="https://www.nomadproject.io/intro/getting-started/install.html">Getting Started Guide</a> - or
+have <a href="https://cfssl.org/">cfssl</a> and Nomad installed - this guide will provide you with a
+production ready TLS configuration.</p>
+<div class="alert alert-warning" role="alert">
+<p>Note that while Nomad&#39;s TLS configuration will be production ready, key
+   management and rotation is a complex subject not covered by this guide.
+   <a href="https://www.vaultproject.io/">Vault</a> is the suggested solution for key generation and management.</p>
+</div>
+<h2 id="creating-certificates">
+  <a name="creating-certificates" class="anchor" href="#creating-certificates">&raquo;</a>
+  Creating Certificates
+</h2>
+<p>The first step to configuring TLS for Nomad is generating certificates. In
+order to prevent unauthorized cluster access, Nomad requires all certificates
+be signed by the same Certificate Authority (CA). This should be a <em>private</em> CA
+and not a public one like <a href="https://letsencrypt.org/">Let&#39;s Encrypt</a> as any certificate
+signed by this CA will be allowed to communicate with the cluster.</p>
+<div class="alert alert-warning" role="alert">
+<p>Nomad certificates may be signed by intermediate CAs as long as the root CA
+   is the same. Append all intermediate CAs to the <code>cert_file</code>.</p>
+</div>
+<h3 id="certificate-authority">
+  <a name="certificate-authority" class="anchor" href="#certificate-authority">&raquo;</a>
+  Certificate Authority
+</h3>
+<p>There are a variety of tools for managing your own CA, <a href="https://www.vaultproject.io/docs/secrets/pki/index.html">like the PKI secret
+backend in Vault</a>, but for the sake of simplicity this guide will
+use <a href="https://cfssl.org/">cfssl</a>. You can generate a private CA certificate and key with
+<a href="https://cfssl.org/">cfssl</a>:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="c"># Generate the CA's private key and certificate</span>
+<span class="nv">$ </span>cfssl print-defaults csr | cfssl gencert <span class="nt">-initca</span> - | cfssljson <span class="nt">-bare</span> nomad-ca
+</code></pre></div><p>The CA key (<code>nomad-ca-key.pem</code>) will be used to sign certificates for Nomad
+nodes and must be kept private. The CA certificate (<code>nomad-ca.pem</code>) contains
+the public key necessary to validate Nomad certificates and therefore must be
+distributed to every node that requires access.</p>
+<h3 id="node-certificates">
+  <a name="node-certificates" class="anchor" href="#node-certificates">&raquo;</a>
+  Node Certificates
+</h3>
+<p>Once you have a CA certificate and key you can generate and sign the
+certificates Nomad will use directly. TLS certificates commonly use the
+fully-qualified domain name of the system being identified as the certificate&#39;s
+Common Name (CN). However, hosts (and therefore hostnames and IPs) are often
+ephemeral in Nomad clusters.  Not only would signing a new certificate per
+Nomad node be difficult, but using a hostname provides no security or
+functional benefits to Nomad. To fulfill the desired security properties
+(above) Nomad certificates are signed with their region and role such as:</p>
+
+<ul>
+<li><a name="client-global-nomad" /><a href="#client-global-nomad"><code>client.global.nomad</code></a> for a client node in the <code>global</code> region
+</li>
+<li><a name="server-us-west-nomad" /><a href="#server-us-west-nomad"><code>server.us-west.nomad</code></a> for a server node in the <code>us-west</code> region
+</li>
+</ul>
+<p>To create certificates for the client and server in the cluster from the
+<a href="https://www.nomadproject.io/intro/getting-started/cluster.html">Getting Started guide</a> with <a href="https://cfssl.org/">cfssl</a> create (<a href="https://raw.githubusercontent.com/hashicorp/nomad/master/demo/vagrant/cfssl.json">or
+download</a>) the following configuration file as <code>cfssl.json</code> to
+increase the default certificate expiration time:</p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"signing"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"default"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"expiry"</span><span class="p">:</span><span class="w"> </span><span class="s2">"87600h"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"usages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"signing"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"key encipherment"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"server auth"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"client auth"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="c"># Generate a certificate for the Nomad server</span>
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s1">'{}'</span> | cfssl gencert <span class="nt">-ca</span><span class="o">=</span>nomad-ca.pem <span class="nt">-ca-key</span><span class="o">=</span>nomad-ca-key.pem <span class="nt">-config</span><span class="o">=</span>cfssl.json <span class="se">\</span>
+    <span class="nt">-hostname</span><span class="o">=</span><span class="s2">"server.global.nomad,localhost,127.0.0.1"</span> - | cfssljson <span class="nt">-bare</span> server
+
+<span class="c"># Generate a certificate for the Nomad client</span>
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s1">'{}'</span> | cfssl gencert <span class="nt">-ca</span><span class="o">=</span>nomad-ca.pem <span class="nt">-ca-key</span><span class="o">=</span>nomad-ca-key.pem <span class="nt">-config</span><span class="o">=</span>cfssl.json <span class="se">\</span>
+    <span class="nt">-hostname</span><span class="o">=</span><span class="s2">"client.global.nomad,localhost,127.0.0.1"</span> - | cfssljson <span class="nt">-bare</span> client
+
+<span class="c"># Generate a certificate for the CLI</span>
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s1">'{}'</span> | cfssl gencert <span class="nt">-ca</span><span class="o">=</span>nomad-ca.pem <span class="nt">-ca-key</span><span class="o">=</span>nomad-ca-key.pem <span class="nt">-profile</span><span class="o">=</span>client <span class="se">\</span>
+    - | cfssljson <span class="nt">-bare</span> cli
+</code></pre></div><p>Using <code>localhost</code> and <code>127.0.0.1</code> as subject alternate names (SANs) allows
+tools like <code>curl</code> to be able to communicate with Nomad&#39;s HTTP API when run on
+the same host. Other SANs may be added including a DNS resolvable hostname to
+allow remote HTTP requests from third party tools.</p>
+<p>You should now have the following files:</p>
+
+<ul>
+<li><a name="cfssl-json" /><a href="#cfssl-json"><code>cfssl.json</code></a> - cfssl configuration.
+</li>
+<li><a name="nomad-ca-csr" /><a href="#nomad-ca-csr"><code>nomad-ca.csr</code></a> - CA signing request.
+</li>
+<li><a name="nomad-ca-key-pem" /><a href="#nomad-ca-key-pem"><code>nomad-ca-key.pem</code></a> - CA private key. Keep safe!
+</li>
+<li><a name="nomad-ca-pem" /><a href="#nomad-ca-pem"><code>nomad-ca.pem</code></a> - CA public certificate.
+</li>
+<li><a name="cli-csr" /><a href="#cli-csr"><code>cli.csr</code></a> - Nomad CLI certificate signing request.
+</li>
+<li><a name="cli-key-pem" /><a href="#cli-key-pem"><code>cli-key.pem</code></a> - Nomad CLI private key.
+</li>
+<li><a name="cli-pem" /><a href="#cli-pem"><code>cli.pem</code></a> - Nomad CLI certificate.
+</li>
+<li><a name="client-csr" /><a href="#client-csr"><code>client.csr</code></a> - Nomad client node certificate signing request for the <code>global</code> region.
+</li>
+<li><a name="client-key-pem" /><a href="#client-key-pem"><code>client-key.pem</code></a> - Nomad client node private key for the <code>global</code> region.
+</li>
+<li><a name="client-pem" /><a href="#client-pem"><code>client.pem</code></a> - Nomad client node public certificate for the <code>global</code> region.
+</li>
+<li><a name="server-csr" /><a href="#server-csr"><code>server.csr</code></a> - Nomad server node certificate signing request for the <code>global</code> region.
+</li>
+<li><a name="server-key-pem" /><a href="#server-key-pem"><code>server-key.pem</code></a> - Nomad server node private key for the <code>global</code> region.
+</li>
+<li><a name="server-pem" /><a href="#server-pem"><code>server.pem</code></a> - Nomad server node public certificate for the <code>global</code> region.
+</li>
+</ul>
+<p>Each Nomad node should have the appropriate key (<code>-key.pem</code>) and certificate
+(<code>.pem</code>) file for its region and role. In addition each node needs the CA&#39;s
+public certificate (<code>nomad-ca.pem</code>).</p>
+<h2 id="configuring-nomad">
+  <a name="configuring-nomad" class="anchor" href="#configuring-nomad">&raquo;</a>
+  Configuring Nomad
+</h2>
+<p>Next Nomad must be configured to use the newly-created key and certificates for
+mTLS. Starting with the <a href="https://raw.githubusercontent.com/hashicorp/nomad/master/demo/vagrant/server.hcl">server configuration from the Getting Started
+guide</a> add the following TLS configuration options:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="c1"># Increase log verbosity</span>
+<span class="n">log_level</span> <span class="o">=</span> <span class="s2">"DEBUG"</span>
+
+<span class="c1"># Setup data dir</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s2">"/tmp/server1"</span>
+
+<span class="c1"># Enable the server</span>
+<span class="n">server</span> <span class="p">{</span>
+  <span class="n">enabled</span> <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="c1"># Self-elect, should be 3 or 5 for production</span>
+  <span class="n">bootstrap_expect</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="c1"># Require TLS</span>
+<span class="n">tls</span> <span class="p">{</span>
+  <span class="n">http</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">rpc</span>  <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="n">ca_file</span>   <span class="o">=</span> <span class="s2">"nomad-ca.pem"</span>
+  <span class="n">cert_file</span> <span class="o">=</span> <span class="s2">"server.pem"</span>
+  <span class="n">key_file</span>  <span class="o">=</span> <span class="s2">"server-key.pem"</span>
+
+  <span class="n">verify_server_hostname</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">verify_https_client</span>    <span class="o">=</span> <span class="kp">true</span>
+<span class="p">}</span>
+</code></pre></div><p>The new <a href="/docs/agent/configuration/tls.html"><code>tls</code></a> section is worth breaking down in more detail:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">tls</span> <span class="p">{</span>
+  <span class="n">http</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">rpc</span>  <span class="o">=</span> <span class="kp">true</span>
+  <span class="c1"># ...</span>
+<span class="p">}</span>
+</code></pre></div><p>This enables TLS for the HTTP and RPC protocols. Unlike web servers, Nomad
+doesn&#39;t use separate ports for TLS and non-TLS traffic: your cluster should
+either use TLS or not.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">tls</span> <span class="p">{</span>
+  <span class="c1"># ...</span>
+
+  <span class="n">ca_file</span>   <span class="o">=</span> <span class="s2">"nomad-ca.pem"</span>
+  <span class="n">cert_file</span> <span class="o">=</span> <span class="s2">"server.pem"</span>
+  <span class="n">key_file</span>  <span class="o">=</span> <span class="s2">"server-key.pem"</span>
+
+  <span class="c1"># ...</span>
+<span class="p">}</span>
+</code></pre></div><p>The file lines should point to wherever you placed the certificate files on
+the node. This guide assumes they are in Nomad&#39;s current directory.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">tls</span> <span class="p">{</span>
+  <span class="c1"># ...</span>
+
+  <span class="n">verify_server_hostname</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">verify_https_client</span>    <span class="o">=</span> <span class="kp">true</span>
+<span class="p">}</span>
+</code></pre></div><p>These two settings are important for ensuring all of Nomad&#39;s mTLS security
+properties are met. If <a href="/docs/agent/configuration/tls.html#verify_server_hostname"><code>verify_server_hostname</code></a> is
+set to <code>false</code> the node&#39;s certificate will be checked to ensure it is signed by
+the same CA, but its role and region will not be verified. This means any
+service with a certificate signed by same CA as Nomad can act as a client or
+server of any region.</p>
+<p><a href="/docs/agent/configuration/tls.html#verify_https_client"><code>verify_https_client</code></a> requires HTTP API clients to
+present a certificate signed by the same CA as Nomad&#39;s certificate. It may be
+disabled to allow HTTP API clients (e.g. Nomad CLI, Consul, or curl) to
+communicate with the HTTPS API without presenting a client-side certificate. If
+<code>verify_https_client</code> is enabled only HTTP API clients presenting a certificate
+signed by the same CA as Nomad&#39;s certificate are allowed to access Nomad.</p>
+<div class="alert alert-warning" role="alert">
+<p>Enabling <code>verify_https_client</code> effectively protects Nomad from unauthorized
+   network access at the cost of losing Consul HTTPS health checks for agents.</p>
+</div>
+<h3 id="client-configuration">
+  <a name="client-configuration" class="anchor" href="#client-configuration">&raquo;</a>
+  Client Configuration
+</h3>
+<p>The Nomad client configuration is similar to the server configuration. The
+biggest difference is in the certificate and key used for configuration.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="c1"># Increase log verbosity</span>
+<span class="n">log_level</span> <span class="o">=</span> <span class="s2">"DEBUG"</span>
+
+<span class="c1"># Setup data dir</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s2">"/tmp/client1"</span>
+
+<span class="c1"># Enable the client</span>
+<span class="n">client</span> <span class="p">{</span>
+  <span class="n">enabled</span> <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="c1"># For demo assume we are talking to server1. For production,</span>
+  <span class="c1"># this should be like "nomad.service.consul:4647" and a system</span>
+  <span class="c1"># like Consul used for service discovery.</span>
+  <span class="n">servers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"127.0.0.1:4647"</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Modify our port to avoid a collision with server1</span>
+<span class="n">ports</span> <span class="p">{</span>
+  <span class="n">http</span> <span class="o">=</span> <span class="mi">5656</span>
+<span class="p">}</span>
+
+<span class="c1"># Require TLS</span>
+<span class="n">tls</span> <span class="p">{</span>
+  <span class="n">http</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">rpc</span>  <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="n">ca_file</span>   <span class="o">=</span> <span class="s2">"nomad-ca.pem"</span>
+  <span class="n">cert_file</span> <span class="o">=</span> <span class="s2">"client.pem"</span>
+  <span class="n">key_file</span>  <span class="o">=</span> <span class="s2">"client-key.pem"</span>
+
+  <span class="n">verify_server_hostname</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">verify_https_client</span>    <span class="o">=</span> <span class="kp">true</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="running-with-tls">
+  <a name="running-with-tls" class="anchor" href="#running-with-tls">&raquo;</a>
+  Running with TLS
+</h3>
+<p>Now that we have certificates generated and configuration for a client and
+server we can test our TLS-enabled cluster!</p>
+<p>In separate terminals start a server and client agent:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="c"># In one terminal...</span>
+<span class="nv">$ </span>nomad agent <span class="nt">-config</span> server1.hcl
+
+<span class="nv">$ </span><span class="c"># ...and in another</span>
+<span class="nv">$ </span>nomad agent <span class="nt">-config</span> client1.hcl
+</code></pre></div><p>If you run <code>nomad node status</code> now, you&#39;ll get an error, like:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>Error querying node status: Get http://127.0.0.1:4646/v1/nodes: malformed HTTP response "\x15\x03\x01\x00\x02\x02"
+</code></pre></div><p>This is because the Nomad CLI defaults to communicating via HTTP instead of
+HTTPS. We can configure the local Nomad client to connect using TLS and specify
+our custom keys and certificates using the command line:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>nomad node status <span class="nt">-ca-cert</span><span class="o">=</span>nomad-ca.pem <span class="nt">-client-cert</span><span class="o">=</span>cli.pem <span class="nt">-client-key</span><span class="o">=</span>cli-key.pem <span class="nt">-address</span><span class="o">=</span>https://127.0.0.1:4646
+</code></pre></div><p>This process can be cumbersome to type each time, so the Nomad CLI also
+searches environment variables for default values. Set the following
+environment variables in your shell:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">NOMAD_ADDR</span><span class="o">=</span>https://localhost:4646
+<span class="nv">$ </span><span class="nb">export </span><span class="nv">NOMAD_CACERT</span><span class="o">=</span>nomad-ca.pem
+<span class="nv">$ </span><span class="nb">export </span><span class="nv">NOMAD_CLIENT_CERT</span><span class="o">=</span>cli.pem
+<span class="nv">$ </span><span class="nb">export </span><span class="nv">NOMAD_CLIENT_KEY</span><span class="o">=</span>cli-key.pem
+</code></pre></div>
+<ul>
+<li><a name="nomad_addr" /><a href="#nomad_addr"><code>NOMAD_ADDR</code></a> is the URL of the Nomad agent and sets the default for <code>-addr</code>.
+</li>
+<li><a name="nomad_cacert" /><a href="#nomad_cacert"><code>NOMAD_CACERT</code></a> is the location of your CA certificate and sets the default
+for <code>-ca-cert</code>.
+</li>
+<li><a name="nomad_client_cert" /><a href="#nomad_client_cert"><code>NOMAD_CLIENT_CERT</code></a> is the location of your CLI certificate and sets the
+default for <code>-client-cert</code>.
+</li>
+<li><a name="nomad_client_key" /><a href="#nomad_client_key"><code>NOMAD_CLIENT_KEY</code></a> is the location of your CLI key and sets the default for
+<code>-client-key</code>.
+</li>
+</ul>
+<p>After these environment variables are correctly configured, the CLI will
+respond as expected:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ nomad node status
+ID        DC   Name   Class   Drain  Eligibility  Status
+237cd4c5  dc1  nomad  &lt;none&gt;  false  eligible     ready
+
+$ nomad job init
+Example job file written to example.nomad
+vagrant@nomad:~$ nomad job run example.nomad
+==&gt; Monitoring evaluation "e9970e1d"
+    Evaluation triggered by job "example"
+    Allocation "a1f6c3e7" created: node "237cd4c5", group "cache"
+    Evaluation within deployment: "080460ce"
+    Evaluation status changed: "pending" -&gt; "complete"
+==&gt; Evaluation "e9970e1d" finished with status "complete"
+</code></pre></div><h2 id="server-gossip">
+  <a name="server-gossip" class="anchor" href="#server-gossip">&raquo;</a>
+  Server Gossip
+</h2>
+<p>At this point all of Nomad&#39;s RPC and HTTP communication is secured with mTLS.
+However, Nomad servers also communicate with a gossip protocol, Serf, that does
+not use TLS:</p>
+
+<ul>
+<li>HTTP - Used to communicate between CLI and Nomad agents. Secured by mTLS.
+</li>
+<li>RPC - Used to communicate between Nomad agents. Secured by mTLS.
+</li>
+<li>Serf - Used to communicate between Nomad servers. Secured by a shared key.
+</li>
+</ul>
+<p>Nomad server&#39;s gossip protocol use a shared key instead of TLS for encryption.
+This encryption key must be added to every server&#39;s configuration using the
+<a href="/docs/agent/configuration/server.html#encrypt"><code>encrypt</code></a> parameter or with
+the <a href="/docs/commands/agent.html"><code>-encrypt</code> command line option</a>.</p>
+<p>The Nomad CLI includes a <code>operator keygen</code> command for generating a new secure gossip
+encryption key:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ nomad operator keygen
+cg8StVXbQJ0gPvMd9o7yrg==
+</code></pre></div><p>Alternatively, you can use any method that base64 encodes 16 random bytes:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ openssl rand -base64 16
+raZjciP8vikXng2S5X0m9w==
+$ dd if=/dev/urandom bs=16 count=1 status=none | base64
+LsuYyj93KVfT3pAJPMMCgA==
+</code></pre></div><p>Put the same generated key into every server&#39;s configuration file or command
+line arguments:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">server</span> <span class="p">{</span>
+  <span class="n">enabled</span> <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="c1"># Self-elect, should be 3 or 5 for production</span>
+  <span class="n">bootstrap_expect</span> <span class="o">=</span> <span class="mi">1</span>
+
+  <span class="c1"># Encrypt gossip communication</span>
+  <span class="n">encrypt</span> <span class="o">=</span> <span class="s2">"cg8StVXbQJ0gPvMd9o7yrg=="</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="switching-an-existing-cluster-to-tls">
+  <a name="switching-an-existing-cluster-to-tls" class="anchor" href="#switching-an-existing-cluster-to-tls">&raquo;</a>
+  Switching an existing cluster to TLS
+</h2>
+<p>Since Nomad does <em>not</em> use different ports for TLS and non-TLS communication,
+the use of TLS must be consistent across the cluster. Switching an existing
+cluster to use TLS everywhere is operationally similar to upgrading between
+versions of Nomad, but requires additional steps to preventing needlessly
+rescheduling allocations.</p>
+
+<ol>
+<li>Add the appropriate key and certificates to all nodes.
+
+<ul>
+<li>Ensure the private key file is only readable by the Nomad user.
+</li>
+</ul>
+</li>
+<li>Add the environment variables to all nodes where the CLI is used.
+</li>
+<li>Add the appropriate <a href="/docs/agent/configuration/tls.html"><code>tls</code></a> block to the configuration file on
+all nodes.
+</li>
+<li>Generate a gossip key and add it the Nomad server configuration.
+</li>
+</ol>
+<div class="alert alert-warning" role="alert">
+<p>Once a quorum of servers are TLS-enabled, clients will no longer be able to
+   communicate with the servers until their client configuration is updated and
+   reloaded.</p>
+</div>
+<p>At this point a rolling restart of the cluster will enable TLS everywhere.
+However, once servers are restarted clients will be unable to heartbeat. This
+means any client unable to restart with TLS enabled before their heartbeat TTL
+expires will have their allocations marked as <code>lost</code> and rescheduled.</p>
+<p>While the default heartbeat settings may be sufficient for concurrently
+restarting a small number of nodes without any allocations being marked as
+<code>lost</code>, most operators should raise the <a href="/docs/agent/configuration/server.html#heartbeat_grace"><code>heartbeat_grace</code></a>
+configuration setting before restarting their servers:</p>
+
+<ol>
+<li>Set <code>heartbeat_grace = &quot;1h&quot;</code> or an appropriate duration on servers.
+</li>
+<li>Restart servers, one at a time.
+</li>
+<li>Restart clients, one or more at a time.
+</li>
+<li>Set <a href="/docs/agent/configuration/server.html#heartbeat_grace"><code>heartbeat_grace</code></a> back to its previous value (or
+remove to accept the default).
+</li>
+<li>Restart servers, one at a time.
+</li>
+</ol>
+<div class="alert alert-warning" role="alert">
+<p>In a future release Nomad will allow upgrading a cluster to use TLS by
+   allowing servers to accept TLS and non-TLS connections from clients during
+   the migration.</p>
+</div>
+<p>Jobs running in the cluster will <em>not</em> be affected and will continue running
+throughout the switch as long as all clients can restart within their heartbeat
+TTL.</p>
+<h2 id="changing-nomad-certificates-on-the-fly">
+  <a name="changing-nomad-certificates-on-the-fly" class="anchor" href="#changing-nomad-certificates-on-the-fly">&raquo;</a>
+  Changing Nomad certificates on the fly
+</h2>
+<p>As of 0.7.1, Nomad supports dynamic certificate reloading via SIGHUP.</p>
+<p>Given a prior TLS configuration as follows:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">tls</span> <span class="p">{</span>
+  <span class="n">http</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">rpc</span>  <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="n">ca_file</span>   <span class="o">=</span> <span class="s2">"nomad-ca.pem"</span>
+  <span class="n">cert_file</span> <span class="o">=</span> <span class="s2">"server.pem"</span>
+  <span class="n">key_file</span>  <span class="o">=</span> <span class="s2">"server-key.pem"</span>
+
+  <span class="n">verify_server_hostname</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">verify_https_client</span>    <span class="o">=</span> <span class="kp">true</span>
+<span class="p">}</span>
+</code></pre></div><p>Nomad&#39;s cert_file and key_file can be reloaded via SIGHUP simply by
+updating the TLS stanza to:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">tls</span> <span class="p">{</span>
+  <span class="n">http</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">rpc</span>  <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="n">ca_file</span>   <span class="o">=</span> <span class="s2">"nomad-ca.pem"</span>
+  <span class="n">cert_file</span> <span class="o">=</span> <span class="s2">"new_server.pem"</span>
+  <span class="n">key_file</span>  <span class="o">=</span> <span class="s2">"new_server_key.pem"</span>
+
+  <span class="n">verify_server_hostname</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">verify_https_client</span>    <span class="o">=</span> <span class="kp">true</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="migrating-a-cluster-to-tls">
+  <a name="migrating-a-cluster-to-tls" class="anchor" href="#migrating-a-cluster-to-tls">&raquo;</a>
+  Migrating a cluster to TLS
+</h2>
+<h3 id="reloading-tls-configuration-via-sighup">
+  <a name="reloading-tls-configuration-via-sighup" class="anchor" href="#reloading-tls-configuration-via-sighup">&raquo;</a>
+  Reloading TLS configuration via SIGHUP
+</h3>
+<p>Nomad supports dynamically reloading both client and server TLS configuration.
+To reload an agent&#39;s TLS  configuration, first update the TLS block in the
+agent&#39;s configuration file and then send the Nomad agent a SIGHUP signal.
+Note that this will only reload a subset of the configuration file,
+including the TLS configuration.</p>
+<p>The agent reloads all its network connections when there are changes to its TLS
+configuration during a config reload via SIGHUP. Any new connections
+established will use the updated configuration, and any outstanding old
+connections will be closed. This process works when upgrading to TLS,
+downgrading from it, as well as rolling certificates. We recommend upgrading
+to TLS.</p>
+<h3 id="rpc-upgrade-mode-for-nomad-servers">
+  <a name="rpc-upgrade-mode-for-nomad-servers" class="anchor" href="#rpc-upgrade-mode-for-nomad-servers">&raquo;</a>
+  RPC Upgrade Mode for Nomad Servers
+</h3>
+<p>When migrating to TLS, the <a href="https://www.nomadproject.io/docs/agent/configuration/tls.html#rpc_upgrade_mode/"> <code>rpc_upgrade_mode</code> </a> option
+(defaults to <code>false</code>) in the TLS configuration for a Nomad server can be set
+to true. When set to true, servers will accept both TLS and non-TLS
+connections. By accepting non-TLS connections, operators can upgrade clients
+to TLS without the clients being marked as lost because the server is
+rejecting the client connection due to the connection not being over TLS.
+However, it is important to note that <code>rpc_upgrade_mode</code> should be used as a
+temporary solution in the process of migration, and this option should be
+re-set to false (meaning that the server will strictly accept only TLS
+connections) once the entire cluster has been migrated.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/guides/index.html">Guides</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/api/index.html">API</a></li>
+              <li><a href="/resources.html">Resources</a></li>
+              <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+              <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/nomad/blob/master/website/source/guides/securing-nomad.html.md">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Nomad",
+        "alternateName": "Nomad by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.nomadproject.io",
+        "logo": "https://www.nomadproject.io/assets/images/logo-hashicorp-039941e4.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/nomad"
+        ]
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nomad integrates with Sentinel for fine-grained policy enforcement. Sentinel allows operators to express their policies as code, and have their policies automatically enforced. This allows operators to define a sandbox and restrict actions to only those compliant with policy. The Sentinel integration builds on the ACL System.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-d0ced218.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-194x194-bb8de46a.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/android-chrome-192x192-9f336178.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-10aa6ba6.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-330a0dd1.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-479e3179.svg" color="#25BA81">
+    <meta name="apple-mobile-web-app-title" content="HashiCorp Nomad">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="application-name" content="HashiCorp Nomad">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="msapplication-TileColor" content="#25BA81">
+    <meta name="msapplication-TileImage" content="/assets/images/favicons/mstile-144x144-7f37eaf2.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:url" content="https://www.nomadproject.io/guides/sentinel-policy.html" />
+    <meta property="og:title" content="Sentinel Policies - Nomad by HashiCorp" />
+    <meta property="og:site_name" content="Nomad by HashiCorp"/>
+    <meta property="og:image" content="https://www.nomadproject.io/assets/images/og-image-e0e8d18d.png"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="1200"/>
+    <meta property="og:description" content="Nomad integrates with Sentinel for fine-grained policy enforcement. Sentinel allows operators to express their policies as code, and have their policies automatically enforced. This allows operators to define a sandbox and restrict actions to only those compliant with policy. The Sentinel integration builds on the ACL System." />
+
+    <title>Sentinel Policies - Nomad by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b44b5029.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-guides-sentinel" class="layout-guides page-sentinel-policies">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Nomad fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" class="logo" height="50">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/api/index.html">API</a></li>
+                  <li><a href="/resources.html">Resources</a></li>
+                  <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+                  <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/nomad">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" height="42">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/api/index.html">API</a></li>
+    <li><a href="/community.html">Community</a></li>
+    <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+    <li><a href="/security.html">Security</a></li>
+    <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/nomad">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+            <ul class="nav docs-sidenav">
+
+      <li>
+        <a href="/guides/acl.html">ACLs</a>
+      </li>
+
+      <li>
+        <a href="/guides/spark/spark.html">Apache Spark Integration</a>
+        <ul class="nav">
+          <li>
+            <a href="/guides/spark/pre.html">Getting Started</a>
+          </li>
+          <li>
+            <a href="/guides/spark/submit.html">Submitting Applications</a>
+          </li>
+          <li>
+            <a href="/guides/spark/customizing.html">Customizing Applications</a>
+          </li>
+          <li>
+            <a href="/guides/spark/resource.html">Resource Allocation</a>
+          </li>
+          <li>
+            <a href="/guides/spark/dynamic.html">Dynamic Executors</a>
+          </li>
+          <li>
+            <a href="/guides/spark/hdfs.html">Using HDFS</a>
+          </li>
+          <li>
+            <a href="/guides/spark/monitoring.html">Monitoring Output</a>
+          </li>
+          <li>
+            <a href="/guides/spark/configuration.html">Configuration Properties</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/guides/cluster/bootstrapping.html">Bootstrapping Clusters</a>
+        <ul class="nav">
+          <li>
+            <a href="/guides/cluster/automatic.html">Automatic</a>
+          </li>
+          <li>
+            <a href="/guides/cluster/autopilot.html">Autopilot</a>
+          </li>
+          <li>
+            <a href="/guides/cluster/manual.html">Manual</a>
+          </li>
+          <li>
+            <a href="/guides/cluster/federation.html">Federation</a>
+          </li>
+          <li>
+            <a href="/guides/cluster/requirements.html">Requirements</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/guides/node-draining.html">Decommissioning Nodes</a>
+      </li>
+
+      <li>
+        <a href="/guides/namespaces.html">Namespaces</a>
+      </li>
+
+      <li>
+        <a href="/guides/operating-a-job/index.html">Operating a Job</a>
+        <ul class="nav">
+          <li>
+            <a href="/guides/operating-a-job/configuring-tasks.html">Configuring Tasks</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/submitting-jobs.html">Submitting Jobs</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/inspecting-state.html">Inspecting State</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/accessing-logs.html">Accessing Logs</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/resource-utilization.html">Resource Utilization</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/update-strategies/index.html">Update Strategies</a>
+            <ul class="nav">
+              <li>
+                <a href="/guides/operating-a-job/update-strategies/rolling-upgrades.html">Rolling Upgrades</a>
+              </li>
+              <li>
+                <a href="/guides/operating-a-job/update-strategies/blue-green-and-canary-deployments.html">Blue/Green &amp; Canary</a>
+              </li>
+              <li>
+                <a href="/guides/operating-a-job/update-strategies/handling-signals.html">Handling Signals</a>
+              </li>
+            </ul>
+          </li>
+           <li>
+                      <a href="/guides/operating-a-job/failure-handling-strategies/index.html">Failure Recovery Strategies</a>
+                      <ul class="nav">
+                        <li>
+                          <a href="/guides/operating-a-job/failure-handling-strategies/restart.html">Local Restarts</a>
+                        </li>
+                        <li>
+                          <a href="/guides/operating-a-job/failure-handling-strategies/check-restart.html">Check Restarts</a>
+                        </li>
+                        <li>
+                          <a href="/guides/operating-a-job/failure-handling-strategies/reschedule.html">Rescheduling</a>
+                        </li>
+                      </ul>
+                    </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/guides/outage.html">Outage Recovery</a>
+      </li>
+
+      <li>
+        <a href="/guides/quotas.html">Resource Quotas</a>
+      </li>
+
+      <li>
+        <a href="/guides/securing-nomad.html">Securing Nomad</a>
+      </li>
+
+      <li class="active">
+        <a href="/guides/sentinel-policy.html">Sentinel Policies</a>
+        <ul class="nav">
+          <li>
+            <a href="/guides/sentinel/job.html">Job Object</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/guides/ui.html">Web UI</a>
+      </li>
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="sentinel-policies">
+  <a name="sentinel-policies" class="anchor" href="#sentinel-policies">&raquo;</a>
+  Sentinel Policies
+</h1>
+<p><a href="https://www.hashicorp.com/products/nomad/">Nomad Enterprise</a> integrates with <a href="https://docs.hashicorp.com/sentinel">HashiCorp Sentinel</a> for fine-grained policy enforcement. Sentinel allows operators to express their policies as code, and have their policies automatically enforced. This allows operators to define a &quot;sandbox&quot; and restrict actions to only those compliant with policy. The Sentinel integration builds on the <a href="/guides/acl.html">ACL System</a>.</p>
+<div class="alert alert-warning" role="alert">
+<p><strong>Enterprise Only!</strong> This functionality only exists in Nomad Enterprise.
+This is not present in the open source version of Nomad.</p>
+</div>
+<h1 id="sentinel-overview">
+  <a name="sentinel-overview" class="anchor" href="#sentinel-overview">&raquo;</a>
+  Sentinel Overview
+</h1>
+<p>Sentinel integrates with the ACL system, and provides the ability to do fine grained policy enforcement. Users must have appropriate permissions to perform an action, and then are subject to any applicable Sentinel policies:</p>
+<p><img alt="Sentinel Overview" src="/assets/images/sentinel-e9c46b5f.jpg" /></p>
+
+<ul>
+<li><p><strong>Sentinel Policies</strong>. Policies are able to introspect on request arguments and use complex logic to determine if the request meets policy requirements. For example, a Sentinel policy may restrict Nomad jobs to only using the &quot;docker&quot; driver, or prevent jobs from being modified outside of business hours.</p>
+</li>
+<li><p><strong>Policy Scope</strong>. Sentinel policies declare a &quot;scope&quot;, which determines when the policies apply. Currently the only supported scope is &quot;submit-job&quot;, which applies to any new jobs being submitted, or existing jobs being updated.</p>
+</li>
+<li><p><strong>Enforcement Level</strong>. Sentinel policies support multiple enforcement levels. The <code>advisory</code> level emits a warning when the policy fails, while <code>soft-mandatory</code> and <code>hard-mandatory</code> will prevent the operation. A <code>soft-mandatory</code> policy can be overridden if the user has necessary permissions.</p>
+</li>
+</ul>
+<h3 id="sentinel-policies-1">
+  <a name="sentinel-policies-1" class="anchor" href="#sentinel-policies-1">&raquo;</a>
+  Sentinel Policies
+</h3>
+<p>Each Sentinel policy has a unique name, an optional description, applicable scope, enforcement level, and a Sentinel rule definition.
+If multiple policies are installed for the same scope, all of them are enforced and must pass.</p>
+<p>Sentinel policies <em>cannot</em> be used unless the ACL system is enabled.</p>
+<h3 id="policy-scope">
+  <a name="policy-scope" class="anchor" href="#policy-scope">&raquo;</a>
+  Policy Scope
+</h3>
+<p>Sentinel policies specify an applicable scope, which limits when the policy is enforced. This allows policies to govern various aspects of the system.</p>
+<p>The following table summarizes the scopes that are available for Sentinel policies:</p>
+
+<table><thead>
+<tr>
+<th>Scope</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>submit-job</td>
+<td>Applies to any jobs (new or updated) being registered</td>
+</tr>
+</tbody></table>
+<h3 id="enforcement-level">
+  <a name="enforcement-level" class="anchor" href="#enforcement-level">&raquo;</a>
+  Enforcement Level
+</h3>
+<p>Sentinel policies specify an enforcement level which changes how a policy is enforced. This allows for more flexibility in policy enforcement.</p>
+<p>The following table summarizes the enforcement levels that are available:</p>
+
+<table><thead>
+<tr>
+<th>Enforcement Level</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>advisory</td>
+<td>Issues a warning when a policy fails</td>
+</tr>
+<tr>
+<td>soft-mandatory</td>
+<td>Prevents operation when a policy fails, issues a warning if overridden</td>
+</tr>
+<tr>
+<td>hard-mandatory</td>
+<td>Prevents operation when a policy fails</td>
+</tr>
+</tbody></table>
+<p>The <a href="/guides/acl.html#sentinel-override"><code>sentinel-override</code> capability</a> is required to override a <code>soft-mandatory</code> policy. This allows a restricted set of users to have override capability when necessary.</p>
+<h2 id="multi-region-configuration">
+  <a name="multi-region-configuration" class="anchor" href="#multi-region-configuration">&raquo;</a>
+  Multi-Region Configuration
+</h2>
+<p>Nomad supports multi-datacenter and multi-region configurations. A single region is able to service multiple datacenters, and all servers in a region replicate their state between each other. In a multi-region configuration, there is a set of servers per region. Each region operates independently and is loosely coupled to allow jobs to be scheduled in any region and requests to flow transparently to the correct region.</p>
+<p>When ACLs are enabled, Nomad depends on an &quot;authoritative region&quot; to act as a single source of truth for ACL policies, global ACL tokens, and Sentinel policies. The authoritative region is configured in the <a href="/docs/agent/configuration/server.html"><code>server</code> stanza</a> of agents, and all regions must share a single authoritative source. Any Sentinel policies are created in the authoritative region first. All other regions replicate Sentinel policies, ACL policies, and global ACL tokens to act as local mirrors. This allows policies to be administered centrally, and for enforcement to be local to each region for low latency.</p>
+<h2 id="configuring-sentinel-policies">
+  <a name="configuring-sentinel-policies" class="anchor" href="#configuring-sentinel-policies">&raquo;</a>
+  Configuring Sentinel Policies
+</h2>
+<p>Sentinel policies are tied to the ACL system, which is not enabled by default.
+See the <a href="/guides/acl.html">ACL guide</a> for details on how to configure ACLs.</p>
+<h2 id="example-installing-sentinel-policies">
+  <a name="example-installing-sentinel-policies" class="anchor" href="#example-installing-sentinel-policies">&raquo;</a>
+  Example: Installing Sentinel Policies
+</h2>
+<p>This example shows how to install a Sentinel policy. It assumes that ACLs have already
+been bootstrapped (see the <a href="/guides/acl.html">ACL guide</a>), and that a <code>NOMAD_TOKEN</code> environment variable
+is set to a management token.</p>
+<p>First, create a Sentinel policy, named <code>test.sentinel</code>:</p>
+<div class="highlight"><pre class="highlight plaintext"><code># Test policy always fails for demonstration purposes
+main = rule { false }
+</code></pre></div><p>Then, install this as an <code>advisory</code> policy which issues a warning on failure:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ nomad sentinel apply -level=advisory test-policy test.sentinel
+Successfully wrote "test-policy" Sentinel policy!
+</code></pre></div><p>Use <code>nomad job init</code> to create a job file and attempt to submit it:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ nomad job init
+Example job file written to example.nomad
+
+$ nomad job run example.nomad
+Job Warnings:
+1 warning(s):
+
+* test-policy : Result: false (allowed failure based on level)
+
+FALSE - test-policy:2:1 - Rule "main"
+
+
+==&gt; Monitoring evaluation "f43ac28d"
+    Evaluation triggered by job "example"
+    Evaluation within deployment: "11e01124"
+    Allocation "2618f3b4" created: node "add8ce93", group "cache"
+    Allocation "5c2674f2" created: node "add8ce93", group "cache"
+    Allocation "9937811f" created: node "add8ce93", group "cache"
+    Evaluation status changed: "pending" -&gt; "complete"
+==&gt; Evaluation "f43ac28d" finished with status "complete"
+</code></pre></div><p>We can see our policy failed, but the job was accepted because of an <code>advisory</code> enforcement level.</p>
+<p>Next, let&#39;s change <code>test.sentinel</code> to only allow &quot;exec&quot; based drivers:</p>
+<div class="highlight"><pre class="highlight plaintext"><code># Test policy only allows exec based tasks
+main = rule { all_drivers_exec }
+
+# all_drivers_exec checks that all the drivers in use are exec
+all_drivers_exec = rule {
+    all job.task_groups as tg {
+        all tg.tasks as task {
+            task.driver is "exec"
+        }
+    }
+}
+</code></pre></div><p>Then install the updated policy at a soft mandatory level:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ nomad sentinel apply -level=soft-mandatory test-policy test.sentinel
+Successfully wrote "test-policy" Sentinel policy!
+</code></pre></div><p>With our new policy, attempt to submit the same job, which uses the &quot;docker&quot; driver:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ nomad run example.nomad
+Error submitting job: Unexpected response code: 500 (1 error(s) occurred:
+
+* test-policy : Result: false
+
+FALSE - test-policy:2:1 - Rule "main"
+  FALSE - test-policy:6:5 - all job.task_groups as tg {
+    all tg.tasks as task {
+        task.driver is "exec"
+    }
+}
+
+FALSE - test-policy:5:1 - Rule "all_drivers_exec"
+)
+</code></pre></div><p>Because our policy is failing, the job was rejected. Since this is a <code>soft-mandatory</code> policy,
+submit with the <code>-policy-override</code> flag set:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ nomad job run -policy-override example.nomad
+Job Warnings:
+1 warning(s):
+
+* test-policy : Result: false (allowed failure based on level)
+
+FALSE - test-policy:2:1 - Rule "main"
+  FALSE - test-policy:6:5 - all job.task_groups as tg {
+    all tg.tasks as task {
+        task.driver is "exec"
+    }
+}
+
+FALSE - test-policy:5:1 - Rule "all_drivers_exec"
+
+
+==&gt; Monitoring evaluation "16195b50"
+    Evaluation triggered by job "example"
+    Evaluation within deployment: "11e01124"
+    Evaluation status changed: "pending" -&gt; "complete"
+==&gt; Evaluation "16195b50" finished with status "complete"
+</code></pre></div><p>This time, the job was accepted but with a warning that our policy is failing but was overridden.</p>
+<h1 id="policy-specification">
+  <a name="policy-specification" class="anchor" href="#policy-specification">&raquo;</a>
+  Policy Specification
+</h1>
+<p>Sentinel policies are specified in the <a href="https://docs.hashicorp.com/sentinel/">Sentinel
+Language</a>. The language is designed to be
+easy to read and write, while being fast to evaluate. There is no limitation on
+how complex policies can be, but they are in the execution path so care should
+be taken to avoid adversely impacting performance.</p>
+<p>In each scope, there are different objects made available for introspection, such a job being submitted. Policies can
+inspect these objects to apply fine-grained policies.</p>
+<h3 id="scope-submit-job">
+  <a name="scope-submit-job" class="anchor" href="#scope-submit-job">&raquo;</a>
+  Scope <code>submit-job</code>
+</h3>
+<p>The following objects are made available in the <code>submit-job</code> scope:</p>
+
+<table><thead>
+<tr>
+<th>Object</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>job</code></td>
+<td>The job being submitted</td>
+</tr>
+</tbody></table>
+<p>See the <a href="/guides/sentinel/job.html">Sentinel Job Object</a> for details on the fields that are available.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/guides/index.html">Guides</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/api/index.html">API</a></li>
+              <li><a href="/resources.html">Resources</a></li>
+              <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+              <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/nomad/blob/master/website/source/guides/sentinel-policy.html.markdown">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Nomad",
+        "alternateName": "Nomad by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.nomadproject.io",
+        "logo": "https://www.nomadproject.io/assets/images/logo-hashicorp-039941e4.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/nomad"
+        ]
+      }
+    </script>
+  </body>
+</html>

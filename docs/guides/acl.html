@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nomad provides an optional Access Control List (ACL) system which can be used to control access to data and APIs. The ACL is Capability-based, relying on tokens which are associated with policies to determine which fine grained rules can be applied.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-d0ced218.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-194x194-bb8de46a.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/android-chrome-192x192-9f336178.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-10aa6ba6.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-330a0dd1.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-479e3179.svg" color="#25BA81">
+    <meta name="apple-mobile-web-app-title" content="HashiCorp Nomad">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="application-name" content="HashiCorp Nomad">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="msapplication-TileColor" content="#25BA81">
+    <meta name="msapplication-TileImage" content="/assets/images/favicons/mstile-144x144-7f37eaf2.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:url" content="https://www.nomadproject.io/guides/acl.html" />
+    <meta property="og:title" content="ACLs - Nomad by HashiCorp" />
+    <meta property="og:site_name" content="Nomad by HashiCorp"/>
+    <meta property="og:image" content="https://www.nomadproject.io/assets/images/og-image-e0e8d18d.png"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="1200"/>
+    <meta property="og:description" content="Nomad provides an optional Access Control List (ACL) system which can be used to control access to data and APIs. The ACL is Capability-based, relying on tokens which are associated with policies to determine which fine grained rules can be applied." />
+
+    <title>ACLs - Nomad by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b44b5029.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-guides-acl" class="layout-guides page-acls">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Nomad fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" class="logo" height="50">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/api/index.html">API</a></li>
+                  <li><a href="/resources.html">Resources</a></li>
+                  <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+                  <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/nomad">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" height="42">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/api/index.html">API</a></li>
+    <li><a href="/community.html">Community</a></li>
+    <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+    <li><a href="/security.html">Security</a></li>
+    <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/nomad">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+            <ul class="nav docs-sidenav">
+
+      <li class="active">
+        <a href="/guides/acl.html">ACLs</a>
+      </li>
+
+      <li>
+        <a href="/guides/spark/spark.html">Apache Spark Integration</a>
+        <ul class="nav">
+          <li>
+            <a href="/guides/spark/pre.html">Getting Started</a>
+          </li>
+          <li>
+            <a href="/guides/spark/submit.html">Submitting Applications</a>
+          </li>
+          <li>
+            <a href="/guides/spark/customizing.html">Customizing Applications</a>
+          </li>
+          <li>
+            <a href="/guides/spark/resource.html">Resource Allocation</a>
+          </li>
+          <li>
+            <a href="/guides/spark/dynamic.html">Dynamic Executors</a>
+          </li>
+          <li>
+            <a href="/guides/spark/hdfs.html">Using HDFS</a>
+          </li>
+          <li>
+            <a href="/guides/spark/monitoring.html">Monitoring Output</a>
+          </li>
+          <li>
+            <a href="/guides/spark/configuration.html">Configuration Properties</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/guides/cluster/bootstrapping.html">Bootstrapping Clusters</a>
+        <ul class="nav">
+          <li>
+            <a href="/guides/cluster/automatic.html">Automatic</a>
+          </li>
+          <li>
+            <a href="/guides/cluster/autopilot.html">Autopilot</a>
+          </li>
+          <li>
+            <a href="/guides/cluster/manual.html">Manual</a>
+          </li>
+          <li>
+            <a href="/guides/cluster/federation.html">Federation</a>
+          </li>
+          <li>
+            <a href="/guides/cluster/requirements.html">Requirements</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/guides/node-draining.html">Decommissioning Nodes</a>
+      </li>
+
+      <li>
+        <a href="/guides/namespaces.html">Namespaces</a>
+      </li>
+
+      <li>
+        <a href="/guides/operating-a-job/index.html">Operating a Job</a>
+        <ul class="nav">
+          <li>
+            <a href="/guides/operating-a-job/configuring-tasks.html">Configuring Tasks</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/submitting-jobs.html">Submitting Jobs</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/inspecting-state.html">Inspecting State</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/accessing-logs.html">Accessing Logs</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/resource-utilization.html">Resource Utilization</a>
+          </li>
+          <li>
+            <a href="/guides/operating-a-job/update-strategies/index.html">Update Strategies</a>
+            <ul class="nav">
+              <li>
+                <a href="/guides/operating-a-job/update-strategies/rolling-upgrades.html">Rolling Upgrades</a>
+              </li>
+              <li>
+                <a href="/guides/operating-a-job/update-strategies/blue-green-and-canary-deployments.html">Blue/Green &amp; Canary</a>
+              </li>
+              <li>
+                <a href="/guides/operating-a-job/update-strategies/handling-signals.html">Handling Signals</a>
+              </li>
+            </ul>
+          </li>
+           <li>
+                      <a href="/guides/operating-a-job/failure-handling-strategies/index.html">Failure Recovery Strategies</a>
+                      <ul class="nav">
+                        <li>
+                          <a href="/guides/operating-a-job/failure-handling-strategies/restart.html">Local Restarts</a>
+                        </li>
+                        <li>
+                          <a href="/guides/operating-a-job/failure-handling-strategies/check-restart.html">Check Restarts</a>
+                        </li>
+                        <li>
+                          <a href="/guides/operating-a-job/failure-handling-strategies/reschedule.html">Rescheduling</a>
+                        </li>
+                      </ul>
+                    </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/guides/outage.html">Outage Recovery</a>
+      </li>
+
+      <li>
+        <a href="/guides/quotas.html">Resource Quotas</a>
+      </li>
+
+      <li>
+        <a href="/guides/securing-nomad.html">Securing Nomad</a>
+      </li>
+
+      <li>
+        <a href="/guides/sentinel-policy.html">Sentinel Policies</a>
+        <ul class="nav">
+          <li>
+            <a href="/guides/sentinel/job.html">Job Object</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/guides/ui.html">Web UI</a>
+      </li>
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="acl-system">
+  <a name="acl-system" class="anchor" href="#acl-system">&raquo;</a>
+  ACL System
+</h1>
+<p>Nomad provides an optional Access Control List (ACL) system which can be used to control access to data and APIs. The ACL is <a href="https://en.wikipedia.org/wiki/Capability-based_security">Capability-based</a>, relying on tokens which are associated with policies to determine which fine grained rules can be applied. Nomad&#39;s capability based ACL system is very similar to the design of <a href="https://aws.amazon.com/iam/">AWS IAM</a>.</p>
+<h1 id="acl-system-overview">
+  <a name="acl-system-overview" class="anchor" href="#acl-system-overview">&raquo;</a>
+  ACL System Overview
+</h1>
+<p>The ACL system is designed to be easy to use and fast to enforce while providing administrative insight. At the highest level, there are three major components to the ACL system:</p>
+<p><img alt="ACL Overview" src="/assets/images/acl-fefd61e8.jpg" /></p>
+
+<ul>
+<li><p><strong>ACL Policies</strong>. No permissions are granted by default, making Nomad a default-deny or whitelist system. Policies allow a set of capabilities or actions to be granted or whitelisted. For example, a &quot;readonly&quot; policy might only grant the ability to list and inspect running jobs, but not to submit new ones.</p>
+</li>
+<li><p><strong>ACL Tokens</strong>. Requests to Nomad are authenticated by using bearer token. Each ACL token has a public Accessor ID which is used to name a token, and a Secret ID which is used to make requests to Nomad. The Secret ID is provided using a request header (<code>X-Nomad-Token</code>) and is used to authenticate the caller. Tokens are either <code>management</code> or <code>client</code> types. The <code>management</code> tokens are effectively &quot;root&quot; in the system, and can perform any operation. The <code>client</code> tokens are associated with one or more ACL policies which grant specific capabilities.</p>
+</li>
+<li><p><strong>Capabilities</strong>. Capabilities are the set of actions that can be performed. This includes listing jobs, submitting jobs, querying nodes, etc. A <code>management</code> token is granted all capabilities, while <code>client</code> tokens are granted specific capabilities via ACL Policies. The full set of capabilities is discussed below in the rule specifications.</p>
+</li>
+</ul>
+<h3 id="acl-policies">
+  <a name="acl-policies" class="anchor" href="#acl-policies">&raquo;</a>
+  ACL Policies
+</h3>
+<p>An ACL policy is a named set of rules. Each policy must have a unique name, an optional description, and a rule set.
+A client ACL token can be associated with multiple policies, and a request is allowed if <em>any</em> of the associated policies grant the capability.
+Management tokens cannot be associated with policies because they are granted all capabilities.</p>
+<p>The special <code>anonymous</code> policy can be defined to grant capabilities to requests which are made anonymously. An anonymous request is a request made to Nomad without the <code>X-Nomad-Token</code> header specified. This can be used to allow anonymous users to list jobs and view their status, while requiring authenticated requests to submit new jobs or modify existing jobs. By default, there is no <code>anonymous</code> policy set meaning all anonymous requests are denied.</p>
+<h3 id="acl-tokens">
+  <a name="acl-tokens" class="anchor" href="#acl-tokens">&raquo;</a>
+  ACL Tokens
+</h3>
+<p>ACL tokens are used to authenticate requests and determine if the caller is authorized to perform an action. Each ACL token has a public Accessor ID which is used to identify the token, a Secret ID which is used to make requests to Nomad, and an optional human readable name. All <code>client</code> type tokens are associated with one or more policies, and can perform an action if any associated policy allows it. Tokens can be associated with policies which do not exist, which are the equivalent of granting no capabilities. The <code>management</code> type tokens cannot be associated with policies, but can perform any action.</p>
+<p>When ACL tokens are created, they can be optionally marked as <code>Global</code>. This causes them to be created in the authoritative region and replicated to all other regions. Otherwise, tokens are created locally in the region the request was made and not replicated. Local tokens cannot be used for cross-region requests since they are not replicated between regions.</p>
+<h3 id="capabilities-and-scope">
+  <a name="capabilities-and-scope" class="anchor" href="#capabilities-and-scope">&raquo;</a>
+  Capabilities and Scope
+</h3>
+<p>The following table summarizes the ACL Rules that are available for constructing policy rules:</p>
+
+<table><thead>
+<tr>
+<th>Policy</th>
+<th>Scope</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="#namespace-rules">namespace</a></td>
+<td>Job related operations by namespace</td>
+</tr>
+<tr>
+<td><a href="#agent-rules">agent</a></td>
+<td>Utility operations in the Agent API</td>
+</tr>
+<tr>
+<td><a href="#node-rules">node</a></td>
+<td>Node-level catalog operations</td>
+</tr>
+<tr>
+<td><a href="#operator-rules">operator</a></td>
+<td>Cluster-level operations in the Operator API</td>
+</tr>
+<tr>
+<td><a href="#quota-rules">quota</a></td>
+<td>Quota specification related operations</td>
+</tr>
+</tbody></table>
+<p>Constructing rules from these policies is covered in detail in the Rule Specification section below.</p>
+<h3 id="multi-region-configuration">
+  <a name="multi-region-configuration" class="anchor" href="#multi-region-configuration">&raquo;</a>
+  Multi-Region Configuration
+</h3>
+<p>Nomad supports multi-datacenter and multi-region configurations. A single region is able to service multiple datacenters, and all servers in a region replicate their state between each other. In a multi-region configuration, there is a set of servers per region. Each region operates independently and is loosely coupled to allow jobs to be scheduled in any region and requests to flow transparently to the correct region.</p>
+<p>When ACLs are enabled, Nomad depends on an &quot;authoritative region&quot; to act as a single source of truth for ACL policies and global ACL tokens. The authoritative region is configured in the <a href="/docs/agent/configuration/server.html"><code>server</code> stanza</a> of agents, and all regions must share a single authoritative source. Any ACL policies or global ACL tokens are created in the authoritative region first. All other regions replicate ACL policies and global ACL tokens to act as local mirrors. This allows policies to be administered centrally, and for enforcement to be local to each region for low latency.</p>
+<p>Global ACL tokens are used to allow cross region requests. Standard ACL tokens are created in a single target region and not replicated. This means if a request takes place between regions, global tokens must be used so that both regions will have the token registered.</p>
+<h1 id="configuring-acls">
+  <a name="configuring-acls" class="anchor" href="#configuring-acls">&raquo;</a>
+  Configuring ACLs
+</h1>
+<p>ACLs are not enabled by default, and must be enabled. Clients and Servers need to set <code>enabled</code> in the <a href="/docs/agent/configuration/acl.html"><code>acl</code> stanza</a>. This enables the <a href="/api/acl-policies.html">ACL Policy</a> and <a href="/api/acl-tokens.html">ACL Token</a> APIs, as well as endpoint enforcement.</p>
+<p>For multi-region configurations, all servers must be configured to use a single <a href="/docs/agent/configuration/server.html#authoritative_region">authoritative region</a>. The authoritative region is responsible for managing ACL policies and global tokens. Servers in other regions will replicate policies and global tokens to act as a mirror, and must have their <a href="/docs/agent/configuration/acl.html#replication_token"><code>replication_token</code></a> configured.</p>
+<h1 id="bootstrapping-acls">
+  <a name="bootstrapping-acls" class="anchor" href="#bootstrapping-acls">&raquo;</a>
+  Bootstrapping ACLs
+</h1>
+<p>Bootstrapping ACLs on a new cluster requires a few steps, outlined below:</p>
+<h3 id="enable-acls-on-nomad-servers">
+  <a name="enable-acls-on-nomad-servers" class="anchor" href="#enable-acls-on-nomad-servers">&raquo;</a>
+  Enable ACLs on Nomad Servers
+</h3>
+<p>The APIs needed to manage policies and tokens are not enabled until ACLs are enabled. To begin, we need to enable the ACLs on the servers. If a multi-region setup is used, the authoritative region should be enabled first. For each server:</p>
+
+<ol>
+<li>Set <code>enabled = true</code> in the <a href="/docs/agent/configuration/acl.html#enabled"><code>acl</code> stanza</a>.
+</li>
+<li>Set <code>authoritative_region</code> in the <a href="/docs/agent/configuration/server.html#authoritative_region"><code>server</code> stanza</a>.
+</li>
+<li>For servers outside the authoritative region, set <code>replication_token</code> in the <a href="/docs/agent/configuration/acl.html#replication_token"><code>acl</code> stanza</a>. Replication tokens should be <code>management</code> type tokens which are either created in the authoritative region, or created as Global tokens.
+</li>
+<li>Restart the Nomad server to pick up the new configuration.
+</li>
+</ol>
+<p>Please take care to restart the servers one at a time, and ensure each server has joined and is operating correctly before restarting another.</p>
+<h3 id="generate-the-initial-token">
+  <a name="generate-the-initial-token" class="anchor" href="#generate-the-initial-token">&raquo;</a>
+  Generate the initial token
+</h3>
+<p>Once the ACL system is enabled, we need to generate our initial token. This first token is used to bootstrap the system and care should be taken not to lose it. Once the ACL system is enabled, we use the <a href="/docs/commands/acl/bootstrap.html">Bootstrap CLI</a>:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ nomad acl bootstrap
+Accessor ID  = 5b7fd453-d3f7-6814-81dc-fcfe6daedea5
+Secret ID    = 9184ec35-65d4-9258-61e3-0c066d0a45c5
+Name         = Bootstrap Token
+Type         = management
+Global       = true
+Policies     = n/a
+Create Time  = 2017-09-11 17:38:10.999089612 +0000 UTC
+Create Index = 7
+Modify Index = 7
+</code></pre></div><p>Once the initial bootstrap is performed, it cannot be performed again unless <a href="#reseting-acl-bootstrap">reset</a>. Make sure to save this AccessorID and SecretID.
+The bootstrap token is a <code>management</code> type token, meaning it can perform any operation. It should be used to setup the ACL policies and create additional ACL tokens. The bootstrap token can be deleted and is like any other token, so care should be taken to not revoke all management tokens.</p>
+<h3 id="enable-acls-on-nomad-clients">
+  <a name="enable-acls-on-nomad-clients" class="anchor" href="#enable-acls-on-nomad-clients">&raquo;</a>
+  Enable ACLs on Nomad Clients
+</h3>
+<p>To enforce client endpoints, we need to enable ACLs on clients as well. This is simpler than servers, and we just need to set <code>enabled = true</code> in the <a href="/docs/agent/configuration/acl.html"><code>acl</code> stanza</a>. Once configured, we need to restart the client for the change.</p>
+<h3 id="set-an-anonymous-policy-optional-">
+  <a name="set-an-anonymous-policy-optional-" class="anchor" href="#set-an-anonymous-policy-optional-">&raquo;</a>
+  Set an Anonymous Policy (Optional)
+</h3>
+<p>The ACL system uses a whitelist or default-deny model. This means by default no permissions are granted.
+For clients making requests without ACL tokens, we may want to grant some basic level of access. This is done by setting rules
+on the special &quot;anonymous&quot; policy. This policy is applied to any requests made without a token.</p>
+<p>To permit anonymous users to read, we can setup the following policy:</p>
+<div class="highlight"><pre class="highlight plaintext"><code># Store our token secret ID
+$ export NOMAD_TOKEN="BOOTSTRAP_SECRET_ID"
+
+# Write out the payload
+$ cat &gt; payload.json &lt;&lt;EOF
+{
+    "Name": "anonymous",
+    "Description": "Allow read-only access for anonymous requests",
+    "Rules": "
+        namespace \"default\" {
+            policy = \"read\"
+        }
+        agent {
+            policy = \"read\"
+        }
+        node {
+            policy = \"read\"
+        }
+    "
+}
+EOF
+
+# Install the policy
+$ curl --request POST \
+    --data @payload.json \
+    -H "X-Nomad-Token: $NOMAD_TOKEN" \
+    https://localhost:4646/v1/acl/policy/anonymous
+
+# Verify anonymous request works
+$ curl https://localhost:4646/v1/jobs
+</code></pre></div><h1 id="rule-specification">
+  <a name="rule-specification" class="anchor" href="#rule-specification">&raquo;</a>
+  Rule Specification
+</h1>
+<p>A core part of the ACL system is the rule language which is used to describe the policy that must be enforced.
+We make use of the <a href="https://github.com/hashicorp/hcl/">HashiCorp Configuration Language (HCL)</a> to specify rules.
+This language is human readable and interoperable with JSON making it easy to machine-generate. Policies can contain any number of rules.</p>
+<p>Policies typically have several dispositions:</p>
+
+<ul>
+<li><a name="read" /><a href="#read"><code>read</code></a>: allow the resource to be read but not modified
+</li>
+<li><a name="write" /><a href="#write"><code>write</code></a>: allow the resource to be read and modified
+</li>
+<li><a name="deny" /><a href="#deny"><code>deny</code></a>: do not allow the resource to be read or modified. Deny takes precedence when multiple policies are associated with a token.
+</li>
+</ul>
+<p>Specification in the HCL format looks like:</p>
+<div class="highlight"><pre class="highlight plaintext"><code># Allow read only access to the default namespace
+namespace "default" {
+    policy = "read"
+}
+
+# Allow writing to the `foo` namespace
+namespace "foo" {
+    policy = "write"
+}
+
+agent {
+    policy = "read"
+}
+
+node {
+    policy = "read"
+}
+
+quota {
+    policy = "read"
+}
+</code></pre></div><p>This is equivalent to the following JSON input:</p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"namespace"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"default"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"read"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"foo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"write"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"agent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"read"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"node"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"read"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"quota"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"read"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>The <a href="/api/acl-policies.html">ACL Policy</a> API allows either HCL or JSON to be used to define the content of the rules section.</p>
+<h3 id="namespace-rules">
+  <a name="namespace-rules" class="anchor" href="#namespace-rules">&raquo;</a>
+  Namespace Rules
+</h3>
+<p>The <code>namespace</code> policy controls access to a namespace, including the <a href="/api/jobs.html">Jobs API</a>, <a href="/api/deployments.html">Deployments API</a>, <a href="/api/allocations.html">Allocations API</a>, and <a href="/api/evaluations.html">Evaluations API</a>.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>namespace "default" {
+    policy = "write"
+}
+
+namespace "sensitive" {
+    policy = "read"
+}
+</code></pre></div><p>Namespace rules are keyed by the namespace name they apply to. When no namespace is specified, the &quot;default&quot; namespace is the one used. For example, the above policy grants write access to the default namespace, and read access to the sensitive namespace. In addition to the coarse grained <code>policy</code> specification, the <code>namespace</code> stanza allows setting a more fine grained list of <code>capabilities</code>. This includes:</p>
+
+<ul>
+<li><a name="deny-1" /><a href="#deny-1"><code>deny</code></a> - When multiple policies are associated with a token, deny will take precedence and prevent any capabilities.
+</li>
+<li><a name="list-jobs" /><a href="#list-jobs"><code>list-jobs</code></a> - Allows listing the jobs and seeing coarse grain status.
+</li>
+<li><a name="read-job" /><a href="#read-job"><code>read-job</code></a> - Allows inspecting a job and seeing fine grain status.
+</li>
+<li><a name="submit-job" /><a href="#submit-job"><code>submit-job</code></a> - Allows jobs to be submitted or modified.
+</li>
+<li><a name="dispatch-job" /><a href="#dispatch-job"><code>dispatch-job</code></a> - Allows jobs to be dispatched
+</li>
+<li><a name="read-logs" /><a href="#read-logs"><code>read-logs</code></a> - Allows the logs associated with a job to be viewed.
+</li>
+<li><a name="read-fs" /><a href="#read-fs"><code>read-fs</code></a> - Allows the filesystem of allocations associated to be viewed.
+</li>
+<li><a name="sentinel-override" /><a href="#sentinel-override"><code>sentinel-override</code></a> - Allows soft mandatory policies to be overridden.
+</li>
+</ul>
+<p>The coarse grained policy dispositions are shorthand for the fine grained capabilities:</p>
+
+<ul>
+<li><a name="deny-2" /><a href="#deny-2"><code>deny</code></a> policy - [&quot;deny&quot;]
+</li>
+<li><a name="read-1" /><a href="#read-1"><code>read</code></a> policy - [&quot;list-jobs&quot;, &quot;read-job&quot;]
+</li>
+<li><a name="write-1" /><a href="#write-1"><code>write</code></a> policy - [&quot;list-jobs&quot;, &quot;read-job&quot;, &quot;submit-job&quot;, &quot;read-logs&quot;, &quot;read-fs&quot;, &quot;dispatch-job&quot;]
+</li>
+</ul>
+<p>When both the policy short hand and a capabilities list are provided, the capabilities are merged:</p>
+<div class="highlight"><pre class="highlight plaintext"><code># Allow reading jobs and submitting jobs, without allowing access
+# to view log output or inspect the filesystem
+namespace "default" {
+    policy = "read"
+    capabilities = ["submit-job"]
+}
+</code></pre></div><h3 id="node-rules">
+  <a name="node-rules" class="anchor" href="#node-rules">&raquo;</a>
+  Node Rules
+</h3>
+<p>The <code>node</code> policy controls access to the <a href="/api/nodes.html">Node API</a> such as listing nodes or triggering a node drain.
+Node rules are specified for all nodes using the <code>node</code> key:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>node {
+    policy = "read"
+}
+</code></pre></div><p>There&#39;s only one node policy allowed per rule set, and its value is set to one of the policy dispositions.</p>
+<h3 id="agent-rules">
+  <a name="agent-rules" class="anchor" href="#agent-rules">&raquo;</a>
+  Agent Rules
+</h3>
+<p>The <code>agent</code> policy controls access to the utility operations in the <a href="/api/agent.html">Agent API</a>, such as join and leave.
+Agent rules are specified for all agents using the <code>agent</code> key:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>agent {
+    policy = "write"
+}
+</code></pre></div><p>There&#39;s only one agent policy allowed per rule set, and its value is set to one of the policy dispositions.</p>
+<h3 id="operator-rules">
+  <a name="operator-rules" class="anchor" href="#operator-rules">&raquo;</a>
+  Operator Rules
+</h3>
+<p>The <code>operator</code> policy controls access to the <a href="/api/operator.html">Operator API</a>. Operator rules look like:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>operator {
+    policy = "read"
+}
+</code></pre></div><p>There&#39;s only one operator policy allowed per rule set, and its value is set to one of the policy dispositions. In the example above, the token could be used to query the operator endpoints for diagnostic purposes but not make any changes.</p>
+<h3 id="quota-rules">
+  <a name="quota-rules" class="anchor" href="#quota-rules">&raquo;</a>
+  Quota Rules
+</h3>
+<p>The <code>quota</code> policy controls access to the quota specification operations in the <a href="/api/quotas.html">Quota API</a>, such as quota creation and deletion.
+Quota rules are specified for all quotas using the <code>quota</code> key:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>quota {
+    policy = "write"
+}
+</code></pre></div><p>There&#39;s only one quota policy allowed per rule set, and its value is set to one of the policy dispositions.</p>
+<h1 id="advanced-topics">
+  <a name="advanced-topics" class="anchor" href="#advanced-topics">&raquo;</a>
+  Advanced Topics
+</h1>
+<h3 id="outages-and-multi-region-replication">
+  <a name="outages-and-multi-region-replication" class="anchor" href="#outages-and-multi-region-replication">&raquo;</a>
+  Outages and Multi-Region Replication
+</h3>
+<p>The ACL system takes some steps to ensure operation during outages. Clients nodes maintain a limited
+cache of ACL tokens and ACL policies that have recently or frequently been used, associated with a time-to-live (TTL).</p>
+<p>When the region servers are unavailable, the clients will automatically ignore the cache TTL,
+and extend the cache until the outage has recovered. For any policies or tokens that are not cached,
+they will be treated as missing and denied access until the outage has been resolved.</p>
+<p>Nomad servers have all the policies and tokens locally and can continue serving requests even if
+quorum is lost. The tokens and policies may become stale during this period as data is not actively
+replicating, but will be automatically fixed when the outage has been resolved.</p>
+<p>In a multi-region setup, there is a single authoritative region which is the source of truth for
+ACL policies and global ACL tokens. All other regions asynchronously replicate from the authoritative
+region. When replication is interrupted, the existing data is used for request processing and may
+become stale. When the authoritative region is reachable, replication will resume and repair any
+inconsistency.</p>
+<h3 id="resetting-acl-bootstrap">
+  <a name="resetting-acl-bootstrap" class="anchor" href="#resetting-acl-bootstrap">&raquo;</a>
+  Resetting ACL Bootstrap
+</h3>
+<p>If all management tokens are lost, it is possible to reset the ACL bootstrap so that it can be performed again.
+First, we need to determine the reset index, this can be done by calling the reset endpoint:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ nomad acl bootstrap
+
+Error bootstrapping: Unexpected response code: 500 (ACL bootstrap already done (reset index: 7))
+</code></pre></div><p>Here we can see the <code>reset index</code>. To reset the ACL system, we create the
+<code>acl-bootstrap-reset</code> file in the data directory of the <strong>leader</strong> node:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ echo 7 &gt;&gt; /nomad-data-dir/server/acl-bootstrap-reset
+</code></pre></div><p>With the reset key setup, we can bootstrap like normal:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ nomad acl bootstrap
+Accessor ID  = 52d3353d-d7b9-d945-0591-1af608732b76
+Secret ID    = 4b0a41ca-6d32-1853-e64b-de0d347e4525
+Name         = Bootstrap Token
+Type         = management
+Global       = true
+Policies     = n/a
+Create Time  = 2017-09-11 18:38:11.929089612 +0000 UTC
+Create Index = 11
+Modify Index = 11
+</code></pre></div><p>If we attempt to bootstrap again, we will get a mismatch on the reset index:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ nomad acl bootstrap
+
+Error bootstrapping: Unexpected response code: 500 (Invalid bootstrap reset index (specified 7, reset index: 11))
+</code></pre></div><p>This is because the reset file is in place, but with the incorrect index.
+The reset file can be deleted, but Nomad will not reset the bootstrap until the index is corrected.</p>
+<h2 id="vault-integration">
+  <a name="vault-integration" class="anchor" href="#vault-integration">&raquo;</a>
+  Vault Integration
+</h2>
+<p>HashiCorp Vault has a secret backend for generating short-lived Nomad tokens. As Vault has a number of
+authentication backends, it could provide a workflow where a user or orchestration system authenticates
+using an pre-existing identity service (LDAP, Okta, Amazon IAM, etc.) in order to obtain a short-lived
+Nomad token.</p>
+<div class="alert alert-warning" role="alert">
+<p>HashiCorp Vault is a standalone product with it&#39;s own set of deployment and
+   configuration best practices. Please review <a href="https://www.vaultproject.io/docs/index.html">Vault&#39;s
+   documentation</a> before deploying it
+   in production.</p>
+</div>
+<p>For evaluation purposes, a Vault server in &quot;dev&quot; mode can be used.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ vault server -dev
+==&gt; Vault server configuration:
+
+                     Cgo: disabled
+         Cluster Address: https://127.0.0.1:8201
+              Listener 1: tcp (addr: "127.0.0.1:8200", cluster address: "127.0.0.1:8201", tls: "disabled")
+               Log Level: info
+                   Mlock: supported: false, enabled: false
+        Redirect Address: http://127.0.0.1:8200
+                 Storage: inmem
+                 Version: Vault v0.8.3
+             Version Sha: a393b20cb6d96c73e52eb5af776c892b8107a45d
+
+==&gt; WARNING: Dev mode is enabled!
+
+In this mode, Vault is completely in-memory and unsealed.
+Vault is configured to only have a single unseal key. The root
+token has already been authenticated with the CLI, so you can
+immediately begin using the Vault CLI.
+
+The only step you need to take is to set the following
+environment variables:
+
+    export VAULT_ADDR='http://127.0.0.1:8200'
+
+The unseal key and root token are reproduced below in case you
+want to seal/unseal the Vault or play with authentication.
+
+Unseal Key: YzFfPgnLl9R1f6bLU7tGqi/PIDhDaAV/tlNDMV5Rrq0=
+Root Token: f84b587e-5882-bba1-a3f0-d1a3d90ca105
+</code></pre></div><h3 id="pre-requisites">
+  <a name="pre-requisites" class="anchor" href="#pre-requisites">&raquo;</a>
+  Pre-requisites
+</h3>
+
+<ul>
+<li>Nomad ACL system bootstrapped.
+</li>
+<li>A management token (the bootstrap token can be used, but for production
+systems it&#39;s recommended to have a separate token)
+</li>
+<li>A set of policies created in Nomad
+</li>
+<li>An unsealed Vault server (Vault running in <code>dev</code> mode is unsealed
+automatically upon startup)
+
+<ul>
+<li>Vault must be version 0.9.3 or later to have the Nomad plugin
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="configuration">
+  <a name="configuration" class="anchor" href="#configuration">&raquo;</a>
+  Configuration
+</h3>
+<p>Mount the <a href="https://www.vaultproject.io/docs/secrets/nomad/index.html"><code>nomad</code></a> secret backend in Vault:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ vault mount nomad
+Successfully mounted 'nomad' at 'nomad'!
+</code></pre></div><p>Configure access with Nomad&#39;s address and management token:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ vault write nomad/config/access \
+    address=http://127.0.0.1:4646 \
+    token=adf4238a-882b-9ddc-4a9d-5b6758e4159e
+Success! Data written to: nomad/config/access
+</code></pre></div><p>Vault secret backends have the concept of roles, which are configuration units that group one or more 
+Vault policies to a potential identity attribute, (e.g. LDAP Group membership). The name of the role 
+is specified on the path, while the mapping to policies is done by naming them in a comma separated list, 
+for example:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ vault write nomad/role/role-name policies=policyone,policytwo
+Success! Data written to: nomad/role/role-name
+</code></pre></div><p>Similarly, to create management tokens, or global tokens:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ vault write nomad/role/role-name type=management global=true
+Success! Data written to: nomad/role/role-name
+</code></pre></div><p>Create a Vault policy to allow different identities to get tokens associated with a particular
+role:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ echo 'path "nomad/creds/role-name" {
+  capabilities = ["read"]
+}' | vault policy write nomad-user-policy -
+Policy 'nomad-user-policy' written.
+</code></pre></div><p>If you have an existing authentication backend (like LDAP), follow the relevant instructions to create
+a role available on the <a href="https://www.vaultproject.io/docs/auth/index.html">Authentication backends page</a>.
+Otherwise, for testing purposes, a Vault token can be generated associated with the policy:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ vault token create -policy=nomad-user-policy
+Key             Value
+---             -----
+token           deedfa83-99b5-34a1-278d-e8fb76809a5b
+token_accessor  fd185371-7d80-8011-4f45-1bb3af2c2733
+token_duration  768h0m0s
+token_renewable true
+token_policies  [default nomad-user-policy]
+</code></pre></div><p>Finally obtain a Nomad Token using the existing Vault Token:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ vault read nomad/creds/role-name
+Key             Value
+---             -----
+lease_id        nomad/creds/role-name/6fb22e25-0cd1-b4c9-494e-aba330c317b9
+lease_duration  768h0m0s
+lease_renewable true
+accessor_id     10b8fb49-7024-2126-8683-ab355b581db2
+secret_id       8898d19c-e5b3-35e4-649e-4153d63fbea9
+</code></pre></div><p>Verify that the token is created correctly in Nomad, looking it up by its accessor:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ nomad acl token info 10b8fb49-7024-2126-8683-ab355b581db2
+Accessor ID  = 10b8fb49-7024-2126-8683-ab355b581db2
+Secret ID    = 8898d19c-e5b3-35e4-649e-4153d63fbea9
+Name         = Vault test root 1507307164169530060
+Type         = management
+Global       = true
+Policies     = n/a
+Create Time  = 2017-10-06 16:26:04.170633207 +0000 UTC
+Create Index = 228
+Modify Index = 228
+</code></pre></div><p>Any user or process with access to Vault can now obtain short lived Nomad Tokens in order to
+carry out operations, thus centralising the access to Nomad tokens.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/guides/index.html">Guides</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/api/index.html">API</a></li>
+              <li><a href="/resources.html">Resources</a></li>
+              <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+              <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/nomad/blob/master/website/source/guides/acl.html.markdown">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Nomad",
+        "alternateName": "Nomad by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.nomadproject.io",
+        "logo": "https://www.nomadproject.io/assets/images/logo-hashicorp-039941e4.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/nomad"
+        ]
+      }
+    </script>
+  </body>
+</html>

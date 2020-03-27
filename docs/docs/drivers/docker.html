@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Docker task driver is used to run Docker based tasks.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-d0ced218.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-194x194-bb8de46a.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/android-chrome-192x192-9f336178.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-10aa6ba6.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-330a0dd1.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-479e3179.svg" color="#25BA81">
+    <meta name="apple-mobile-web-app-title" content="HashiCorp Nomad">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="application-name" content="HashiCorp Nomad">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="msapplication-TileColor" content="#25BA81">
+    <meta name="msapplication-TileImage" content="/assets/images/favicons/mstile-144x144-7f37eaf2.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:url" content="https://www.nomadproject.io/docs/drivers/docker.html" />
+    <meta property="og:title" content="Drivers: Docker - Nomad by HashiCorp" />
+    <meta property="og:site_name" content="Nomad by HashiCorp"/>
+    <meta property="og:image" content="https://www.nomadproject.io/assets/images/og-image-e0e8d18d.png"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="1200"/>
+    <meta property="og:description" content="The Docker task driver is used to run Docker based tasks." />
+
+    <title>Drivers: Docker - Nomad by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b44b5029.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-drivers-docker" class="layout-docs page-drivers-docker">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Nomad fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" class="logo" height="50">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/api/index.html">API</a></li>
+                  <li><a href="/resources.html">Resources</a></li>
+                  <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+                  <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/nomad">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" height="42">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/api/index.html">API</a></li>
+    <li><a href="/community.html">Community</a></li>
+    <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+    <li><a href="/security.html">Security</a></li>
+    <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/nomad">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <ul class="nav docs-sidenav">
+      <li>
+        <a href="/docs/install/index.html">Installing Nomad</a>
+      </li>
+
+      <li>
+        <a href="/docs/runtime/index.html">Runtime</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/runtime/environment.html">Environment</a>
+          </li>
+          <li>
+            <a href="/docs/runtime/interpolation.html">Interpolation</a>
+          </li>
+          <li>
+            <a href="/docs/runtime/schedulers.html">Schedulers</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/job-specification/index.html">Job Specification</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/job-specification/artifact.html">artifact</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/check_restart.html">check_restart</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/constraint.html">constraint</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/dispatch_payload.html">dispatch_payload</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/env.html">env</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/ephemeral_disk.html">ephemeral_disk</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/group.html">group</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/job.html">job</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/logs.html">logs</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/meta.html">meta</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/migrate.html">migrate</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/network.html">network</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/parameterized.html">parameterized</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/periodic.html">periodic</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/reschedule.html">reschedule</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/resources.html">resources</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/restart.html">restart</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/service.html">service</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/task.html">task</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/template.html">template</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/update.html">update</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/vault.html">vault</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/service-discovery/index.html">Service Discovery</a>
+      </li>
+
+      <li>
+        <a href="/docs/vault-integration/index.html">Vault Integration</a>
+      </li>
+
+      <li class="active">
+        <a href="/docs/drivers/index.html">Drivers</a>
+        <ul class="nav">
+          <li class="active">
+            <a href="/docs/drivers/docker.html">Docker</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/exec.html">Isolated Fork/Exec</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/java.html">Java</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/lxc.html">LXC</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/qemu.html">Qemu</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/raw_exec.html">Raw Fork/Exec</a>
+          </li>
+
+
+          <li>
+            <a href="/docs/drivers/rkt.html">Rkt</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/custom.html">Custom</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/commands/index.html">Commands (CLI)</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/commands/acl.html">acl</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/acl/bootstrap.html">bootstrap</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/policy-apply.html">policy apply</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/policy-delete.html">policy delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/policy-info.html">policy info</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/policy-list.html">policy list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-create.html">token create</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-delete.html">token delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-info.html">token info</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-self.html">token self</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-update.html">token update</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/agent.html">agent</a>
+          </li>
+          <li>
+            <a href="/docs/commands/agent-info.html">agent-info</a>
+          </li>
+          <li>
+            <a href="/docs/commands/alloc.html">alloc</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/alloc/fs.html">fs</a>
+              </li>
+              <li>
+                <a href="/docs/commands/alloc/logs.html">logs</a>
+              </li>
+              <li>
+                <a href="/docs/commands/alloc/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/deployment.html">deployment</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/deployment/fail.html">fail</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/list.html">list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/pause.html">pause</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/promote.html">promote</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/resume.html">resume</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/eval-status.html">eval status</a>
+          </li>
+          <li>
+            <a href="/docs/commands/job.html">job</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/job/deployments.html">deployments</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/dispatch.html">dispatch</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/eval.html">eval</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/history.html">history</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/init.html">init</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/inspect.html">inspect</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/plan.html">plan</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/promote.html">promote</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/revert.html">revert</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/run.html">run</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/status.html">status</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/stop.html">stop</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/validate.html">validate</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/namespace.html">namespace</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/namespace/apply.html">apply</a>
+              </li>
+              <li>
+                <a href="/docs/commands/namespace/delete.html">delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/namespace/inspect.html">inspect</a>
+              </li>
+              <li>
+                <a href="/docs/commands/namespace/list.html">list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/namespace/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/node.html">node</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/node/config.html">config</a>
+              </li>
+              <li>
+                <a href="/docs/commands/node/drain.html">drain</a>
+              </li>
+              <li>
+                <a href="/docs/commands/node/eligibility.html">eligibility</a>
+              </li>
+              <li>
+                <a href="/docs/commands/node/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/operator.html">operator</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/operator/autopilot-get-config.html">autopilot get-config</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/autopilot-set-config.html">autopilot set-config</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/keygen.html">keygen</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/keyring.html">keyring</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/raft-list-peers.html">raft list-peers</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/raft-remove-peer.html">raft remove-peer</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/quota.html">quota</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/quota/apply.html">apply</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/delete.html">delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/init.html">init</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/inspect.html">inspect</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/list.html">list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/sentinel.html">sentinel</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/sentinel/apply.html">apply</a>
+              </li>
+              <li>
+                <a href="/docs/commands/sentinel/delete.html">delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/sentinel/list.html">list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/sentinel/read.html">read</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/server.html">server</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/server/force-leave.html">force-leave</a>
+              </li>
+              <li>
+                <a href="/docs/commands/server/join.html">join</a>
+              </li>
+              <li>
+                <a href="/docs/commands/server/members.html">members</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/status.html">status</a>
+          </li>
+          <li>
+            <a href="/docs/commands/ui.html">ui</a>
+          </li>
+          <li>
+            <a href="/docs/commands/version.html">version</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/agent/index.html">Nomad Agent</a>
+
+        <ul class="nav">
+          <li >
+            <a href="/docs/agent/cloud_auto_join.html">Cloud Auto-join</a>
+          </li>
+          <li>
+            <a href="/docs/agent/configuration/index.html">Configuration</a>
+            <ul class="nav">
+              <li >
+                <a href="/docs/agent/configuration/acl.html">acl</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/autopilot.html">autopilot</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/client.html">client</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/consul.html">consul</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/sentinel.html">sentinel</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/server.html">server</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/server_join.html">server_join</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/telemetry.html">telemetry</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/tls.html">tls</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/vault.html">vault</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="/docs/agent/encryption.html">Encryption</a>
+          </li>
+          <li>
+            <a href="/docs/agent/telemetry.html">Telemetry</a>
+          </li>
+        </ul>
+      </li>
+
+      <hr>
+
+      <li>
+        <a href="/docs/internals/index.html">Internals</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/internals/architecture.html">Architecture</a>
+          </li>
+
+          <li>
+            <a href="/docs/internals/consensus.html">Consensus Protocol</a>
+          </li>
+
+          <li>
+            <a href="/docs/internals/gossip.html">Gossip Protocol</a>
+          </li>
+
+          <li>
+            <a href="/docs/internals/scheduling.html">Scheduling</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/upgrade/index.html">Upgrading</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/upgrade/index.html">Upgrading Nomad</a>
+          </li>
+          <li>
+            <a href="/docs/upgrade/upgrade-specific.html">Specific Version Details</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/faq.html">FAQ</a>
+      </li>
+
+      <hr>
+
+      <li>
+        <a href="/docs/enterprise/index.html">Nomad Enterprise</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/namespaces/index.html">Namespaces</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/quotas/index.html">Resource Quotas</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/sentinel/index.html">Sentinel Policies</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/autopilot/index.html">Advanced Autopilot</a>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="docker-driver">
+  <a name="docker-driver" class="anchor" href="#docker-driver">&raquo;</a>
+  Docker Driver
+</h1>
+<p>Name: <code>docker</code></p>
+<p>The <code>docker</code> driver provides a first-class Docker workflow on Nomad. The Docker
+driver handles downloading containers, mapping ports, and starting, watching,
+and cleaning up after containers.</p>
+<h2 id="task-configuration">
+  <a name="task-configuration" class="anchor" href="#task-configuration">&raquo;</a>
+  Task Configuration
+</h2>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">task</span> <span class="s2">"webservice"</span> <span class="p">{</span>
+  <span class="n">driver</span> <span class="o">=</span> <span class="s2">"docker"</span>
+
+  <span class="n">config</span> <span class="p">{</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="s2">"redis:3.2"</span>
+    <span class="n">labels</span> <span class="p">{</span>
+      <span class="n">group</span> <span class="o">=</span> <span class="s2">"webservice-cache"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>The <code>docker</code> driver supports the following configuration in the job spec.  Only
+<code>image</code> is required.</p>
+
+<ul>
+<li><p><a name="image" /><a href="#image"><code>image</code></a> - The Docker image to run. The image may include a tag or custom URL
+and should include <code>https://</code> if required. By default it will be fetched from
+Docker Hub. If the tag is omitted or equal to <code>latest</code> the driver will always
+try to pull the image. If the image to be pulled exists in a registry that
+requires authentication credentials must be provided to Nomad. Please see the
+<a href="#authentication">Authentication section</a>.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">image</span> <span class="o">=</span> <span class="s2">"https://hub.docker.internal/redis:3.2"</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="args" /><a href="#args"><code>args</code></a> - (Optional) A list of arguments to the optional <code>command</code>. If no
+<code>command</code> is specified, the arguments are passed directly to the container.
+References to environment variables or any <a href="/docs/runtime/interpolation.html">interpretable Nomad
+variables</a> will be interpreted before
+launching the task. For example:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"-bind"</span><span class="p">,</span> <span class="s2">"${NOMAD_PORT_http}"</span><span class="p">,</span>
+    <span class="s2">"${nomad.datacenter}"</span><span class="p">,</span>
+    <span class="s2">"${MY_ENV}"</span><span class="p">,</span>
+    <span class="s2">"${meta.foo}"</span><span class="p">,</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="auth" /><a href="#auth"><code>auth</code></a> - (Optional) Provide authentication for a private registry (see below).</p>
+</li>
+<li><p><a name="auth_soft_fail" /><a href="#auth_soft_fail"><code>auth_soft_fail</code></a> <code>(bool: false)</code> - Don&#39;t fail the task on an auth failure.
+Attempt to continue without auth.</p>
+</li>
+<li><p><a name="command" /><a href="#command"><code>command</code></a> - (Optional) The command to run when starting the container.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">command</span> <span class="o">=</span> <span class="s2">"my-command"</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="dns_search_domains" /><a href="#dns_search_domains"><code>dns_search_domains</code></a> - (Optional) A list of DNS search domains for the container
+to use.</p>
+</li>
+<li><p><a name="dns_options" /><a href="#dns_options"><code>dns_options</code></a> - (Optional) A list of DNS options for the container to use.</p>
+</li>
+<li><p><a name="dns_servers" /><a href="#dns_servers"><code>dns_servers</code></a> - (Optional) A list of DNS servers for the container to use
+(e.g. [&quot;8.8.8.8&quot;, &quot;8.8.4.4&quot;]). Requires Docker v1.10 or greater.</p>
+</li>
+<li><p><a name="entrypoint" /><a href="#entrypoint"><code>entrypoint</code></a> - (Optional) A string list overriding the image&#39;s entrypoint.</p>
+</li>
+<li><p><a name="extra_hosts" /><a href="#extra_hosts"><code>extra_hosts</code></a> - (Optional) A list of hosts, given as host:IP, to be added to
+<code>/etc/hosts</code>.</p>
+</li>
+<li><p><a name="force_pull" /><a href="#force_pull"><code>force_pull</code></a> - (Optional) <code>true</code> or <code>false</code> (default). Always pull latest image
+instead of using existing local image. Should be set to <code>true</code> if repository tags
+are mutable.</p>
+</li>
+<li><p><a name="hostname" /><a href="#hostname"><code>hostname</code></a> - (Optional) The hostname to assign to the container. When
+launching more than one of a task (using <code>count</code>) with this option set, every
+container the task starts will have the same hostname.</p>
+</li>
+<li><p><a name="interactive" /><a href="#interactive"><code>interactive</code></a> - (Optional) <code>true</code> or <code>false</code> (default). Keep STDIN open on
+the container.</p>
+</li>
+<li><p><a name="sysctl" /><a href="#sysctl"><code>sysctl</code></a> - (Optional) A key-value map of sysctl configurations to set to the
+containers on start.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">sysctl</span> <span class="p">{</span>
+    <span class="n">net</span><span class="p">.</span><span class="nf">core</span><span class="p">.</span><span class="nf">somaxconn</span> <span class="o">=</span> <span class="s2">"16384"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="ulimit" /><a href="#ulimit"><code>ulimit</code></a> - (Optional) A key-value map of ulimit configurations to set to the
+containers on start.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">ulimit</span> <span class="p">{</span>
+    <span class="n">nproc</span> <span class="o">=</span> <span class="s2">"4242"</span>
+    <span class="n">nofile</span> <span class="o">=</span> <span class="s2">"2048:4096"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="privileged" /><a href="#privileged"><code>privileged</code></a> - (Optional) <code>true</code> or <code>false</code> (default). Privileged mode gives
+the container access to devices on the host. Note that this also requires the
+nomad agent and docker daemon to be configured to allow privileged
+containers.</p>
+</li>
+<li><p><a name="ipc_mode" /><a href="#ipc_mode"><code>ipc_mode</code></a> - (Optional) The IPC mode to be used for the container. The default
+is <code>none</code> for a private IPC namespace. Other values are <code>host</code> for sharing
+the host IPC namespace or the name or id of an existing container. Note that
+it is not possible to refer to Docker containers started by Nomad since their
+names are not known in advance. Note that setting this option also requires the
+Nomad agent to be configured to allow privileged containers.</p>
+</li>
+<li><p><a name="ipv4_address" /><a href="#ipv4_address"><code>ipv4_address</code></a> - (Optional) The IPv4 address to be used for the container when
+using user defined networks. Requires Docker 1.13 or greater.</p>
+</li>
+<li><p><a name="ipv6_address" /><a href="#ipv6_address"><code>ipv6_address</code></a> - (Optional) The IPv6 address to be used for the container when
+using user defined networks. Requires Docker 1.13 or greater.</p>
+</li>
+<li><p><a name="labels" /><a href="#labels"><code>labels</code></a> - (Optional) A key-value map of labels to set to the containers on
+start.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">labels</span> <span class="p">{</span>
+    <span class="n">foo</span> <span class="o">=</span> <span class="s2">"bar"</span>
+    <span class="n">zip</span> <span class="o">=</span> <span class="s2">"zap"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="load" /><a href="#load"><code>load</code></a> - (Optional) Load an image from a <code>tar</code> archive file instead of from a
+remote repository. Equivalent to the <code>docker load -i &lt;filename&gt;</code> command.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">artifact</span> <span class="p">{</span>
+  <span class="n">source</span> <span class="o">=</span> <span class="s2">"http://path.to/redis.tar"</span>
+<span class="p">}</span>
+<span class="n">config</span> <span class="p">{</span>
+  <span class="nb">load</span> <span class="o">=</span> <span class="s2">"redis.tar"</span>
+  <span class="n">image</span> <span class="o">=</span> <span class="s2">"redis"</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="logging" /><a href="#logging"><code>logging</code></a> - (Optional) A key-value map of Docker logging options. The default
+value is <code>syslog</code>.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">logging</span> <span class="p">{</span>
+    <span class="n">type</span> <span class="o">=</span> <span class="s2">"fluentd"</span>
+    <span class="n">config</span> <span class="p">{</span>
+      <span class="n">fluentd</span><span class="o">-</span><span class="n">address</span> <span class="o">=</span> <span class="s2">"localhost:24224"</span>
+      <span class="n">tag</span> <span class="o">=</span> <span class="s2">"your_tag"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="mac_address" /><a href="#mac_address"><code>mac_address</code></a> - (Optional) The MAC address for the container to use (e.g.
+&quot;02:68:b3:29:da:98&quot;).</p>
+</li>
+<li><p><a name="network_aliases" /><a href="#network_aliases"><code>network_aliases</code></a> - (Optional) A list of network-scoped aliases, provide a way for a
+container to be discovered by an alternate name by any other container within
+the scope of a particular network. Network-scoped alias is supported only for
+containers in user defined networks</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">network_mode</span> <span class="o">=</span> <span class="s2">"user-network"</span>
+  <span class="n">network_aliases</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"${NOMAD_TASK_NAME}"</span><span class="p">,</span>
+    <span class="s2">"${NOMAD_TASK_NAME}-${NOMAD_ALLOC_INDEX}"</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="network_mode" /><a href="#network_mode"><code>network_mode</code></a> - (Optional) The network mode to be used for the container. In
+order to support userspace networking plugins in Docker 1.9 this accepts any
+value. The default is <code>bridge</code> for all operating systems but Windows, which
+defaults to <code>nat</code>. Other networking modes may not work without additional
+configuration on the host (which is outside the scope of Nomad).  Valid values
+pre-docker 1.9 are <code>default</code>, <code>bridge</code>, <code>host</code>, <code>none</code>, or <code>container:name</code>.</p>
+</li>
+<li><p><a name="pid_mode" /><a href="#pid_mode"><code>pid_mode</code></a> - (Optional) <code>host</code> or not set (default). Set to <code>host</code> to share
+the PID namespace with the host. Note that this also requires the Nomad agent
+to be configured to allow privileged containers.
+See below for more details.</p>
+</li>
+<li><p><a name="port_map" /><a href="#port_map"><code>port_map</code></a> - (Optional) A key-value map of port labels (see below).</p>
+</li>
+<li><p><a name="security_opt" /><a href="#security_opt"><code>security_opt</code></a> - (Optional) A list of string flags to pass directly to
+<a href="https://docs.docker.com/engine/reference/run/#security-configuration"><code>--security-opt</code></a>.
+For example:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">security_opt</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"credentialspec=file://gmsaUser.json"</span><span class="p">,</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="shm_size" /><a href="#shm_size"><code>shm_size</code></a> - (Optional) The size (bytes) of /dev/shm for the container.</p>
+</li>
+<li><p><a name="ssl" /><a href="#ssl"><code>SSL</code></a> - (Optional) If this is set to true, Nomad uses SSL to talk to the
+repository. The default value is <code>true</code>. <strong>Deprecated as of 0.5.3</strong></p>
+</li>
+<li><p><a name="tty" /><a href="#tty"><code>tty</code></a> - (Optional) <code>true</code> or <code>false</code> (default). Allocate a pseudo-TTY for the
+container.</p>
+</li>
+<li><p><a name="uts_mode" /><a href="#uts_mode"><code>uts_mode</code></a> - (Optional) <code>host</code> or not set (default). Set to <code>host</code> to share
+the UTS namespace with the host. Note that this also requires the Nomad agent
+to be configured to allow privileged containers.</p>
+</li>
+<li><p><a name="userns_mode" /><a href="#userns_mode"><code>userns_mode</code></a> - (Optional) <code>host</code> or not set (default). Set to <code>host</code> to use
+the host&#39;s user namespace when user namespace remapping is enabled on the
+docker daemon.</p>
+</li>
+<li><p><a name="volumes" /><a href="#volumes"><code>volumes</code></a> - (Optional) A list of <code>host_path:container_path</code> strings to bind
+host paths to container paths. Mounting host paths outside of the allocation
+directory can be disabled on clients by setting the <code>docker.volumes.enabled</code>
+option set to false. This will limit volumes to directories that exist inside
+the allocation directory.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">volumes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># Use absolute paths to mount arbitrary paths on the host</span>
+    <span class="s2">"/path/on/host:/path/in/container"</span><span class="p">,</span>
+
+    <span class="c1"># Use relative paths to rebind paths already in the allocation dir</span>
+    <span class="s2">"relative/to/task:/also/in/container"</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="volume_driver" /><a href="#volume_driver"><code>volume_driver</code></a> - (Optional) The name of the volume driver used to mount
+volumes. Must be used along with <code>volumes</code>.
+Using a <code>volume_driver</code> also allows to use <code>volumes</code> with a named volume as
+well as absolute paths. If <code>docker.volumes.enabled</code> is false then volume
+drivers are disallowed.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">volumes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># Use named volume created outside nomad.</span>
+    <span class="s2">"name-of-the-volume:/path/in/container"</span>
+  <span class="p">]</span>
+  <span class="c1"># Name of the Docker Volume Driver used by the container</span>
+  <span class="n">volume_driver</span> <span class="o">=</span> <span class="s2">"pxd"</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="work_dir" /><a href="#work_dir"><code>work_dir</code></a> - (Optional) The working directory inside the container.</p>
+</li>
+<li><p><a name="mounts" /><a href="#mounts"><code>mounts</code></a> - (Optional) A list of
+<a href="https://docs.docker.com/engine/reference/commandline/service_create/#add-bind-mounts-or-volumes">mounts</a>
+to be mounted into the container. Only volume type mounts are supported.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">mounts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="n">target</span> <span class="o">=</span> <span class="s2">"/path/in/container"</span>
+      <span class="n">source</span> <span class="o">=</span> <span class="s2">"name-of-volume"</span>
+      <span class="n">readonly</span> <span class="o">=</span> <span class="kp">false</span>
+      <span class="n">volume_options</span> <span class="p">{</span>
+        <span class="n">no_copy</span> <span class="o">=</span> <span class="kp">false</span>
+        <span class="n">labels</span> <span class="p">{</span>
+          <span class="n">foo</span> <span class="o">=</span> <span class="s2">"bar"</span>
+        <span class="p">}</span>
+        <span class="n">driver_config</span> <span class="p">{</span>
+          <span class="nb">name</span> <span class="o">=</span> <span class="s2">"pxd"</span>
+          <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">foo</span> <span class="o">=</span> <span class="s2">"bar"</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="devices" /><a href="#devices"><code>devices</code></a> - (Optional) A list of
+<a href="https://docs.docker.com/engine/reference/commandline/run/#add-host-device-to-container-device">devices</a>
+to be exposed the container. <code>host_path</code> is the only required field. By default, the container will be able to
+<code>read</code>, <code>write</code> and <code>mknod</code> these devices. Use the optional <code>cgroup_permissions</code> field to restrict permissions.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">devices</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="n">host_path</span> <span class="o">=</span> <span class="s2">"/dev/sda1"</span>
+      <span class="n">container_path</span> <span class="o">=</span> <span class="s2">"/dev/xvdc"</span>
+      <span class="n">cgroup_permissions</span> <span class="o">=</span> <span class="s2">"r"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="n">host_path</span> <span class="o">=</span> <span class="s2">"/dev/sda2"</span>
+      <span class="n">container_path</span> <span class="o">=</span> <span class="s2">"/dev/xvdd"</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="cap_add" /><a href="#cap_add"><code>cap_add</code></a> - (Optional) A list of Linux capabilities as strings to pass directly to
+<a href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities"><code>--cap-add</code></a>.
+Effective capabilities (computed from <code>cap_add</code> and <code>cap_drop</code>) have to match the configured whitelist.
+The whitelist can be customized using the <code>docker.caps.whitelist</code> key in the client node&#39;s configuration.
+For example:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">cap_add</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"SYS_TIME"</span><span class="p">,</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="cap_drop" /><a href="#cap_drop"><code>cap_drop</code></a> - (Optional) A list of Linux capabilities as strings to pass directly to
+<a href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities"><code>--cap-drop</code></a>.
+Effective capabilities (computed from <code>cap_add</code> and <code>cap_drop</code>) have to match the configured whitelist.
+The whitelist can be customized using the <code>docker.caps.whitelist</code> key in the client node&#39;s configuration.
+For example:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">config</span> <span class="p">{</span>
+  <span class="n">cap_drop</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"MKNOD"</span><span class="p">,</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li><p><a name="cpu_hard_limit" /><a href="#cpu_hard_limit"><code>cpu_hard_limit</code></a> - (Optional) <code>true</code> or <code>false</code> (default). Use hard CPU
+limiting instead of soft limiting. By default this is <code>false</code> which means
+soft limiting is used and containers are able to burst above their CPU limit
+when there is idle capacity.</p>
+</li>
+<li><p><a name="advertise_ipv6_address" /><a href="#advertise_ipv6_address"><code>advertise_ipv6_address</code></a> - (Optional) <code>true</code> or <code>false</code> (default). Use the container&#39;s 
+IPv6 address (GlobalIPv6Address in Docker) when registering services and checks.
+See <a href="/docs/job-specification/service.html#IPv6%20Docker%20containers">IPv6 Docker containers</a> for details.</p>
+</li>
+<li><p><a name="readonly_rootfs" /><a href="#readonly_rootfs"><code>readonly_rootfs</code></a> - (Optional) <code>true</code> or <code>false</code> (default). Mount
+the container&#39;s filesystem as read only.</p>
+</li>
+<li><p><a name="pids_limit" /><a href="#pids_limit"><code>pids_limit</code></a> - (Optional) An integer value that specifies the pid limit for
+the container. Defaults to unlimited.</p>
+</li>
+</ul>
+<h3 id="container-name">
+  <a name="container-name" class="anchor" href="#container-name">&raquo;</a>
+  Container Name
+</h3>
+<p>Nomad creates a container after pulling an image. Containers are named
+<code>{taskName}-{allocId}</code>. This is necessary in order to place more than one
+container from the same task on a host (e.g. with count &gt; 1). This also means
+that each container&#39;s name is unique across the cluster.</p>
+<p>This is not configurable.</p>
+<h3 id="authentication">
+  <a name="authentication" class="anchor" href="#authentication">&raquo;</a>
+  Authentication
+</h3>
+<p>If you want to pull from a private repo (for example on dockerhub or quay.io),
+you will need to specify credentials in your job via:</p>
+
+<ul>
+<li><p>the <code>auth</code> option in the task config.</p>
+</li>
+<li><p>by storing explicit repository credentials or by specifying Docker
+<code>credHelpers</code> in a file and setting the <a href="#auth_file">docker.auth.config</a>
+value on the client.</p>
+</li>
+<li><p>by specifying a <a href="#auth_helper">docker.auth.helper</a> on the client</p>
+</li>
+</ul>
+<p>The <code>auth</code> object supports the following keys:</p>
+
+<ul>
+<li><p><a name="username" /><a href="#username"><code>username</code></a> - (Optional) The account username.</p>
+</li>
+<li><p><a name="password" /><a href="#password"><code>password</code></a> - (Optional) The account password.</p>
+</li>
+<li><p><a name="email" /><a href="#email"><code>email</code></a> - (Optional) The account email.</p>
+</li>
+<li><p><a name="server_address" /><a href="#server_address"><code>server_address</code></a> - (Optional) The server domain/IP without the protocol.
+Docker Hub is used by default.</p>
+</li>
+</ul>
+<p>Example task-config:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">task</span> <span class="s2">"example"</span> <span class="p">{</span>
+  <span class="n">driver</span> <span class="o">=</span> <span class="s2">"docker"</span>
+
+  <span class="n">config</span> <span class="p">{</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="s2">"secret/service"</span>
+
+    <span class="n">auth</span> <span class="p">{</span>
+      <span class="n">username</span> <span class="o">=</span> <span class="s2">"dockerhub_user"</span>
+      <span class="n">password</span> <span class="o">=</span> <span class="s2">"dockerhub_password"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>Example docker-config, using two helper scripts in $PATH,
+&quot;docker-credential-ecr&quot; and &quot;docker-credential-vault&quot;:</p>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"auths"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"internal.repo"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">"auth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"`echo -n '&lt;username&gt;:&lt;password&gt;' | base64 -w0`"</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"credHelpers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"&lt;XYZ&gt;.dkr.ecr.&lt;region&gt;.amazonaws.com"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ecr-login"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"credsStore"</span><span class="p">:</span><span class="w"> </span><span class="s2">"secretservice"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>Example agent configuration, using a helper script &quot;docker-credential-ecr&quot; in
+$PATH</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">client</span> <span class="p">{</span>
+  <span class="n">enabled</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">options</span> <span class="p">{</span>
+    <span class="s2">"docker.auth.helper"</span> <span class="o">=</span> <span class="s2">"ecr"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><div class="alert alert-danger" role="alert">
+<p><strong>Be Careful!</strong> At this time these credentials are stored in Nomad in plain
+text. Secrets management will be added in a later release.</p>
+</div>
+<h2 id="networking">
+  <a name="networking" class="anchor" href="#networking">&raquo;</a>
+  Networking
+</h2>
+<p>Docker supports a variety of networking configurations, including using host
+interfaces, SDNs, etc. Nomad uses <code>bridged</code> networking by default, like Docker.</p>
+<p>You can specify other networking options, including custom networking plugins
+in Docker 1.9. <strong>You may need to perform additional configuration on the host
+in order to make these work.</strong> This additional configuration is outside the
+scope of Nomad.</p>
+<h3 id="allocating-ports">
+  <a name="allocating-ports" class="anchor" href="#allocating-ports">&raquo;</a>
+  Allocating Ports
+</h3>
+<p>You can allocate ports to your task using the port syntax described on the
+<a href="/docs/job-specification/network.html">networking page</a>. Here is a recap:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">task</span> <span class="s2">"example"</span> <span class="p">{</span>
+  <span class="n">driver</span> <span class="o">=</span> <span class="s2">"docker"</span>
+
+  <span class="n">resources</span> <span class="p">{</span>
+    <span class="n">network</span> <span class="p">{</span>
+      <span class="n">port</span> <span class="s2">"http"</span> <span class="p">{}</span>
+      <span class="n">port</span> <span class="s2">"https"</span> <span class="p">{}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="forwarding-and-exposing-ports">
+  <a name="forwarding-and-exposing-ports" class="anchor" href="#forwarding-and-exposing-ports">&raquo;</a>
+  Forwarding and Exposing Ports
+</h3>
+<p>A Docker container typically specifies which port a service will listen on by
+specifying the <code>EXPOSE</code> directive in the <code>Dockerfile</code>.</p>
+<p>Because dynamic ports will not match the ports exposed in your Dockerfile,
+Nomad will automatically expose all of the ports it allocates to your
+container.</p>
+<p>These ports will be identified via environment variables. For example:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">port</span> <span class="s2">"http"</span> <span class="p">{}</span>
+</code></pre></div><p>If Nomad allocates port <code>23332</code> to your task for <code>http</code>, <code>23332</code> will be
+automatically exposed and forwarded to your container, and the driver will set
+an environment variable <code>NOMAD_PORT_http</code> with the value <code>23332</code> that you can
+read inside your container.</p>
+<p>This provides an easy way to use the <code>host</code> networking option for better
+performance.</p>
+<h3 id="using-the-port-map">
+  <a name="using-the-port-map" class="anchor" href="#using-the-port-map">&raquo;</a>
+  Using the Port Map
+</h3>
+<p>If you prefer to use the traditional port-mapping method, you can specify the
+<code>port_map</code> option in your job specification. It looks like this:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">task</span> <span class="s2">"example"</span> <span class="p">{</span>
+  <span class="n">driver</span> <span class="o">=</span> <span class="s2">"docker"</span>
+
+  <span class="n">config</span> <span class="p">{</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="s2">"redis"</span>
+
+    <span class="n">port_map</span> <span class="p">{</span>
+      <span class="n">redis</span> <span class="o">=</span> <span class="mi">6379</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">resources</span> <span class="p">{</span>
+    <span class="n">network</span> <span class="p">{</span>
+      <span class="n">mbits</span> <span class="o">=</span> <span class="mi">20</span>
+      <span class="n">port</span> <span class="s2">"redis"</span> <span class="p">{}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>If Nomad allocates port <code>23332</code> to your task, the Docker driver will
+automatically setup the port mapping from <code>23332</code> on the host to <code>6379</code> in your
+container, so it will just work!</p>
+<p>Note that by default this only works with <code>bridged</code> networking mode. It may
+also work with custom networking plugins which implement the same API for
+expose and port forwarding.</p>
+<h3 id="advertising-container-ips">
+  <a name="advertising-container-ips" class="anchor" href="#advertising-container-ips">&raquo;</a>
+  Advertising Container IPs
+</h3>
+<p><em>New in Nomad 0.6.</em></p>
+<p>When using network plugins like <code>weave</code> that assign containers a routable IP
+address, that address will automatically be used in any <code>service</code>
+advertisements for the task. You may override what address is advertised by
+using the <code>address_mode</code> parameter on a <code>service</code>. See
+<a href="/docs/job-specification/service.html">service</a> for details.</p>
+<h3 id="networking-protocols">
+  <a name="networking-protocols" class="anchor" href="#networking-protocols">&raquo;</a>
+  Networking Protocols
+</h3>
+<p>The Docker driver configures ports on both the <code>tcp</code> and <code>udp</code> protocols.</p>
+<p>This is not configurable.</p>
+<h3 id="other-networking-modes">
+  <a name="other-networking-modes" class="anchor" href="#other-networking-modes">&raquo;</a>
+  Other Networking Modes
+</h3>
+<p>Some networking modes like <code>container</code> or <code>none</code> will require coordination
+outside of Nomad. First-class support for these options may be improved later
+through Nomad plugins or dynamic job configuration.</p>
+<h2 id="client-requirements">
+  <a name="client-requirements" class="anchor" href="#client-requirements">&raquo;</a>
+  Client Requirements
+</h2>
+<p>Nomad requires Docker to be installed and running on the host alongside the
+Nomad agent. Nomad was developed against Docker <code>1.8.2</code> and <code>1.9</code>.</p>
+<p>By default Nomad communicates with the Docker daemon using the daemon&#39;s Unix
+socket. Nomad will need to be able to read/write to this socket. If you do not
+run Nomad as root, make sure you add the Nomad user to the Docker group so
+Nomad can communicate with the Docker daemon.</p>
+<p>For example, on Ubuntu you can use the <code>usermod</code> command to add the <code>vagrant</code>
+user to the <code>docker</code> group so you can run Nomad without root:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>sudo usermod -G docker -a vagrant
+</code></pre></div><p>For the best performance and security features you should use recent versions
+of the Linux Kernel and Docker daemon.</p>
+<h2 id="client-configuration">
+  <a name="client-configuration" class="anchor" href="#client-configuration">&raquo;</a>
+  Client Configuration
+</h2>
+<p>The <code>docker</code> driver has the following <a href="/docs/agent/configuration/client.html#options">client configuration
+options</a>:</p>
+
+<ul>
+<li><p><a name="docker-endpoint" /><a href="#docker-endpoint"><code>docker.endpoint</code></a> - If using a non-standard socket, HTTP or another location,
+or if TLS is being used, <code>docker.endpoint</code> must be set. If unset, Nomad will
+attempt to instantiate a Docker client using the <code>DOCKER_HOST</code> environment
+variable and then fall back to the default listen address for the given
+operating system. Defaults to <code>unix:///var/run/docker.sock</code> on Unix platforms
+and <code>npipe:////./pipe/docker_engine</code> for Windows.</p>
+</li>
+<li><p><a name="docker-auth-config" /><a href="#docker-auth-config"><code>docker.auth.config</code></a> <a id="auth_file"></a>- Allows an operator to specify a
+JSON file which is in the dockercfg format containing authentication
+information for a private registry, from either (in order) <code>auths</code>,
+<code>credHelpers</code> or <code>credsStore</code>.</p>
+</li>
+<li><p><a name="docker-auth-helper" /><a href="#docker-auth-helper"><code>docker.auth.helper</code></a> <a id="auth_helper"></a>- Allows an operator to specify
+a <a href="https://docs.docker.com/engine/reference/commandline/login/#credential-helper-protocol">credsStore</a>
+-like script on $PATH to lookup authentication information from external
+sources. The script&#39;s name must begin with <code>docker-credential-</code> and this
+option should include only the basename of the script, not the path.</p>
+</li>
+<li><p><a name="docker-tls-cert" /><a href="#docker-tls-cert"><code>docker.tls.cert</code></a> - Path to the server&#39;s certificate file (<code>.pem</code>). Specify
+this along with <code>docker.tls.key</code> and <code>docker.tls.ca</code> to use a TLS client to
+connect to the docker daemon. <code>docker.endpoint</code> must also be specified or
+this setting will be ignored.</p>
+</li>
+<li><p><a name="docker-tls-key" /><a href="#docker-tls-key"><code>docker.tls.key</code></a> - Path to the client&#39;s private key (<code>.pem</code>). Specify this
+along with <code>docker.tls.cert</code> and <code>docker.tls.ca</code> to use a TLS client to
+connect to the docker daemon. <code>docker.endpoint</code> must also be specified or
+this setting will be ignored.</p>
+</li>
+<li><p><a name="docker-tls-ca" /><a href="#docker-tls-ca"><code>docker.tls.ca</code></a> - Path to the server&#39;s CA file (<code>.pem</code>). Specify this along
+with <code>docker.tls.cert</code> and <code>docker.tls.key</code> to use a TLS client to connect to
+the docker daemon. <code>docker.endpoint</code> must also be specified or this setting
+will be ignored.</p>
+</li>
+<li><p><a name="docker-cleanup-image" /><a href="#docker-cleanup-image"><code>docker.cleanup.image</code></a> Defaults to <code>true</code>. Changing this to <code>false</code> will
+prevent Nomad from removing images from stopped tasks.</p>
+</li>
+<li><p><a name="docker-cleanup-image-delay" /><a href="#docker-cleanup-image-delay"><code>docker.cleanup.image.delay</code></a> A time duration, as <a href="https://golang.org/pkg/time/#ParseDuration">defined
+here</a>, that defaults to <code>3m</code>. The
+delay controls how long Nomad will wait between an image being unused and
+deleting it. If a tasks is received that uses the same image within the delay,
+the image will be reused.</p>
+</li>
+<li><p><a name="docker-volumes-enabled" /><a href="#docker-volumes-enabled"><code>docker.volumes.enabled</code></a>: Defaults to <code>true</code>. Allows tasks to bind host paths
+(<code>volumes</code>) inside their container and use volume drivers (<code>volume_driver</code>).
+Binding relative paths is always allowed and will be resolved relative to the
+allocation&#39;s directory.</p>
+</li>
+<li><p><a name="docker-volumes-selinuxlabel" /><a href="#docker-volumes-selinuxlabel"><code>docker.volumes.selinuxlabel</code></a>: Allows the operator to set a SELinux
+label to the allocation and task local bind-mounts to containers. If used
+with <code>docker.volumes.enabled</code> set to false, the labels will still be applied
+to the standard binds in the container.</p>
+</li>
+<li><p><a name="docker-privileged-enabled" /><a href="#docker-privileged-enabled"><code>docker.privileged.enabled</code></a> Defaults to <code>false</code>. Changing this to <code>true</code> will
+allow containers to use <code>privileged</code> mode, which gives the containers full
+access to the host&#39;s devices. Note that you must set a similar setting on the
+Docker daemon for this to work.</p>
+</li>
+<li><p><a name="docker-caps-whitelist" /><a href="#docker-caps-whitelist"><code>docker.caps.whitelist</code></a>: A list of allowed Linux capabilities. Defaults to
+<code>&quot;CHOWN,DAC_OVERRIDE,FSETID,FOWNER,MKNOD,NET_RAW,SETGID,SETUID,SETFCAP,SETPCAP,NET_BIND_SERVICE,SYS_CHROOT,KILL,AUDIT_WRITE&quot;</code>,
+which is the list of capabilities allowed by docker by default, as 
+<a href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">defined here</a>.
+Allows the operator to control which capabilities can be obtained by 
+tasks using <code>cap_add</code> and <code>cap_drop</code> options. Supports the value <code>&quot;ALL&quot;</code> as a 
+shortcut for whitelisting all capabilities.</p>
+</li>
+</ul>
+<p>Note: When testing or using the <code>-dev</code> flag you can use <code>DOCKER_HOST</code>,
+<code>DOCKER_TLS_VERIFY</code>, and <code>DOCKER_CERT_PATH</code> to customize Nomad&#39;s behavior. If
+<code>docker.endpoint</code> is set Nomad will <strong>only</strong> read client configuration from the
+config file.</p>
+<p>An example is given below:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">client</span> <span class="p">{</span>
+  <span class="n">options</span> <span class="p">{</span>
+    <span class="s2">"docker.cleanup.image"</span> <span class="o">=</span> <span class="s2">"false"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="client-attributes">
+  <a name="client-attributes" class="anchor" href="#client-attributes">&raquo;</a>
+  Client Attributes
+</h2>
+<p>The <code>docker</code> driver will set the following client attributes:</p>
+
+<ul>
+<li><a name="driver-docker" /><a href="#driver-docker"><code>driver.docker</code></a> - This will be set to &quot;1&quot;, indicating the driver is
+available.
+</li>
+<li><a name="driver-docker-bridge_ip" /><a href="#driver-docker-bridge_ip"><code>driver.docker.bridge_ip</code></a> - The IP of the Docker bridge network if one
+exists.
+</li>
+<li><a name="driver-docker-version" /><a href="#driver-docker-version"><code>driver.docker.version</code></a> - This will be set to version of the docker server.
+</li>
+</ul>
+<p>Here is an example of using these properties in a job file:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">job</span> <span class="s2">"docs"</span> <span class="p">{</span>
+  <span class="c1"># Require docker version higher than 1.2.</span>
+  <span class="n">constraint</span> <span class="p">{</span>
+    <span class="n">attribute</span> <span class="o">=</span> <span class="s2">"${driver.docker.version}"</span>
+    <span class="n">operator</span>  <span class="o">=</span> <span class="s2">"&gt;"</span>
+    <span class="n">version</span>   <span class="o">=</span> <span class="s2">"1.2"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="resource-isolation">
+  <a name="resource-isolation" class="anchor" href="#resource-isolation">&raquo;</a>
+  Resource Isolation
+</h2>
+<h3 id="cpu">
+  <a name="cpu" class="anchor" href="#cpu">&raquo;</a>
+  CPU
+</h3>
+<p>Nomad limits containers&#39; CPU based on CPU shares. CPU shares allow containers
+to burst past their CPU limits. CPU limits will only be imposed when there is
+contention for resources. When the host is under load your process may be
+throttled to stabilize QoS depending on how many shares it has. You can see how
+many CPU shares are available to your process by reading <code>NOMAD_CPU_LIMIT</code>.
+1000 shares are approximately equal to 1 GHz.</p>
+<p>Please keep the implications of CPU shares in mind when you load test workloads
+on Nomad.</p>
+<h3 id="memory">
+  <a name="memory" class="anchor" href="#memory">&raquo;</a>
+  Memory
+</h3>
+<p>Nomad limits containers&#39; memory usage based on total virtual memory. This means
+that containers scheduled by Nomad cannot use swap. This is to ensure that a
+swappy process does not degrade performance for other workloads on the same
+host.</p>
+<p>Since memory is not an elastic resource, you will need to make sure your
+container does not exceed the amount of memory allocated to it, or it will be
+terminated or crash when it tries to malloc. A process can inspect its memory
+limit by reading <code>NOMAD_MEMORY_LIMIT</code>, but will need to track its own memory
+usage. Memory limit is expressed in megabytes so 1024 = 1 GB.</p>
+<h3 id="io">
+  <a name="io" class="anchor" href="#io">&raquo;</a>
+  IO
+</h3>
+<p>Nomad&#39;s Docker integration does not currently provide QoS around network or
+filesystem IO. These will be added in a later release.</p>
+<h3 id="security">
+  <a name="security" class="anchor" href="#security">&raquo;</a>
+  Security
+</h3>
+<p>Docker provides resource isolation by way of
+<a href="https://docs.docker.com/introduction/understanding-docker/#the-underlying-technology">cgroups and namespaces</a>.
+Containers essentially have a virtual file system all to themselves. If you
+need a higher degree of isolation between processes for security or other
+reasons, it is recommended to use full virtualization like
+<a href="/docs/drivers/qemu.html">QEMU</a>.</p>
+<h2 id="docker-for-mac-caveats">
+  <a name="docker-for-mac-caveats" class="anchor" href="#docker-for-mac-caveats">&raquo;</a>
+  Docker for Mac Caveats
+</h2>
+<p>Docker for Mac runs Docker inside a small VM and then allows access to parts of
+the host filesystem into that VM. At present, nomad uses a syslog server bound to
+a Unix socket within a path that both the host and the VM can access to forward
+log messages back to nomad. But at present, Docker For Mac does not work for
+Unix domain sockets (<a href="https://github.com/docker/for-mac/issues/483">https://github.com/docker/for-mac/issues/483</a>) in one of
+these shared paths.</p>
+<p>As a result, using nomad with the docker driver on OS X/macOS will work, but no
+logs will be available to nomad. Users must use the native docker facilities to
+examine the logs of any jobs running under docker.</p>
+<p>In the future, we will resolve this issue, one way or another.</p>
+<h2 id="docker-for-windows-caveats">
+  <a name="docker-for-windows-caveats" class="anchor" href="#docker-for-windows-caveats">&raquo;</a>
+  Docker for Windows Caveats
+</h2>
+<p>Docker for Windows only supports running Windows containers. Because Docker for
+Windows is relatively new and rapidly evolving you may want to consult the
+<a href="https://github.com/hashicorp/nomad/issues?q=is%3Aopen+is%3Aissue+label%3Adriver%2Fdocker+label%3Aplatform-windows">list of relevant issues on GitHub</a>.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/guides/index.html">Guides</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/api/index.html">API</a></li>
+              <li><a href="/resources.html">Resources</a></li>
+              <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+              <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/nomad/blob/master/website/source/docs/drivers/docker.html.md">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Nomad",
+        "alternateName": "Nomad by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.nomadproject.io",
+        "logo": "https://www.nomadproject.io/assets/images/logo-hashicorp-039941e4.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/nomad"
+        ]
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The service stanza instructs Nomad to register the task as a service using the service discovery integration.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-d0ced218.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-194x194-bb8de46a.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/android-chrome-192x192-9f336178.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-10aa6ba6.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-330a0dd1.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-479e3179.svg" color="#25BA81">
+    <meta name="apple-mobile-web-app-title" content="HashiCorp Nomad">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="application-name" content="HashiCorp Nomad">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="msapplication-TileColor" content="#25BA81">
+    <meta name="msapplication-TileImage" content="/assets/images/favicons/mstile-144x144-7f37eaf2.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:url" content="https://www.nomadproject.io/docs/job-specification/service.html" />
+    <meta property="og:title" content="service Stanza - Job Specification - Nomad by HashiCorp" />
+    <meta property="og:site_name" content="Nomad by HashiCorp"/>
+    <meta property="og:image" content="https://www.nomadproject.io/assets/images/og-image-e0e8d18d.png"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="1200"/>
+    <meta property="og:description" content="The service stanza instructs Nomad to register the task as a service using the service discovery integration." />
+
+    <title>service Stanza - Job Specification - Nomad by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b44b5029.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-job-specification-service" class="layout-docs page-service-stanza-job-specification">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Nomad fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" class="logo" height="50">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/api/index.html">API</a></li>
+                  <li><a href="/resources.html">Resources</a></li>
+                  <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+                  <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/nomad">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" height="42">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/api/index.html">API</a></li>
+    <li><a href="/community.html">Community</a></li>
+    <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+    <li><a href="/security.html">Security</a></li>
+    <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/nomad">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <ul class="nav docs-sidenav">
+      <li>
+        <a href="/docs/install/index.html">Installing Nomad</a>
+      </li>
+
+      <li>
+        <a href="/docs/runtime/index.html">Runtime</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/runtime/environment.html">Environment</a>
+          </li>
+          <li>
+            <a href="/docs/runtime/interpolation.html">Interpolation</a>
+          </li>
+          <li>
+            <a href="/docs/runtime/schedulers.html">Schedulers</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="active">
+        <a href="/docs/job-specification/index.html">Job Specification</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/job-specification/artifact.html">artifact</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/check_restart.html">check_restart</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/constraint.html">constraint</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/dispatch_payload.html">dispatch_payload</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/env.html">env</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/ephemeral_disk.html">ephemeral_disk</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/group.html">group</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/job.html">job</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/logs.html">logs</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/meta.html">meta</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/migrate.html">migrate</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/network.html">network</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/parameterized.html">parameterized</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/periodic.html">periodic</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/reschedule.html">reschedule</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/resources.html">resources</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/restart.html">restart</a>
+          </li>
+          <li class="active">
+            <a href="/docs/job-specification/service.html">service</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/task.html">task</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/template.html">template</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/update.html">update</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/vault.html">vault</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/service-discovery/index.html">Service Discovery</a>
+      </li>
+
+      <li>
+        <a href="/docs/vault-integration/index.html">Vault Integration</a>
+      </li>
+
+      <li>
+        <a href="/docs/drivers/index.html">Drivers</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/drivers/docker.html">Docker</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/exec.html">Isolated Fork/Exec</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/java.html">Java</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/lxc.html">LXC</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/qemu.html">Qemu</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/raw_exec.html">Raw Fork/Exec</a>
+          </li>
+
+
+          <li>
+            <a href="/docs/drivers/rkt.html">Rkt</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/custom.html">Custom</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/commands/index.html">Commands (CLI)</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/commands/acl.html">acl</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/acl/bootstrap.html">bootstrap</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/policy-apply.html">policy apply</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/policy-delete.html">policy delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/policy-info.html">policy info</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/policy-list.html">policy list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-create.html">token create</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-delete.html">token delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-info.html">token info</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-self.html">token self</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-update.html">token update</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/agent.html">agent</a>
+          </li>
+          <li>
+            <a href="/docs/commands/agent-info.html">agent-info</a>
+          </li>
+          <li>
+            <a href="/docs/commands/alloc.html">alloc</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/alloc/fs.html">fs</a>
+              </li>
+              <li>
+                <a href="/docs/commands/alloc/logs.html">logs</a>
+              </li>
+              <li>
+                <a href="/docs/commands/alloc/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/deployment.html">deployment</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/deployment/fail.html">fail</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/list.html">list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/pause.html">pause</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/promote.html">promote</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/resume.html">resume</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/eval-status.html">eval status</a>
+          </li>
+          <li>
+            <a href="/docs/commands/job.html">job</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/job/deployments.html">deployments</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/dispatch.html">dispatch</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/eval.html">eval</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/history.html">history</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/init.html">init</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/inspect.html">inspect</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/plan.html">plan</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/promote.html">promote</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/revert.html">revert</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/run.html">run</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/status.html">status</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/stop.html">stop</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/validate.html">validate</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/namespace.html">namespace</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/namespace/apply.html">apply</a>
+              </li>
+              <li>
+                <a href="/docs/commands/namespace/delete.html">delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/namespace/inspect.html">inspect</a>
+              </li>
+              <li>
+                <a href="/docs/commands/namespace/list.html">list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/namespace/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/node.html">node</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/node/config.html">config</a>
+              </li>
+              <li>
+                <a href="/docs/commands/node/drain.html">drain</a>
+              </li>
+              <li>
+                <a href="/docs/commands/node/eligibility.html">eligibility</a>
+              </li>
+              <li>
+                <a href="/docs/commands/node/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/operator.html">operator</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/operator/autopilot-get-config.html">autopilot get-config</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/autopilot-set-config.html">autopilot set-config</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/keygen.html">keygen</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/keyring.html">keyring</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/raft-list-peers.html">raft list-peers</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/raft-remove-peer.html">raft remove-peer</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/quota.html">quota</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/quota/apply.html">apply</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/delete.html">delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/init.html">init</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/inspect.html">inspect</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/list.html">list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/sentinel.html">sentinel</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/sentinel/apply.html">apply</a>
+              </li>
+              <li>
+                <a href="/docs/commands/sentinel/delete.html">delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/sentinel/list.html">list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/sentinel/read.html">read</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/server.html">server</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/server/force-leave.html">force-leave</a>
+              </li>
+              <li>
+                <a href="/docs/commands/server/join.html">join</a>
+              </li>
+              <li>
+                <a href="/docs/commands/server/members.html">members</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/status.html">status</a>
+          </li>
+          <li>
+            <a href="/docs/commands/ui.html">ui</a>
+          </li>
+          <li>
+            <a href="/docs/commands/version.html">version</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/agent/index.html">Nomad Agent</a>
+
+        <ul class="nav">
+          <li >
+            <a href="/docs/agent/cloud_auto_join.html">Cloud Auto-join</a>
+          </li>
+          <li>
+            <a href="/docs/agent/configuration/index.html">Configuration</a>
+            <ul class="nav">
+              <li >
+                <a href="/docs/agent/configuration/acl.html">acl</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/autopilot.html">autopilot</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/client.html">client</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/consul.html">consul</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/sentinel.html">sentinel</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/server.html">server</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/server_join.html">server_join</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/telemetry.html">telemetry</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/tls.html">tls</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/vault.html">vault</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="/docs/agent/encryption.html">Encryption</a>
+          </li>
+          <li>
+            <a href="/docs/agent/telemetry.html">Telemetry</a>
+          </li>
+        </ul>
+      </li>
+
+      <hr>
+
+      <li>
+        <a href="/docs/internals/index.html">Internals</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/internals/architecture.html">Architecture</a>
+          </li>
+
+          <li>
+            <a href="/docs/internals/consensus.html">Consensus Protocol</a>
+          </li>
+
+          <li>
+            <a href="/docs/internals/gossip.html">Gossip Protocol</a>
+          </li>
+
+          <li>
+            <a href="/docs/internals/scheduling.html">Scheduling</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/upgrade/index.html">Upgrading</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/upgrade/index.html">Upgrading Nomad</a>
+          </li>
+          <li>
+            <a href="/docs/upgrade/upgrade-specific.html">Specific Version Details</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/faq.html">FAQ</a>
+      </li>
+
+      <hr>
+
+      <li>
+        <a href="/docs/enterprise/index.html">Nomad Enterprise</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/namespaces/index.html">Namespaces</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/quotas/index.html">Resource Quotas</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/sentinel/index.html">Sentinel Policies</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/autopilot/index.html">Advanced Autopilot</a>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="service-stanza">
+  <a name="service-stanza" class="anchor" href="#service-stanza">&raquo;</a>
+  <code>service</code> Stanza
+</h1>
+<table class="table table-bordered table-striped">
+<p><tr>
+  <th width="120">Placement</th>
+  <td>
+    <code>job -&gt; group -&gt; task -&gt; <strong>service</strong></code>
+  </td>
+</tr></p>
+</table><p>The <code>service</code> stanza instructs Nomad to register the task as a service using the
+service discovery integration. This section of the documentation will discuss the
+configuration, but please also read the
+<a href="/docs/service-discovery/index.html" title="Nomad Service Discovery">Nomad service discovery documentation</a> for more detailed
+information about the integration.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">job</span> <span class="s2">"docs"</span> <span class="p">{</span>
+  <span class="n">group</span> <span class="s2">"example"</span> <span class="p">{</span>
+    <span class="n">task</span> <span class="s2">"server"</span> <span class="p">{</span>
+      <span class="n">service</span> <span class="p">{</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"leader"</span><span class="p">,</span> <span class="s2">"mysql"</span><span class="p">]</span>
+
+        <span class="n">port</span> <span class="o">=</span> <span class="s2">"db"</span>
+
+        <span class="n">check</span> <span class="p">{</span>
+          <span class="n">type</span>     <span class="o">=</span> <span class="s2">"tcp"</span>
+          <span class="n">port</span>     <span class="o">=</span> <span class="s2">"db"</span>
+          <span class="n">interval</span> <span class="o">=</span> <span class="s2">"10s"</span>
+          <span class="n">timeout</span>  <span class="o">=</span> <span class="s2">"2s"</span>
+        <span class="p">}</span>
+
+        <span class="n">check</span> <span class="p">{</span>
+          <span class="n">type</span>     <span class="o">=</span> <span class="s2">"script"</span>
+          <span class="nb">name</span>     <span class="o">=</span> <span class="s2">"check_table"</span>
+          <span class="n">command</span>  <span class="o">=</span> <span class="s2">"/usr/local/bin/check_mysql_table_status"</span>
+          <span class="n">args</span>     <span class="o">=</span> <span class="p">[</span><span class="s2">"--verbose"</span><span class="p">]</span>
+          <span class="n">interval</span> <span class="o">=</span> <span class="s2">"60s"</span>
+          <span class="n">timeout</span>  <span class="o">=</span> <span class="s2">"5s"</span>
+
+          <span class="n">check_restart</span> <span class="p">{</span>
+            <span class="n">limit</span> <span class="o">=</span> <span class="mi">3</span>
+            <span class="n">grace</span> <span class="o">=</span> <span class="s2">"90s"</span>
+            <span class="n">ignore_warnings</span> <span class="o">=</span> <span class="kp">false</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>This section of the documentation only covers the job file options for
+configuring service discovery. For more information on the setup and
+configuration to integrate Nomad with service discovery, please see the
+<a href="/docs/service-discovery/index.html" title="Nomad Service Discovery">Nomad service discovery documentation</a>. There are steps you
+must take to configure Nomad. Simply adding this configuration to your job file
+does not automatically enable service discovery.</p>
+<h2 id="service-parameters">
+  <a name="service-parameters" class="anchor" href="#service-parameters">&raquo;</a>
+  <code>service</code> Parameters
+</h2>
+
+<ul>
+<li><p><a name="check" /><a href="#check"><code>check</code></a> <code>(<a href="#check-parameters">Check</a>: nil)</code> - Specifies a health
+check associated with the service. This can be specified multiple times to
+define multiple checks for the service. At this time, Nomad supports the
+<code>grpc</code>, <code>http</code>, <code>script</code><sup><small>1</small></sup>, and <code>tcp</code> checks.</p>
+</li>
+<li><p><a name="name" /><a href="#name"><code>name</code></a> <code>(string: &quot;&lt;job&gt;-&lt;group&gt;-&lt;task&gt;&quot;)</code> - Specifies the name this service
+will be advertised as in Consul.  If not supplied, this will default to the
+name of the job, group, and task concatenated together with a dash, like
+<code>&quot;docs-example-server&quot;</code>. Each service must have a unique name within the
+cluster. Names must adhere to <a href="https://tools.ietf.org/html/rfc1123#section-2">RFC-1123
+§2.1</a> and are limited to
+alphanumeric and hyphen characters (i.e. <code>[a-z0-9\-]</code>), and be less than 64
+characters in length.</p>
+<p>In addition to the standard <a href="/docs/runtime/interpolation.html" title="Nomad Runtime Interpolation">Nomad interpolation</a>, the
+following keys are also available:</p>
+
+<ul>
+<li><a name="job-" /><a href="#job-"><code>${JOB}</code></a> - the name of the job
+</li>
+<li><a name="group-" /><a href="#group-"><code>${GROUP}</code></a> - the name of the group
+</li>
+<li><a name="task-" /><a href="#task-"><code>${TASK}</code></a> - the name of the task
+</li>
+<li><a name="base-" /><a href="#base-"><code>${BASE}</code></a> - shorthand for <code>${JOB}-${GROUP}-${TASK}</code>
+</li>
+</ul>
+<p>Validation of the name occurs in two parts. When the job is registered, an initial validation pass checks that
+the service name adheres to RFC-1123 §2.1 and the length limit, excluding any variables requiring interpolation. 
+Once the client receives the service and all interpretable values are available, the service name will be 
+interpolated and revalidated. This can cause certain service names to pass validation at submit time but fail 
+at runtime.</p>
+</li>
+<li><p><a name="port" /><a href="#port"><code>port</code></a> <code>(string: &lt;optional&gt;)</code> - Specifies the port to advertise for this
+service. The value of <code>port</code> depends on which <a href="#address_mode"><code>address_mode</code></a>
+is being used:</p>
+
+<ul>
+<li><a name="driver" /><a href="#driver"><code>driver</code></a> - Advertise the port determined by the driver (eg Docker or rkt).
+The <code>port</code> may be a numeric port or a port label specified in the driver&#39;s
+<code>port_map</code>.
+</li>
+<li><a name="host" /><a href="#host"><code>host</code></a> - Advertise the host port for this service. <code>port</code> must match a port
+<em>label</em> specified in the <a href="/docs/job-specification/network.html" title="Nomad network Job Specification"><code>network</code></a> stanza.
+</li>
+</ul>
+</li>
+<li><p><a name="tags" /><a href="#tags"><code>tags</code></a> <code>(array&lt;string&gt;: [])</code> - Specifies the list of tags to associate with
+this service. If this is not supplied, no tags will be assigned to the service
+when it is registered.</p>
+</li>
+<li><p><a name="canary_tags" /><a href="#canary_tags"><code>canary_tags</code></a> <code>(array&lt;string&gt;: [])</code> - Specifies the list of tags to associate with
+this service when the service is part of an allocation that is currently a
+canary. Once the canary is promoted, the registered tags will be updated to
+those specified in the <code>tags</code> parameter. If this is not supplied, the
+registered tags will be equal to that of the `tags parameter.</p>
+</li>
+<li><p><a name="address_mode" /><a href="#address_mode"><code>address_mode</code></a> <code>(string: &quot;auto&quot;)</code> - Specifies what address (host or
+driver-specific) this service should advertise.  This setting is supported in
+Docker since Nomad 0.6 and rkt since Nomad 0.7. See <a href="#using-driver-address-mode">below for
+examples.</a> Valid options are:</p>
+
+<ul>
+<li><a name="auto" /><a href="#auto"><code>auto</code></a> - Allows the driver to determine whether the host or driver address
+should be used. Defaults to <code>host</code> and only implemented by Docker. If you
+use a Docker network plugin such as weave, Docker will automatically use
+its address.
+</li>
+<li><a name="driver-1" /><a href="#driver-1"><code>driver</code></a> - Use the IP specified by the driver, and the port specified in a
+port map. A numeric port may be specified since port maps aren&#39;t required
+by all network plugins. Useful for advertising SDN and overlay network
+addresses. Task will fail if driver network cannot be determined. Only
+implemented for Docker and rkt.
+</li>
+<li><a name="host-1" /><a href="#host-1"><code>host</code></a> - Use the host IP and port.
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="check-parameters">
+  <a name="check-parameters" class="anchor" href="#check-parameters">&raquo;</a>
+  <code>check</code> Parameters
+</h3>
+<p>Note that health checks run inside the task. If your task is a Docker container,
+the script will run inside the Docker container. If your task is running in a
+chroot, it will run in the chroot. Please keep this in mind when authoring check
+scripts.</p>
+
+<ul>
+<li><p><a name="address_mode-1" /><a href="#address_mode-1"><code>address_mode</code></a> <code>(string: &quot;host&quot;)</code> - Same as <code>address_mode</code> on <code>service</code>.
+Unlike services, checks do not have an <code>auto</code> address mode as there&#39;s no way
+for Nomad to know which is the best address to use for checks. Consul needs
+access to the address for any HTTP or TCP checks. Added in Nomad 0.7.1. See
+<a href="#using-driver-address-mode">below for details.</a> Unlike <code>port</code>, this setting
+is <em>not</em> inherited from the <code>service</code>.</p>
+</li>
+<li><p><a name="args" /><a href="#args"><code>args</code></a> <code>(array&lt;string&gt;: [])</code> - Specifies additional arguments to the
+<code>command</code>. This only applies to script-based health checks.</p>
+</li>
+<li><p><a name="check_restart" /><a href="#check_restart"><code>check_restart</code></a> - See <a href="/docs/job-specification/check_restart.html" title="check_restart stanza"><code>check_restart</code> stanza</a>.</p>
+</li>
+<li><p><a name="command" /><a href="#command"><code>command</code></a> <code>(string: &lt;varies&gt;)</code> - Specifies the command to run for performing
+the health check. The script must exit: 0 for passing, 1 for warning, or any
+other value for a failing health check. This is required for script-based
+health checks.</p>
+<div class="alert alert-warning" role="alert">
+<p><strong>Caveat:</strong> The command must be the path to the command on disk, and no
+shell exists by default. That means operators like <code>||</code> or <code>&amp;&amp;</code> are not
+available. Additionally, all arguments must be supplied via the <code>args</code>
+parameter. To achieve the behavior of shell operators, specify the command
+as a shell, like <code>/bin/bash</code> and then use <code>args</code> to run the check.</p>
+</div>
+</li>
+<li><p><a name="grpc_service" /><a href="#grpc_service"><code>grpc_service</code></a> <code>(string: &lt;optional&gt;)</code> - What service, if any, to specify in
+the gRPC health check. gRPC health checks require Consul 1.0.5 or later.</p>
+</li>
+<li><p><a name="grpc_use_tls" /><a href="#grpc_use_tls"><code>grpc_use_tls</code></a> <code>(bool: false)</code> - Use TLS to perform a gRPC health check. May
+be used with <code>tls_skip_verify</code> to use TLS but skip certificate verification.</p>
+</li>
+<li><p><a name="initial_status" /><a href="#initial_status"><code>initial_status</code></a> <code>(string: &lt;enum&gt;)</code> - Specifies the originating status of the
+service. Valid options are the empty string, <code>passing</code>, <code>warning</code>, and
+<code>critical</code>.</p>
+</li>
+<li><p><a name="interval" /><a href="#interval"><code>interval</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the frequency of the health checks
+that Consul will perform. This is specified using a label suffix like &quot;30s&quot;
+or &quot;1h&quot;. This must be greater than or equal to &quot;1s&quot;</p>
+</li>
+<li><p><a name="method" /><a href="#method"><code>method</code></a> <code>(string: &quot;GET&quot;)</code> - Specifies the HTTP method to use for HTTP
+checks.</p>
+</li>
+<li><p><a name="name-1" /><a href="#name-1"><code>name</code></a> <code>(string: &quot;service: &lt;name&gt; check&quot;)</code> - Specifies the name of the health
+check. If the name is not specified Nomad generates one based on the service name.
+If you have more than one check you must specify the name.</p>
+</li>
+<li><p><a name="path" /><a href="#path"><code>path</code></a> <code>(string: &lt;varies&gt;)</code> - Specifies the path of the HTTP endpoint which
+Consul will query to query the health of a service. Nomad will automatically
+add the IP of the service and the port, so this is just the relative URL to
+the health check endpoint. This is required for http-based health checks.</p>
+</li>
+<li><p><a name="port-1" /><a href="#port-1"><code>port</code></a> <code>(string: &lt;varies&gt;)</code> - Specifies the label of the port on which the
+check will be performed. Note this is the <em>label</em> of the port and not the port
+number unless <code>address_mode = driver</code>. The port label must match one defined
+in the <a href="/docs/job-specification/network.html" title="Nomad network Job Specification"><code>network</code></a> stanza. If a port value was declared on the
+<code>service</code>, this will inherit from that value if not supplied. If supplied,
+this value takes precedence over the <code>service.port</code> value. This is useful for
+services which operate on multiple ports. <code>grpc</code>, <code>http</code>, and <code>tcp</code> checks
+require a port while <code>script</code> checks do not. Checks will use the host IP and
+ports by default. In Nomad 0.7.1 or later numeric ports may be used if
+<code>address_mode=&quot;driver&quot;</code> is set on the check.</p>
+</li>
+<li><p><a name="protocol" /><a href="#protocol"><code>protocol</code></a> <code>(string: &quot;http&quot;)</code> - Specifies the protocol for the http-based
+health checks. Valid options are <code>http</code> and <code>https</code>.</p>
+</li>
+<li><p><a name="timeout" /><a href="#timeout"><code>timeout</code></a> <code>(string: &lt;required&gt;)</code> - Specifies how long Consul will wait for a
+health check query to succeed. This is specified using a label suffix like
+&quot;30s&quot; or &quot;1h&quot;. This must be greater than or equal to &quot;1s&quot;</p>
+</li>
+<li><p><a name="type" /><a href="#type"><code>type</code></a> <code>(string: &lt;required&gt;)</code> - This indicates the check types supported by
+Nomad. Valid options are <code>grpc</code>, <code>http</code>, <code>script</code>, and <code>tcp</code>. gRPC health
+checks require Consul 1.0.5 or later.</p>
+</li>
+<li><p><a name="tls_skip_verify" /><a href="#tls_skip_verify"><code>tls_skip_verify</code></a> <code>(bool: false)</code> - Skip verifying TLS certificates for HTTPS
+checks. Requires Consul &gt;= 0.7.2.</p>
+</li>
+</ul>
+<h4 id="header-stanza">
+  <a name="header-stanza" class="anchor" href="#header-stanza">&raquo;</a>
+  <code>header</code> Stanza
+</h4>
+<p>HTTP checks may include a <code>header</code> stanza to set HTTP headers. The <code>header</code>
+stanza parameters have lists of strings as values. Multiple values will cause
+the header to be set multiple times, once for each value.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">service</span> <span class="p">{</span>
+  <span class="c1"># ...</span>
+  <span class="n">check</span> <span class="p">{</span>
+    <span class="n">type</span>     <span class="o">=</span> <span class="s2">"http"</span>
+    <span class="n">port</span>     <span class="o">=</span> <span class="s2">"lb"</span>
+    <span class="n">path</span>     <span class="o">=</span> <span class="s2">"/_healthz"</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="s2">"5s"</span>
+    <span class="n">timeout</span>  <span class="o">=</span> <span class="s2">"2s"</span>
+    <span class="n">header</span> <span class="p">{</span>
+      <span class="no">Authorization</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Basic ZWxhc3RpYzpjaGFuZ2VtZQ=="</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="service-examples">
+  <a name="service-examples" class="anchor" href="#service-examples">&raquo;</a>
+  <code>service</code> Examples
+</h2>
+<p>The following examples only show the <code>service</code> stanzas. Remember that the
+<code>service</code> stanza is only valid in the placements listed above.</p>
+<h3 id="basic-service">
+  <a name="basic-service" class="anchor" href="#basic-service">&raquo;</a>
+  Basic Service
+</h3>
+<p>This example registers a service named &quot;load-balancer&quot; with no health checks.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">service</span> <span class="p">{</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">"load-balancer"</span>
+  <span class="n">port</span> <span class="o">=</span> <span class="s2">"lb"</span>
+<span class="p">}</span>
+</code></pre></div><p>This example must be accompanied by a <a href="/docs/job-specification/network.html" title="Nomad network Job Specification"><code>network</code></a> stanza which defines
+a static or dynamic port labeled &quot;lb&quot;. For example:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resources</span> <span class="p">{</span>
+  <span class="n">network</span> <span class="p">{</span>
+    <span class="n">mbits</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">port</span> <span class="s2">"lb"</span> <span class="p">{}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="check-with-bash-isms">
+  <a name="check-with-bash-isms" class="anchor" href="#check-with-bash-isms">&raquo;</a>
+  Check with Bash-isms
+</h3>
+<p>This example shows a common mistake and correct behavior for custom checks.
+Suppose a health check like this:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">test</span> <span class="nt">-f</span> /tmp/file.txt
+</code></pre></div><p>In this example <code>test</code> is not actually a command (binary) on the system; it is a
+built-in shell function to bash. Thus, the following <strong>would not work</strong>:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">service</span> <span class="p">{</span>
+  <span class="n">check</span> <span class="p">{</span>
+    <span class="n">type</span>    <span class="o">=</span> <span class="s2">"script"</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="s2">"test -f /tmp/file.txt"</span> <span class="c1"># THIS IS NOT CORRECT</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>Nomad will attempt to find an executable named <code>test</code> on your system, but it
+does not exist. It is actually just a function of bash. Additionally, it is not
+possible to specify the arguments in a single string. Here is the correct
+solution:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">service</span> <span class="p">{</span>
+  <span class="n">check</span> <span class="p">{</span>
+    <span class="n">type</span>    <span class="o">=</span> <span class="s2">"script"</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="s2">"/bin/bash"</span>
+    <span class="n">args</span>    <span class="o">=</span> <span class="p">[</span><span class="s2">"-c"</span><span class="p">,</span> <span class="s2">"test -f /tmp/file.txt"</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>The <code>command</code> is actually <code>/bin/bash</code>, since that is the actual process we are
+running. The arguments to that command are the script itself, which each
+argument provided as a value to the <code>args</code> array.</p>
+<h3 id="http-health-check">
+  <a name="http-health-check" class="anchor" href="#http-health-check">&raquo;</a>
+  HTTP Health Check
+</h3>
+<p>This example shows a service with an HTTP health check. This will query the
+service on the IP and port registered with Nomad at <code>/_healthz</code> every 5 seconds,
+giving the service a maximum of 2 seconds to return a response, and include an
+Authorization header. Any non-2xx code is considered a failure.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">service</span> <span class="p">{</span>
+  <span class="n">check</span> <span class="p">{</span>
+    <span class="n">type</span>     <span class="o">=</span> <span class="s2">"http"</span>
+    <span class="n">port</span>     <span class="o">=</span> <span class="s2">"lb"</span>
+    <span class="n">path</span>     <span class="o">=</span> <span class="s2">"/_healthz"</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="s2">"5s"</span>
+    <span class="n">timeout</span>  <span class="o">=</span> <span class="s2">"2s"</span>
+    <span class="n">header</span> <span class="p">{</span>
+      <span class="no">Authorization</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Basic ZWxhc3RpYzpjaGFuZ2VtZQ=="</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="multiple-health-checks">
+  <a name="multiple-health-checks" class="anchor" href="#multiple-health-checks">&raquo;</a>
+  Multiple Health Checks
+</h3>
+<p>This example shows a service with multiple health checks defined. All health
+checks must be passing in order for the service to register as healthy.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">service</span> <span class="p">{</span>
+  <span class="n">check</span> <span class="p">{</span>
+    <span class="nb">name</span>     <span class="o">=</span> <span class="s2">"HTTP Check"</span>
+    <span class="n">type</span>     <span class="o">=</span> <span class="s2">"http"</span>
+    <span class="n">port</span>     <span class="o">=</span> <span class="s2">"lb"</span>
+    <span class="n">path</span>     <span class="o">=</span> <span class="s2">"/_healthz"</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="s2">"5s"</span>
+    <span class="n">timeout</span>  <span class="o">=</span> <span class="s2">"2s"</span>
+  <span class="p">}</span>
+
+  <span class="n">check</span> <span class="p">{</span>
+    <span class="nb">name</span>     <span class="o">=</span> <span class="s2">"HTTPS Check"</span>
+    <span class="n">type</span>     <span class="o">=</span> <span class="s2">"http"</span>
+    <span class="n">protocol</span> <span class="o">=</span> <span class="s2">"https"</span>
+    <span class="n">port</span>     <span class="o">=</span> <span class="s2">"lb"</span>
+    <span class="n">path</span>     <span class="o">=</span> <span class="s2">"/_healthz"</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="s2">"5s"</span>
+    <span class="n">timeout</span>  <span class="o">=</span> <span class="s2">"2s"</span>
+    <span class="nb">method</span>   <span class="o">=</span> <span class="s2">"POST"</span>
+  <span class="p">}</span>
+
+  <span class="n">check</span> <span class="p">{</span>
+    <span class="nb">name</span>     <span class="o">=</span> <span class="s2">"Postgres Check"</span>
+    <span class="n">type</span>     <span class="o">=</span> <span class="s2">"script"</span>
+    <span class="n">command</span>  <span class="o">=</span> <span class="s2">"/usr/local/bin/pg-tools"</span>
+    <span class="n">args</span>     <span class="o">=</span> <span class="p">[</span><span class="s2">"verify"</span><span class="p">,</span> <span class="s2">"database"</span> <span class="s2">"prod"</span><span class="p">,</span> <span class="s2">"up"</span><span class="p">]</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="s2">"5s"</span>
+    <span class="n">timeout</span>  <span class="o">=</span> <span class="s2">"2s"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="grpc-health-check">
+  <a name="grpc-health-check" class="anchor" href="#grpc-health-check">&raquo;</a>
+  gRPC Health Check
+</h3>
+<p>gRPC health checks use the same host and port behavior as <code>http</code> and <code>tcp</code>
+checks, but gRPC checks also have an optional gRPC service to health check. Not
+all gRPC applications require a service to health check. gRPC health checks
+require Consul 1.0.5 or later.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">service</span> <span class="p">{</span>
+  <span class="n">check</span> <span class="p">{</span>
+    <span class="n">type</span>            <span class="o">=</span> <span class="s2">"grpc"</span>
+    <span class="n">port</span>            <span class="o">=</span> <span class="s2">"rpc"</span>
+    <span class="n">interval</span>        <span class="o">=</span> <span class="s2">"5s"</span>
+    <span class="n">timeout</span>         <span class="o">=</span> <span class="s2">"2s"</span>
+    <span class="n">grpc_service</span>    <span class="o">=</span> <span class="s2">"example.Service"</span>
+    <span class="n">grpc_use_tls</span>    <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">tls_skip_verify</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>In this example Consul would health check the <code>example.Service</code> service on the
+<code>rpc</code> port defined in the task&#39;s <a href="/docs/job-specification/network.html" title="Nomad network Job Specification">network resources</a> stanza.  See
+<a href="#using-driver-address-mode">Using Driver Address Mode</a> for details on address
+selection.</p>
+<h3 id="using-driver-address-mode">
+  <a name="using-driver-address-mode" class="anchor" href="#using-driver-address-mode">&raquo;</a>
+  Using Driver Address Mode
+</h3>
+<p>The <a href="/docs/drivers/docker.html#network_mode">Docker</a> and
+<a href="/docs/drivers/rkt.html#net">rkt</a> drivers support the <code>driver</code> setting for the
+<code>address_mode</code> parameter in both <code>service</code> and <code>check</code> stanzas. The driver
+address mode allows advertising and health checking the IP and port assigned to
+a task by the driver. This way if you&#39;re using a network plugin like Weave with
+Docker, you can advertise the Weave address in Consul instead of the host&#39;s
+address.</p>
+<p>For example if you were running the example Redis job in an environment with
+Weave but Consul was running on the host you could use the following
+configuration:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">job</span> <span class="s2">"example"</span> <span class="p">{</span>
+  <span class="n">datacenters</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"dc1"</span><span class="p">]</span>
+  <span class="n">group</span> <span class="s2">"cache"</span> <span class="p">{</span>
+
+    <span class="n">task</span> <span class="s2">"redis"</span> <span class="p">{</span>
+      <span class="n">driver</span> <span class="o">=</span> <span class="s2">"docker"</span>
+
+      <span class="n">config</span> <span class="p">{</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="s2">"redis:3.2"</span>
+        <span class="n">network_mode</span> <span class="o">=</span> <span class="s2">"weave"</span>
+        <span class="n">port_map</span> <span class="p">{</span>
+          <span class="n">db</span> <span class="o">=</span> <span class="mi">6379</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="n">resources</span> <span class="p">{</span>
+        <span class="n">cpu</span>    <span class="o">=</span> <span class="mi">500</span> <span class="c1"># 500 MHz</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="mi">256</span> <span class="c1"># 256MB</span>
+        <span class="n">network</span> <span class="p">{</span>
+          <span class="n">mbits</span> <span class="o">=</span> <span class="mi">10</span>
+          <span class="n">port</span> <span class="s2">"db"</span> <span class="p">{}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="n">service</span> <span class="p">{</span>
+        <span class="nb">name</span> <span class="o">=</span> <span class="s2">"weave-redis"</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="s2">"db"</span>
+        <span class="n">check</span> <span class="p">{</span>
+          <span class="nb">name</span>     <span class="o">=</span> <span class="s2">"host-redis-check"</span>
+          <span class="n">type</span>     <span class="o">=</span> <span class="s2">"tcp"</span>
+          <span class="n">interval</span> <span class="o">=</span> <span class="s2">"10s"</span>
+          <span class="n">timeout</span>  <span class="o">=</span> <span class="s2">"2s"</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>No explicit <code>address_mode</code> required!</p>
+<p>Services default to the <code>auto</code> address mode. When a Docker network mode other
+than &quot;host&quot; or &quot;bridge&quot; is used, services will automatically advertise the
+driver&#39;s address (in this case Weave&#39;s). The service will advertise the
+container&#39;s port: 6379.</p>
+<p>However since Consul is often run on the host without access to the Weave
+network, <code>check</code> stanzas default to <code>host</code> address mode. The TCP check will run
+against the host&#39;s IP and the dynamic host port assigned by Nomad.</p>
+<p>Note that the <code>check</code> still inherits the <code>service</code> stanza&#39;s <code>db</code> port label,
+but each will resolve the port label according to their address mode.</p>
+<p>If Consul has access to the Weave network the job could be configured like
+this:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">job</span> <span class="s2">"example"</span> <span class="p">{</span>
+  <span class="n">datacenters</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"dc1"</span><span class="p">]</span>
+  <span class="n">group</span> <span class="s2">"cache"</span> <span class="p">{</span>
+
+    <span class="n">task</span> <span class="s2">"redis"</span> <span class="p">{</span>
+      <span class="n">driver</span> <span class="o">=</span> <span class="s2">"docker"</span>
+
+      <span class="n">config</span> <span class="p">{</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="s2">"redis:3.2"</span>
+        <span class="n">network_mode</span> <span class="o">=</span> <span class="s2">"weave"</span>
+        <span class="c1"># No port map required!</span>
+      <span class="p">}</span>
+
+      <span class="n">resources</span> <span class="p">{</span>
+        <span class="n">cpu</span>    <span class="o">=</span> <span class="mi">500</span> <span class="c1"># 500 MHz</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="mi">256</span> <span class="c1"># 256MB</span>
+        <span class="n">network</span> <span class="p">{</span>
+          <span class="n">mbits</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="n">service</span> <span class="p">{</span>
+        <span class="nb">name</span> <span class="o">=</span> <span class="s2">"weave-redis"</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="mi">6379</span>
+        <span class="n">address_mode</span> <span class="o">=</span> <span class="s2">"driver"</span>
+        <span class="n">check</span> <span class="p">{</span>
+          <span class="nb">name</span>     <span class="o">=</span> <span class="s2">"host-redis-check"</span>
+          <span class="n">type</span>     <span class="o">=</span> <span class="s2">"tcp"</span>
+          <span class="n">interval</span> <span class="o">=</span> <span class="s2">"10s"</span>
+          <span class="n">timeout</span>  <span class="o">=</span> <span class="s2">"2s"</span>
+          <span class="n">port</span>     <span class="o">=</span> <span class="mi">6379</span>
+
+          <span class="n">address_mode</span> <span class="o">=</span> <span class="s2">"driver"</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>In this case Nomad doesn&#39;t need to assign Redis any host ports. The <code>service</code>
+and <code>check</code> stanzas can both specify the port number to advertise and check
+directly since Nomad isn&#39;t managing any port assignments.</p>
+<h3 id="ipv6-docker-containers">
+  <a name="ipv6-docker-containers" class="anchor" href="#ipv6-docker-containers">&raquo;</a>
+  IPv6 Docker containers
+</h3>
+<p>The <a href="/docs/drivers/docker.html#advertise_ipv6_address">Docker</a> driver supports the
+<code>advertise_ipv6_address</code> parameter in it&#39;s configuration.</p>
+<p>Services will automatically advertise the IPv6 address when <code>advertise_ipv6_address</code> 
+is used.</p>
+<p>Unlike services, checks do not have an <code>auto</code> address mode as there&#39;s no way
+for Nomad to know which is the best address to use for checks. Consul needs
+access to the address for any HTTP or TCP checks.</p>
+<p>So you have to set <code>address_mode</code> parameter in the <code>check</code> stanza to <code>driver</code>.</p>
+<p>For example using <code>auto</code> address mode:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">job</span> <span class="s2">"example"</span> <span class="p">{</span>
+  <span class="n">datacenters</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"dc1"</span><span class="p">]</span>
+  <span class="n">group</span> <span class="s2">"cache"</span> <span class="p">{</span>
+
+    <span class="n">task</span> <span class="s2">"redis"</span> <span class="p">{</span>
+      <span class="n">driver</span> <span class="o">=</span> <span class="s2">"docker"</span>
+
+      <span class="n">config</span> <span class="p">{</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="s2">"redis:3.2"</span>
+        <span class="n">advertise_ipv6_address</span> <span class="o">=</span> <span class="kp">true</span>
+        <span class="n">port_map</span> <span class="p">{</span>
+          <span class="n">db</span> <span class="o">=</span> <span class="mi">6379</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="n">resources</span> <span class="p">{</span>
+        <span class="n">cpu</span>    <span class="o">=</span> <span class="mi">500</span> <span class="c1"># 500 MHz</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="mi">256</span> <span class="c1"># 256MB</span>
+        <span class="n">network</span> <span class="p">{</span>
+          <span class="n">mbits</span> <span class="o">=</span> <span class="mi">10</span>
+          <span class="n">port</span> <span class="s2">"db"</span> <span class="p">{}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="n">service</span> <span class="p">{</span>
+        <span class="nb">name</span> <span class="o">=</span> <span class="s2">"ipv6-redis"</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">db</span>
+        <span class="n">check</span> <span class="p">{</span>
+          <span class="nb">name</span>     <span class="o">=</span> <span class="s2">"ipv6-redis-check"</span>
+          <span class="n">type</span>     <span class="o">=</span> <span class="s2">"tcp"</span>
+          <span class="n">interval</span> <span class="o">=</span> <span class="s2">"10s"</span>
+          <span class="n">timeout</span>  <span class="o">=</span> <span class="s2">"2s"</span>
+          <span class="n">port</span>     <span class="o">=</span> <span class="n">db</span>
+          <span class="n">address_mode</span> <span class="o">=</span> <span class="s2">"driver"</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>Or using <code>address_mode=driver</code> for <code>service</code> and <code>check</code> with numeric ports:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">job</span> <span class="s2">"example"</span> <span class="p">{</span>
+  <span class="n">datacenters</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"dc1"</span><span class="p">]</span>
+  <span class="n">group</span> <span class="s2">"cache"</span> <span class="p">{</span>
+
+    <span class="n">task</span> <span class="s2">"redis"</span> <span class="p">{</span>
+      <span class="n">driver</span> <span class="o">=</span> <span class="s2">"docker"</span>
+
+      <span class="n">config</span> <span class="p">{</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="s2">"redis:3.2"</span>
+        <span class="n">advertise_ipv6_address</span> <span class="o">=</span> <span class="kp">true</span>
+        <span class="c1"># No port map required!</span>
+      <span class="p">}</span>
+
+      <span class="n">resources</span> <span class="p">{</span>
+        <span class="n">cpu</span>    <span class="o">=</span> <span class="mi">500</span> <span class="c1"># 500 MHz</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="mi">256</span> <span class="c1"># 256MB</span>
+        <span class="n">network</span> <span class="p">{</span>
+          <span class="n">mbits</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="n">service</span> <span class="p">{</span>
+        <span class="nb">name</span> <span class="o">=</span> <span class="s2">"ipv6-redis"</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="mi">6379</span>
+        <span class="n">address_mode</span> <span class="o">=</span> <span class="s2">"driver"</span>
+        <span class="n">check</span> <span class="p">{</span>
+          <span class="nb">name</span>     <span class="o">=</span> <span class="s2">"ipv6-redis-check"</span>
+          <span class="n">type</span>     <span class="o">=</span> <span class="s2">"tcp"</span>
+          <span class="n">interval</span> <span class="o">=</span> <span class="s2">"10s"</span>
+          <span class="n">timeout</span>  <span class="o">=</span> <span class="s2">"2s"</span>
+          <span class="n">port</span>     <span class="o">=</span> <span class="mi">6379</span>
+          <span class="n">address_mode</span> <span class="o">=</span> <span class="s2">"driver"</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>The <code>service</code> and <code>check</code> stanzas can both specify the port number to 
+advertise and check directly since Nomad isn&#39;t managing any port assignments.</p>
+
+<hr/>
+<p><sup><small>1</small></sup><small> Script checks are not supported for the
+<a href="/docs/drivers/qemu.html" title="Nomad qemu Driver">qemu driver</a> since the Nomad client does not have access to the file
+system of a task for that driver.</small></p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/guides/index.html">Guides</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/api/index.html">API</a></li>
+              <li><a href="/resources.html">Resources</a></li>
+              <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+              <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/nomad/blob/master/website/source/docs/job-specification/service.html.md">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Nomad",
+        "alternateName": "Nomad by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.nomadproject.io",
+        "logo": "https://www.nomadproject.io/assets/images/logo-hashicorp-039941e4.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/nomad"
+        ]
+      }
+    </script>
+  </body>
+</html>

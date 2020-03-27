@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The &#x2F;operator endpoints provides cluster-level tools for Nomad operators, such as interacting with the Raft subsystem.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-d0ced218.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-194x194-bb8de46a.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/android-chrome-192x192-9f336178.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-10aa6ba6.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-330a0dd1.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-479e3179.svg" color="#25BA81">
+    <meta name="apple-mobile-web-app-title" content="HashiCorp Nomad">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="application-name" content="HashiCorp Nomad">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="msapplication-TileColor" content="#25BA81">
+    <meta name="msapplication-TileImage" content="/assets/images/favicons/mstile-144x144-7f37eaf2.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:url" content="https://www.nomadproject.io/api/operator.html" />
+    <meta property="og:title" content="Operator - HTTP API - Nomad by HashiCorp" />
+    <meta property="og:site_name" content="Nomad by HashiCorp"/>
+    <meta property="og:image" content="https://www.nomadproject.io/assets/images/og-image-e0e8d18d.png"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="1200"/>
+    <meta property="og:description" content="The &#x2F;operator endpoints provides cluster-level tools for Nomad operators, such as interacting with the Raft subsystem." />
+
+    <title>Operator - HTTP API - Nomad by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b44b5029.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-api-operator" class="layout-api page-operator-http-api">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Nomad fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" class="logo" height="50">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/api/index.html">API</a></li>
+                  <li><a href="/resources.html">Resources</a></li>
+                  <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+                  <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/nomad">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" height="42">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/api/index.html">API</a></li>
+    <li><a href="/community.html">Community</a></li>
+    <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+    <li><a href="/security.html">Security</a></li>
+    <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/nomad">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <ul class="nav docs-sidenav">
+      <li>
+        <a href="/api/index.html">Overview</a>
+      </li>
+
+      <li>
+        <a href="/api/libraries-and-sdks.html">Libraries &amp; SDKs</a>
+      </li>
+
+      <li>
+        <a href="/api/json-jobs.html">JSON Jobs</a>
+      </li>
+
+      <hr>
+
+      <li>
+        <a href="/api/acl-policies.html">ACL Policies</a>
+      </li>
+
+      <li>
+        <a href="/api/acl-tokens.html">ACL Tokens</a>
+      </li>
+
+      <li>
+        <a href="/api/agent.html">Agent</a>
+      </li>
+
+      <li>
+        <a href="/api/allocations.html">Allocations</a>
+      </li>
+
+      <li>
+        <a href="/api/client.html">Client</a>
+      </li>
+
+      <li>
+        <a href="/api/deployments.html">Deployments</a>
+      </li>
+
+      <li>
+        <a href="/api/evaluations.html">Evaluations</a>
+      </li>
+
+      <li>
+        <a href="/api/jobs.html">Jobs</a>
+      </li>
+
+      <li>
+        <a href="/api/namespaces.html">Namespaces</a>
+      </li>
+
+      <li>
+        <a href="/api/nodes.html">Nodes</a>
+      </li>
+
+      <li>
+        <a href="/api/metrics.html">Metrics</a>
+      </li>
+
+      <li class="active">
+        <a href="/api/operator.html">Operator</a>
+      </li>
+
+      <li>
+        <a href="/api/quotas.html">Quotas</a>
+      </li>
+
+      <li>
+        <a href="/api/regions.html">Regions</a>
+      </li>
+
+      <li>
+        <a href="/api/search.html">Search</a>
+      </li>
+
+      <li>
+          <a href="/api/sentinel-policies.html">Sentinel Policies</a>
+      </li>
+
+      <li>
+        <a href="/api/status.html">Status</a>
+      </li>
+
+      <li>
+        <a href="/api/system.html">System</a>
+      </li>
+
+      <li>
+        <a href="/api/ui.html">UI</a>
+      </li>
+
+      <li>
+        <a href="/api/validate.html">Validate</a>
+      </li>
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="v1-operator">
+  <a name="v1-operator" class="anchor" href="#v1-operator">&raquo;</a>
+  /v1/operator
+</h1>
+<p>The <code>/operator</code> endpoint provides cluster-level tools for Nomad operators, such
+as interacting with the Raft subsystem.</p>
+<div class="alert alert-warning" role="alert">
+<p>Use this interface with extreme caution, as improper use could lead to a
+Nomad outage and even loss of data.</p>
+</div>
+<p>See the <a href="/guides/outage.html">Outage Recovery</a> guide for some examples of how
+these capabilities are used. For a CLI to perform these operations manually,
+please see the documentation for the
+<a href="/docs/commands/operator.html"><code>nomad operator</code></a> command.</p>
+<h2 id="read-raft-configuration">
+  <a name="read-raft-configuration" class="anchor" href="#read-raft-configuration">&raquo;</a>
+  Read Raft Configuration
+</h2>
+<p>This endpoint queries the status of a client node registered with Nomad.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/v1/operator/raft/configuration</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>management</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters">
+  <a name="parameters" class="anchor" href="#parameters">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><a name="stale" /><a href="#stale"><code>stale</code></a> - Specifies if the cluster should respond without an active leader.
+This is specified as a querystring parameter.
+</li>
+</ul>
+<h3 id="sample-request">
+  <a name="sample-request" class="anchor" href="#sample-request">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    https://localhost:4646/v1/operator/raft/configuration
+</code></pre></div><h3 id="sample-response">
+  <a name="sample-response" class="anchor" href="#sample-response">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"Index"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Servers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"Address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"127.0.0.1:4647"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"127.0.0.1:4647"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Leader"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Node"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bacon-mac.global"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"RaftProtocol"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Voter"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h4 id="field-reference">
+  <a name="field-reference" class="anchor" href="#field-reference">&raquo;</a>
+  Field Reference
+</h4>
+
+<ul>
+<li><p><a name="index" /><a href="#index"><code>Index</code></a> <code>(int)</code> - The <code>Index</code> value is the Raft corresponding to this
+configuration. The latest configuration may not yet be committed if changes
+are in flight.</p>
+</li>
+<li><p><a name="servers" /><a href="#servers"><code>Servers</code></a> <code>(array: Server)</code> - The returned <code>Servers</code> array has information
+about the servers in the Raft peer configuration.</p>
+
+<ul>
+<li><a name="id" /><a href="#id"><code>ID</code></a> <code>(string)</code> - The ID of the server. This is the same as the <code>Address</code>
+but may be upgraded to a GUID in a future version of Nomad.
+</li>
+<li><a name="node" /><a href="#node"><code>Node</code></a> <code>(string)</code> - The node name of the server, as known to Nomad, or
+<code>&quot;(unknown)&quot;</code> if the node is stale and not known.
+</li>
+<li><a name="address" /><a href="#address"><code>Address</code></a> <code>(string)</code> - The <code>ip:port</code> for the server.
+</li>
+<li><a name="leader" /><a href="#leader"><code>Leader</code></a> <code>(bool)</code> - is either &quot;true&quot; or &quot;false&quot; depending on the server&#39;s
+role in the Raft configuration.
+</li>
+<li><a name="voter" /><a href="#voter"><code>Voter</code></a> <code>(bool)</code> - is &quot;true&quot; or &quot;false&quot;, indicating if the server has a vote
+in the Raft configuration. Future versions of Nomad may add support for
+non-voting servers.
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="remove-raft-peer">
+  <a name="remove-raft-peer" class="anchor" href="#remove-raft-peer">&raquo;</a>
+  Remove Raft Peer
+</h2>
+<p>This endpoint removes a Nomad server with given address from the Raft
+configuration. The return code signifies success or failure.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>DELETE</code></td>
+<td><code>/v1/operator/raft/peer</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>management</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-1">
+  <a name="parameters-1" class="anchor" href="#parameters-1">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><p><a name="address-1" /><a href="#address-1"><code>address</code></a> <code>(string: &lt;optional&gt;)</code> - Specifies the server to remove as
+<code>ip:port</code>. This cannot be provided along with the <code>id</code> parameter.</p>
+</li>
+<li><p><a name="id-1" /><a href="#id-1"><code>id</code></a> <code>(string: &lt;optional&gt;)</code> - Specifies the server to remove as
+<code>id</code>. This cannot be provided along with the <code>address</code> parameter.</p>
+</li>
+<li><p><a name="stale-1" /><a href="#stale-1"><code>stale</code></a> - Specifies if the cluster should respond without an active leader.
+This is specified as a querystring parameter.</p>
+</li>
+</ul>
+<h3 id="sample-request-1">
+  <a name="sample-request-1" class="anchor" href="#sample-request-1">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    --request DELETE \
+    https://localhost:4646/v1/operator/raft/peer?address=1.2.3.4
+</code></pre></div><h2 id="read-autopilot-configuration">
+  <a name="read-autopilot-configuration" class="anchor" href="#read-autopilot-configuration">&raquo;</a>
+  Read Autopilot Configuration
+</h2>
+<p>This endpoint retrieves its latest Autopilot configuration.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/operator/autopilot/configuration</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a>,
+<a href="/api/index.html#consistency-modes">consistency modes</a>, and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>Consistency Modes</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>none</code></td>
+<td><code>operator:read</code></td>
+</tr>
+</tbody></table>
+<h3 id="sample-request-2">
+  <a name="sample-request-2" class="anchor" href="#sample-request-2">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    https://localhost:4646/operator/autopilot/configuration
+</code></pre></div><h3 id="sample-response-1">
+  <a name="sample-response-1" class="anchor" href="#sample-response-1">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"CleanupDeadServers"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"LastContactThreshold"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200ms"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"MaxTrailingLogs"</span><span class="p">:</span><span class="w"> </span><span class="mi">250</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ServerStabilizationTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10s"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EnableRedundancyZones"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"DisableUpgradeMigration"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EnableCustomUpgrades"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>For more information about the Autopilot configuration options, see the
+<a href="/docs/agent/configuration/autopilot.html">agent configuration section</a>.</p>
+<h2 id="update-autopilot-configuration">
+  <a name="update-autopilot-configuration" class="anchor" href="#update-autopilot-configuration">&raquo;</a>
+  Update Autopilot Configuration
+</h2>
+<p>This endpoint updates the Autopilot configuration of the cluster.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>PUT</code></td>
+<td><code>/operator/autopilot/configuration</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a>,
+<a href="/api/index.html#consistency-modes">consistency modes</a>, and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>Consistency Modes</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>none</code></td>
+<td><code>operator:write</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-2">
+  <a name="parameters-2" class="anchor" href="#parameters-2">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><a name="cas" /><a href="#cas"><code>cas</code></a> <code>(int: 0)</code> - Specifies to use a Check-And-Set operation. The update will
+only happen if the given index matches the <code>ModifyIndex</code> of the configuration
+at the time of writing.
+</li>
+</ul>
+<h3 id="sample-payload">
+  <a name="sample-payload" class="anchor" href="#sample-payload">&raquo;</a>
+  Sample Payload
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"CleanupDeadServers"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"LastContactThreshold"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200ms"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"MaxTrailingLogs"</span><span class="p">:</span><span class="w"> </span><span class="mi">250</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ServerStabilizationTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10s"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EnableRedundancyZones"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"DisableUpgradeMigration"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EnableCustomUpgrades"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<ul>
+<li><p><a name="cleanupdeadservers" /><a href="#cleanupdeadservers"><code>CleanupDeadServers</code></a> <code>(bool: true)</code> - Specifies automatic removal of dead
+server nodes periodically and whenever a new server is added to the cluster.</p>
+</li>
+<li><p><a name="lastcontactthreshold" /><a href="#lastcontactthreshold"><code>LastContactThreshold</code></a> <code>(string: &quot;200ms&quot;)</code> - Specifies the maximum amount of
+time a server can go without contact from the leader before being considered
+unhealthy. Must be a duration value such as <code>10s</code>.</p>
+</li>
+<li><p><a name="maxtrailinglogs" /><a href="#maxtrailinglogs"><code>MaxTrailingLogs</code></a> <code>(int: 250)</code> specifies the maximum number of log entries
+that a server can trail the leader by before being considered unhealthy.</p>
+</li>
+<li><p><a name="serverstabilizationtime" /><a href="#serverstabilizationtime"><code>ServerStabilizationTime</code></a> <code>(string: &quot;10s&quot;)</code> - Specifies the minimum amount of
+time a server must be stable in the &#39;healthy&#39; state before being added to the
+cluster. Only takes effect if all servers are running Raft protocol version 3
+or higher. Must be a duration value such as <code>30s</code>.</p>
+</li>
+<li><p><a name="enableredundancyzones" /><a href="#enableredundancyzones"><code>EnableRedundancyZones</code></a> <code>(bool: false)</code> - (Enterprise-only) Specifies whether 
+to enable redundancy zones.</p>
+</li>
+<li><p><a name="disableupgrademigration" /><a href="#disableupgrademigration"><code>DisableUpgradeMigration</code></a> <code>(bool: false)</code> - (Enterprise-only) Disables Autopilot&#39;s
+upgrade migration strategy in Nomad Enterprise of waiting until enough
+newer-versioned servers have been added to the cluster before promoting any of
+them to voters.</p>
+</li>
+<li><p><a name="enablecustomupgrades" /><a href="#enablecustomupgrades"><code>EnableCustomUpgrades</code></a> <code>(bool: false)</code> - (Enterprise-only) Specifies whether to 
+enable using custom upgrade versions when performing migrations.</p>
+</li>
+</ul>
+<h2 id="read-health">
+  <a name="read-health" class="anchor" href="#read-health">&raquo;</a>
+  Read Health
+</h2>
+<p>This endpoint queries the health of the autopilot status.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/operator/autopilot/health</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a>,
+<a href="/api/index.html#consistency-modes">consistency modes</a>, and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>Consistency Modes</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>none</code></td>
+<td><code>operator:read</code></td>
+</tr>
+</tbody></table>
+<h3 id="sample-request-3">
+  <a name="sample-request-3" class="anchor" href="#sample-request-3">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    https://localhost:4646/v1/operator/autopilot/health
+</code></pre></div><h3 id="sample-response-2">
+  <a name="sample-response-2" class="anchor" href="#sample-response-2">&raquo;</a>
+  Sample response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"Healthy"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"FailureTolerance"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Servers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e349749b-3303-3ddf-959c-b5885a0e1f6e"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"127.0.0.1:8300"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"SerfStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alive"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.8.0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Leader"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"LastContact"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0s"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"LastTerm"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"LastIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">46</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Healthy"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Voter"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"StableSince"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-06T22:07:51Z"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e36ee410-cc3c-0a0c-c724-63817ab30303"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"127.0.0.1:8205"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"SerfStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alive"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.8.0"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Leader"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"LastContact"</span><span class="p">:</span><span class="w"> </span><span class="s2">"27.291304ms"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"LastTerm"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"LastIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">46</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Healthy"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Voter"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"StableSince"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-03-06T22:18:26Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<ul>
+<li><p><a name="healthy" /><a href="#healthy"><code>Healthy</code></a> is whether all the servers are currently healthy.</p>
+</li>
+<li><p><a name="failuretolerance" /><a href="#failuretolerance"><code>FailureTolerance</code></a> is the number of redundant healthy servers that could be
+fail without causing an outage (this would be 2 in a healthy cluster of 5
+servers).</p>
+</li>
+<li><p><a name="servers-1" /><a href="#servers-1"><code>Servers</code></a> holds detailed health information on each server:</p>
+
+<ul>
+<li><a name="id-2" /><a href="#id-2"><code>ID</code></a> is the Raft ID of the server.
+</li>
+<li><a name="name" /><a href="#name"><code>Name</code></a> is the node name of the server.
+</li>
+<li><a name="address-2" /><a href="#address-2"><code>Address</code></a> is the address of the server.
+</li>
+<li><a name="serfstatus" /><a href="#serfstatus"><code>SerfStatus</code></a> is the SerfHealth check status for the server.
+</li>
+<li><a name="version" /><a href="#version"><code>Version</code></a> is the Nomad version of the server.
+</li>
+<li><a name="leader-1" /><a href="#leader-1"><code>Leader</code></a> is whether this server is currently the leader.
+</li>
+<li><a name="lastcontact" /><a href="#lastcontact"><code>LastContact</code></a> is the time elapsed since this server&#39;s last contact with the leader.
+</li>
+<li><a name="lastterm" /><a href="#lastterm"><code>LastTerm</code></a> is the server&#39;s last known Raft leader term.
+</li>
+<li><a name="lastindex" /><a href="#lastindex"><code>LastIndex</code></a> is the index of the server&#39;s last committed Raft log entry.
+</li>
+<li><a name="healthy-1" /><a href="#healthy-1"><code>Healthy</code></a> is whether the server is healthy according to the current Autopilot configuration.
+</li>
+<li><a name="voter-1" /><a href="#voter-1"><code>Voter</code></a> is whether the server is a voting member of the Raft cluster.
+</li>
+<li><a name="stablesince" /><a href="#stablesince"><code>StableSince</code></a> is the time this server has been in its current <code>Healthy</code> state.
+</li>
+</ul>
+</li>
+</ul>
+<p>The HTTP status code will indicate the health of the cluster. If <code>Healthy</code> is true, then a
+  status of 200 will be returned. If <code>Healthy</code> is false, then a status of 429 will be returned.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/guides/index.html">Guides</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/api/index.html">API</a></li>
+              <li><a href="/resources.html">Resources</a></li>
+              <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+              <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/nomad/blob/master/website/source/api/operator.html.md">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Nomad",
+        "alternateName": "Nomad by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.nomadproject.io",
+        "logo": "https://www.nomadproject.io/assets/images/logo-hashicorp-039941e4.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/nomad"
+        ]
+      }
+    </script>
+  </body>
+</html>

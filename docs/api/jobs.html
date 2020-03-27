@@ -1,0 +1,2544 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The &#x2F;jobs endpoints are used to query for and interact with jobs.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-d0ced218.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-194x194-bb8de46a.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/android-chrome-192x192-9f336178.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-10aa6ba6.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-330a0dd1.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-479e3179.svg" color="#25BA81">
+    <meta name="apple-mobile-web-app-title" content="HashiCorp Nomad">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="application-name" content="HashiCorp Nomad">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="msapplication-TileColor" content="#25BA81">
+    <meta name="msapplication-TileImage" content="/assets/images/favicons/mstile-144x144-7f37eaf2.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:url" content="https://www.nomadproject.io/api/jobs.html" />
+    <meta property="og:title" content="Jobs - HTTP API - Nomad by HashiCorp" />
+    <meta property="og:site_name" content="Nomad by HashiCorp"/>
+    <meta property="og:image" content="https://www.nomadproject.io/assets/images/og-image-e0e8d18d.png"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="1200"/>
+    <meta property="og:description" content="The &#x2F;jobs endpoints are used to query for and interact with jobs." />
+
+    <title>Jobs - HTTP API - Nomad by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b44b5029.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-api-jobs" class="layout-api page-jobs-http-api">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Nomad fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" class="logo" height="50">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/api/index.html">API</a></li>
+                  <li><a href="/resources.html">Resources</a></li>
+                  <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+                  <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/nomad">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" height="42">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/api/index.html">API</a></li>
+    <li><a href="/community.html">Community</a></li>
+    <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+    <li><a href="/security.html">Security</a></li>
+    <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/nomad">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <ul class="nav docs-sidenav">
+      <li>
+        <a href="/api/index.html">Overview</a>
+      </li>
+
+      <li>
+        <a href="/api/libraries-and-sdks.html">Libraries &amp; SDKs</a>
+      </li>
+
+      <li>
+        <a href="/api/json-jobs.html">JSON Jobs</a>
+      </li>
+
+      <hr>
+
+      <li>
+        <a href="/api/acl-policies.html">ACL Policies</a>
+      </li>
+
+      <li>
+        <a href="/api/acl-tokens.html">ACL Tokens</a>
+      </li>
+
+      <li>
+        <a href="/api/agent.html">Agent</a>
+      </li>
+
+      <li>
+        <a href="/api/allocations.html">Allocations</a>
+      </li>
+
+      <li>
+        <a href="/api/client.html">Client</a>
+      </li>
+
+      <li>
+        <a href="/api/deployments.html">Deployments</a>
+      </li>
+
+      <li>
+        <a href="/api/evaluations.html">Evaluations</a>
+      </li>
+
+      <li class="active">
+        <a href="/api/jobs.html">Jobs</a>
+      </li>
+
+      <li>
+        <a href="/api/namespaces.html">Namespaces</a>
+      </li>
+
+      <li>
+        <a href="/api/nodes.html">Nodes</a>
+      </li>
+
+      <li>
+        <a href="/api/metrics.html">Metrics</a>
+      </li>
+
+      <li>
+        <a href="/api/operator.html">Operator</a>
+      </li>
+
+      <li>
+        <a href="/api/quotas.html">Quotas</a>
+      </li>
+
+      <li>
+        <a href="/api/regions.html">Regions</a>
+      </li>
+
+      <li>
+        <a href="/api/search.html">Search</a>
+      </li>
+
+      <li>
+          <a href="/api/sentinel-policies.html">Sentinel Policies</a>
+      </li>
+
+      <li>
+        <a href="/api/status.html">Status</a>
+      </li>
+
+      <li>
+        <a href="/api/system.html">System</a>
+      </li>
+
+      <li>
+        <a href="/api/ui.html">UI</a>
+      </li>
+
+      <li>
+        <a href="/api/validate.html">Validate</a>
+      </li>
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="jobs-http-api">
+  <a name="jobs-http-api" class="anchor" href="#jobs-http-api">&raquo;</a>
+  Jobs HTTP API
+</h1>
+<p>The <code>/jobs</code> endpoints are used to query for and interact with jobs.</p>
+<h2 id="list-jobs">
+  <a name="list-jobs" class="anchor" href="#list-jobs">&raquo;</a>
+  List Jobs
+</h2>
+<p>This endpoint lists all known jobs in the system registered with Nomad.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/v1/jobs</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>YES</code></td>
+<td><code>namespace:list-jobs</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters">
+  <a name="parameters" class="anchor" href="#parameters">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><a name="prefix" /><a href="#prefix"><code>prefix</code></a> <code>(string: &quot;&quot;)</code> - Specifies a string to filter jobs on based on
+an index prefix. This is specified as a querystring parameter.
+</li>
+</ul>
+<h3 id="sample-request">
+  <a name="sample-request" class="anchor" href="#sample-request">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    https://localhost:4646/v1/jobs
+</code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    https://localhost:4646/v1/jobs?prefix=team
+</code></pre></div><h3 id="sample-response">
+  <a name="sample-response" class="anchor" href="#sample-response">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ParentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Priority"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"StatusDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobSummary"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"JobID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Summary"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"cache"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"Queued"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Complete"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Failed"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Running"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Starting"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Lost"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"Children"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"Pending"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Running"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Dead"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">96</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">93</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">52</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div><h2 id="create-job">
+  <a name="create-job" class="anchor" href="#create-job">&raquo;</a>
+  Create Job
+</h2>
+<p>This endpoint creates (aka &quot;registers&quot;) a new job in the system.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/v1/jobs</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>namespace:submit-job</code><br><code>namespace:sentinel-override</code> if <code>PolicyOverride</code> set</td>
+</tr>
+</tbody></table>
+<h3 id="parameters-1">
+  <a name="parameters-1" class="anchor" href="#parameters-1">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><p><a name="job" /><a href="#job"><code>Job</code></a> <code>(Job: &lt;required&gt;)</code> - Specifies the JSON definition of the job.</p>
+</li>
+<li><p><a name="enforceindex" /><a href="#enforceindex"><code>EnforceIndex</code></a> <code>(bool: false)</code> - If set, the job will only be registered if the
+passed <code>JobModifyIndex</code> matches the current job&#39;s index. If the index is zero,
+the register only occurs if the job is new. This paradigm allows check-and-set
+style job updating.</p>
+</li>
+<li><p><a name="jobmodifyindex" /><a href="#jobmodifyindex"><code>JobModifyIndex</code></a> <code>(int: 0)</code> - Specifies the <code>JobModifyIndex</code> to enforce the
+current job is at.</p>
+</li>
+<li><p><a name="policyoverride" /><a href="#policyoverride"><code>PolicyOverride</code></a> <code>(bool: false)</code> - If set, any soft mandatory Sentinel policies
+will be overridden. This allows a job to be registered when it would be denied
+by policy.</p>
+</li>
+</ul>
+<h3 id="sample-payload">
+  <a name="sample-payload" class="anchor" href="#sample-payload">&raquo;</a>
+  Sample Payload
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"Job"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Priority"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Datacenters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"dc1"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"TaskGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+            </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cache"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+                </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redis"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Driver"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"User"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redis:3.2"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"port_map"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+                        </span><span class="s2">"db"</span><span class="p">:</span><span class="w"> </span><span class="mi">6379</span><span class="w">
+                    </span><span class="p">}]</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"Services"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+                    </span><span class="s2">"Id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redis-cache"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"Tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                        </span><span class="s2">"global"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"cache"</span><span class="w">
+                    </span><span class="p">],</span><span class="w">
+                    </span><span class="s2">"PortLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"db"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"AddressMode"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"Checks"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+                        </span><span class="s2">"Id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alive"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tcp"</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"Command"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"Args"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"Path"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"Protocol"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"PortLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"Interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000000000</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"Timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000000000</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"InitialStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"TLSSkipVerify"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                    </span><span class="p">}]</span><span class="w">
+                </span><span class="p">}],</span><span class="w">
+                </span><span class="s2">"Resources"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"CPU"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"MemoryMB"</span><span class="p">:</span><span class="w"> </span><span class="mi">256</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"Networks"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+                        </span><span class="s2">"Device"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"CIDR"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"IP"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"MBits"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+                        </span><span class="s2">"DynamicPorts"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+                            </span><span class="s2">"Label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"db"</span><span class="p">,</span><span class="w">
+                            </span><span class="s2">"Value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+                        </span><span class="p">}]</span><span class="w">
+                    </span><span class="p">}]</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"Leader"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">}],</span><span class="w">
+            </span><span class="s2">"RestartPolicy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"Interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">300000000000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Attempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Delay"</span><span class="p">:</span><span class="w"> </span><span class="mi">25000000000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delay"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"ReschedulePolicy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"Attempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Delay"</span><span class="p">:</span><span class="w"> </span><span class="mi">30000000000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"DelayFunction"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exponential"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"MaxDelay"</span><span class="p">:</span><span class="w"> </span><span class="mi">3600000000000</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Unlimited"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"EphemeralDisk"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"SizeMB"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}],</span><span class="w">
+        </span><span class="s2">"Update"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"MaxParallel"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"MinHealthyTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000000000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"HealthyDeadline"</span><span class="p">:</span><span class="w"> </span><span class="mi">180000000000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"AutoRevert"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Canary"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id="sample-request-1">
+  <a name="sample-request-1" class="anchor" href="#sample-request-1">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    --request POST \
+    --data @my-job.nomad \
+    https://localhost:4646/v1/jobs
+</code></pre></div><h3 id="sample-response-1">
+  <a name="sample-response-1" class="anchor" href="#sample-response-1">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"EvalID"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EvalCreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">109</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Warnings"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Index"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"LastContact"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"KnownLeader"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id="parse-job">
+  <a name="parse-job" class="anchor" href="#parse-job">&raquo;</a>
+  Parse Job
+</h2>
+<p>This endpoint will parse a HCL jobspec and produce the equivalent JSON encoded
+job.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/v1/jobs/parse</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>none</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-2">
+  <a name="parameters-2" class="anchor" href="#parameters-2">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><a name="jobhcl" /><a href="#jobhcl"><code>JobHCL</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the HCL definition of the job
+encoded in a JSON string.
+</li>
+<li><a name="canonicalize" /><a href="#canonicalize"><code>Canonicalize</code></a> <code>(bool: false)</code> - Flag to enable setting any unset fields to
+their default values.
+</li>
+</ul>
+<h2 id="sample-payload-1">
+  <a name="sample-payload-1" class="anchor" href="#sample-payload-1">&raquo;</a>
+  Sample Payload
+</h2>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"JobHCL"</span><span class="p">:</span><span class="s2">"job </span><span class="se">\"</span><span class="s2">example</span><span class="se">\"</span><span class="s2"> { type = </span><span class="se">\"</span><span class="s2">service</span><span class="se">\"</span><span class="s2"> group </span><span class="se">\"</span><span class="s2">cache</span><span class="se">\"</span><span class="s2"> {} }"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Canonicalize"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id="sample-request-2">
+  <a name="sample-request-2" class="anchor" href="#sample-request-2">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    --request POST \
+    --data '{"Canonicalize": true, "JobHCL": "job \"my-job\" {}"}' \
+    https://localhost:4646/v1/jobs/parse
+</code></pre></div><h3 id="sample-response-2">
+  <a name="sample-response-2" class="anchor" href="#sample-response-2">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"AllAtOnce"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Constraints"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Datacenters"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-job"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Migrate"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-job"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Namespace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ParameterizedJob"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ParentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Payload"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Periodic"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Priority"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"global"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Reschedule"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Stable"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"StatusDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Stop"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"SubmitTime"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"TaskGroups"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Update"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"VaultToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Version"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id="read-job">
+  <a name="read-job" class="anchor" href="#read-job">&raquo;</a>
+  Read Job
+</h2>
+<p>This endpoint reads information about a single job for its specification and
+status.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/v1/job/:job_id</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>YES</code></td>
+<td><code>namespace:read-job</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-3">
+  <a name="parameters-3" class="anchor" href="#parameters-3">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><a name="job_id" /><a href="#job_id"><code>:job_id</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified in
+the job file during submission). This is specified as part of the path.
+</li>
+</ul>
+<h3 id="sample-request-3">
+  <a name="sample-request-3" class="anchor" href="#sample-request-3">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    https://localhost:4646/v1/job/my-job
+</code></pre></div><h3 id="sample-response-3">
+  <a name="sample-response-3" class="anchor" href="#sample-response-3">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"Region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"global"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ParentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"batch"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Priority"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"AllAtOnce"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Datacenters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"dc1"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"Constraints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"LTarget"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${attr.kernel.name}"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"RTarget"</span><span class="p">:</span><span class="w"> </span><span class="s2">"linux"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Operand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"="</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"TaskGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cache"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Constraints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"LTarget"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${attr.os.signals}"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"RTarget"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SIGUSR1"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Operand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"set_contains"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"RestartPolicy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"Attempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">300000000000</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Delay"</span><span class="p">:</span><span class="w"> </span><span class="mi">25000000000</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delay"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"Tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redis"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Driver"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"User"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo-user"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redis:latest"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"port_map"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"db"</span><span class="p">:</span><span class="w"> </span><span class="mi">6379</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"Env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"foo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bar"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"baz"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pipe"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"Services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cache-redis"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"PortLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"db"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"Tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"global"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"cache"</span><span class="w">
+              </span><span class="p">],</span><span class="w">
+              </span><span class="s2">"Checks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alive"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tcp"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"Command"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"Args"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"Path"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"Protocol"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"PortLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"Interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000000000</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"Timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000000000</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"InitialStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"Vault"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Templates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"SourcePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"local/config.conf.tpl"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"DestPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"local/config.conf"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"EmbeddedTmpl"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"ChangeMode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"signal"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"ChangeSignal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SIGUSR1"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"Splay"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000000000</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"Perms"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"Constraints"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Resources"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"CPU"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"MemoryMB"</span><span class="p">:</span><span class="w"> </span><span class="mi">256</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DiskMB"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"IOPS"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Networks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"Device"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"CIDR"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"IP"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"MBits"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"ReservedPorts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                  </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"Label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rpc"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"Value"</span><span class="p">:</span><span class="w"> </span><span class="mi">25566</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="s2">"DynamicPorts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                  </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"Label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"db"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"Value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"DispatchPayload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"File"</span><span class="p">:</span><span class="w"> </span><span class="s2">"config.json"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"foo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bar"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"baz"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pipe"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"KillTimeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000000000</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"LogConfig"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"MaxFiles"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"MaxFileSizeMB"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"Artifacts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"GetterSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://foo.com/artifact.tar.gz"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"GetterOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"md5:c4aa853ad2215426eb7d70a21922e794"</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="s2">"RelativeDest"</span><span class="p">:</span><span class="w"> </span><span class="s2">"local/"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="s2">"Leader"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"EphemeralDisk"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"Sticky"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"SizeMB"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Migrate"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"foo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bar"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"baz"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pipe"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"Update"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"Stagger"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000000000</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"MaxParallel"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"Periodic"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"Enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Spec"</span><span class="p">:</span><span class="w"> </span><span class="s2">"* * * * *"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"SpecType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cron"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ProhibitOverlap"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"ParameterizedJob"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"Payload"</span><span class="p">:</span><span class="w"> </span><span class="s2">"required"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"MetaRequired"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"foo"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"MetaOptional"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"bar"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"Payload"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"foo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bar"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"baz"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pipe"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"VaultToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"StatusDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id="list-job-versions">
+  <a name="list-job-versions" class="anchor" href="#list-job-versions">&raquo;</a>
+  List Job Versions
+</h2>
+<p>This endpoint reads information about all versions of a job.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/v1/job/:job_id/versions</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>YES</code></td>
+<td><code>namespace:read-job</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-4">
+  <a name="parameters-4" class="anchor" href="#parameters-4">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><a name="job_id-1" /><a href="#job_id-1"><code>:job_id</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified in
+the job file during submission). This is specified as part of the path.
+</li>
+</ul>
+<h3 id="sample-request-4">
+  <a name="sample-request-4" class="anchor" href="#sample-request-4">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    https://localhost:4646/v1/job/my-job/versions
+</code></pre></div><h3 id="sample-response-4">
+  <a name="sample-response-4" class="anchor" href="#sample-response-4">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"Stop"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"global"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ParentID"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Priority"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"AllAtOnce"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Datacenters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"dc1"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"Constraints"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"TaskGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cache"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Count"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Update"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"Stagger"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"MaxParallel"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"HealthCheck"</span><span class="p">:</span><span class="w"> </span><span class="s2">"checks"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"MinHealthyTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000000000</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"HealthyDeadline"</span><span class="p">:</span><span class="w"> </span><span class="mi">300000000000</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"AutoRevert"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Canary"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"Constraints"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"RestartPolicy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"Attempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">300000000000</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Delay"</span><span class="p">:</span><span class="w"> </span><span class="mi">25000000000</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delay"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"Tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redis"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Driver"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"User"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Config"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redis:3.2"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"port_map"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"db"</span><span class="p">:</span><span class="w"> </span><span class="mi">6379</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"Env"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redis-cache"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"PortLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"db"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                  </span><span class="s2">"global"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"cache"</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="s2">"Checks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                  </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alive"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tcp"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"Command"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"Args"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"Path"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"Protocol"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"PortLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"Interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000000000</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"Timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">2000000000</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"InitialStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"TLSSkipVerify"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"Vault"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Templates"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Constraints"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Resources"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"CPU"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"MemoryMB"</span><span class="p">:</span><span class="w"> </span><span class="mi">256</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"DiskMB"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"IOPS"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"Networks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"Device"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"CIDR"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"IP"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"MBits"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"ReservedPorts"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"DynamicPorts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                      </span><span class="s2">"Label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"db"</span><span class="p">,</span><span class="w">
+                      </span><span class="s2">"Value"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                  </span><span class="p">]</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"DispatchPayload"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"KillTimeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">5000000000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"LogConfig"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"MaxFiles"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"MaxFileSizeMB"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"Artifacts"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Leader"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"EphemeralDisk"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"Sticky"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"SizeMB"</span><span class="p">:</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"Migrate"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"Update"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"Stagger"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000000000</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"MaxParallel"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"HealthCheck"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"MinHealthyTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"HealthyDeadline"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"AutoRevert"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Canary"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"Periodic"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ParameterizedJob"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Payload"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"VaultToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"StatusDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Stable"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Version"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div><h2 id="list-job-allocations">
+  <a name="list-job-allocations" class="anchor" href="#list-job-allocations">&raquo;</a>
+  List Job Allocations
+</h2>
+<p>This endpoint reads information about a single job&#39;s allocations.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/v1/job/:job_id/allocations</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>YES</code></td>
+<td><code>namespace:read-job</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-5">
+  <a name="parameters-5" class="anchor" href="#parameters-5">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><p><a name="job_id-2" /><a href="#job_id-2"><code>:job_id</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified in
+the job file during submission). This is specified as part of the path.</p>
+</li>
+<li><p><a name="all" /><a href="#all"><code>all</code></a> <code>(bool: false)</code> - Specifies whether the list of allocations should
+include allocations from a previously registered job with the same ID. This is
+possible if the job is deregistered and reregistered.</p>
+</li>
+</ul>
+<h3 id="sample-request-5">
+  <a name="sample-request-5" class="anchor" href="#sample-request-5">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    https://localhost:4646/v1/job/my-job/allocations
+</code></pre></div><h3 id="sample-response-5">
+  <a name="sample-response-5" class="anchor" href="#sample-response-5">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ed344e0a-7290-d117-41d3-a64f853ca3c2"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"EvalID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a9c5effc-2242-51b2-f1fe-054ee11ab189"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example.cache[0]"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"NodeID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cb1f6030-a220-4f92-57dc-7baaabdc3823"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"PreviousAllocation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"516d2753-0513-cfc7-57ac-2d6fac18b9dc"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"NextAllocation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cd13d9b9-4f97-7184-c88b-7b451981616b"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"RescheduleTracker"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"Events"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+             </span><span class="p">{</span><span class="w">
+               </span><span class="s2">"PrevAllocID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"516d2753-0513-cfc7-57ac-2d6fac18b9dc"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"PrevNodeID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9230cd3b-3bda-9a3f-82f9-b2ea8dedb20e"</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"RescheduleTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1517434161192946200</span><span class="p">,</span><span class="w">
+               </span><span class="s2">"Delay"</span><span class="p">:</span><span class="mi">5000000000</span><span class="p">,</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"JobID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"TaskGroup"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cache"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"DesiredStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"DesiredDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ClientStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ClientDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"TaskStates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"redis"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"State"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Failed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"StartedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-05-25T23:41:23.240184101Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"FinishedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Events"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Received"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1495755675956923000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"FailsTask"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"RestartReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"SetupError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DriverError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ExitCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Signal"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Message"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"KillTimeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"KillError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"KillReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"StartDelay"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DownloadError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ValidationError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DiskLimit"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"FailedSibling"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"VaultError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"TaskSignalReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"TaskSignal"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DriverMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Task Setup"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1495755675957466400</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"FailsTask"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"RestartReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"SetupError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DriverError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ExitCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Signal"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Building Task Directory"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"KillTimeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"KillError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"KillReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"StartDelay"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DownloadError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ValidationError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DiskLimit"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"FailedSibling"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"VaultError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"TaskSignalReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"TaskSignal"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DriverMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Driver"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1495755675970286800</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"FailsTask"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"RestartReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"SetupError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DriverError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ExitCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Signal"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Message"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"KillTimeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"KillError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"KillReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"StartDelay"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DownloadError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ValidationError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DiskLimit"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"FailedSibling"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"VaultError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"TaskSignalReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"TaskSignal"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DriverMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Downloading image redis:3.2"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Started"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Time"</span><span class="p">:</span><span class="w"> </span><span class="mi">1495755683227522000</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"FailsTask"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"RestartReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"SetupError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DriverError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ExitCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Signal"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Message"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"KillTimeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"KillError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"KillReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"StartDelay"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DownloadError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ValidationError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DiskLimit"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"FailedSibling"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"VaultError"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"TaskSignalReason"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"TaskSignal"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"DriverMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"CreateTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1495755675944527600</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ModifyTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">1495755675944527600</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div><h2 id="list-job-evaluations">
+  <a name="list-job-evaluations" class="anchor" href="#list-job-evaluations">&raquo;</a>
+  List Job Evaluations
+</h2>
+<p>This endpoint reads information about a single job&#39;s evaluations</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/v1/job/:job_id/evaluations</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>YES</code></td>
+<td><code>namespace:read-job</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-6">
+  <a name="parameters-6" class="anchor" href="#parameters-6">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><a name="job_id-3" /><a href="#job_id-3"><code>:job_id</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified in
+the job file during submission). This is specified as part of the path.
+</li>
+</ul>
+<h3 id="sample-request-6">
+  <a name="sample-request-6" class="anchor" href="#sample-request-6">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    https://localhost:4646/v1/job/my-job/evaluations
+</code></pre></div><h3 id="sample-response-6">
+  <a name="sample-response-6" class="anchor" href="#sample-response-6">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a9c5effc-2242-51b2-f1fe-054ee11ab189"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Priority"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"TriggeredBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"job-register"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"NodeID"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"NodeModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"complete"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"StatusDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Wait"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"NextEval"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"PreviousEval"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"BlockedEval"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"FailedTGAllocs"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ClassEligibility"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"EscapedComputedClass"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"AnnotatePlan"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"QueuedAllocations"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"cache"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"SnapshotIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div><h2 id="list-job-deployments">
+  <a name="list-job-deployments" class="anchor" href="#list-job-deployments">&raquo;</a>
+  List Job Deployments
+</h2>
+<p>This endpoint lists a single job&#39;s deployments</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/v1/job/:job_id/deployments</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>YES</code></td>
+<td><code>namespace:read-job</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-7">
+  <a name="parameters-7" class="anchor" href="#parameters-7">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><a name="job_id-4" /><a href="#job_id-4"><code>:job_id</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified in
+the job file during submission). This is specified as part of the path.
+</li>
+</ul>
+<h3 id="sample-request-7">
+  <a name="sample-request-7" class="anchor" href="#sample-request-7">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    https://localhost:4646/v1/job/my-job/deployments
+</code></pre></div><h3 id="sample-response-7">
+  <a name="sample-response-7" class="anchor" href="#sample-response-7">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"85ee4a9a-339f-a921-a9ef-0550d20b2c61"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-job"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobCreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"TaskGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"cache"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"AutoRevert"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Promoted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"PlacedCanaries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"d0ad0808-2765-abf6-1e15-79fb7fe5a416"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"38c70cd8-81f2-1489-a328-87bb29ec0e0f"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"DesiredCanaries"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"DesiredTotal"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"PlacedAllocs"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"HealthyAllocs"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"UnhealthyAllocs"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"StatusDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deployment is running"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fb6070fb-4a44-e255-4e6f-8213eba3871a"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-job"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"JobCreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"TaskGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"cache"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"AutoRevert"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Promoted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"PlacedCanaries"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"DesiredCanaries"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"DesiredTotal"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"PlacedAllocs"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"HealthyAllocs"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"UnhealthyAllocs"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"successful"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"StatusDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deployment completed successfully"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div><h2 id="read-job-39-s-most-recent-deployment">
+  <a name="read-job-39-s-most-recent-deployment" class="anchor" href="#read-job-39-s-most-recent-deployment">&raquo;</a>
+  Read Job&#39;s Most Recent Deployment
+</h2>
+<p>This endpoint returns a single job&#39;s most recent deployment.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/v1/job/:job_id/deployment</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>YES</code></td>
+<td><code>namespace:read-job</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-8">
+  <a name="parameters-8" class="anchor" href="#parameters-8">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><a name="job_id-5" /><a href="#job_id-5"><code>:job_id</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified in
+the job file during submission). This is specified as part of the path.
+</li>
+</ul>
+<h3 id="sample-request-8">
+  <a name="sample-request-8" class="anchor" href="#sample-request-8">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    https://localhost:4646/v1/job/my-job/deployment
+</code></pre></div><h3 id="sample-response-8">
+  <a name="sample-response-8" class="anchor" href="#sample-response-8">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"85ee4a9a-339f-a921-a9ef-0550d20b2c61"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"JobID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-job"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"JobVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"JobCreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"TaskGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"cache"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"AutoRevert"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Promoted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"PlacedCanaries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"d0ad0808-2765-abf6-1e15-79fb7fe5a416"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"38c70cd8-81f2-1489-a328-87bb29ec0e0f"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="s2">"DesiredCanaries"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"DesiredTotal"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"PlacedAllocs"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"HealthyAllocs"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"UnhealthyAllocs"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"StatusDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Deployment is running"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">21</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id="read-job-summary">
+  <a name="read-job-summary" class="anchor" href="#read-job-summary">&raquo;</a>
+  Read Job Summary
+</h2>
+<p>This endpoint reads summary information about a job.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/v1/job/:job_id/summary</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>YES</code></td>
+<td><code>namespace:read-job</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-9">
+  <a name="parameters-9" class="anchor" href="#parameters-9">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><a name="job_id-6" /><a href="#job_id-6"><code>:job_id</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified in
+the job file during submission). This is specified as part of the path.
+</li>
+</ul>
+<h3 id="sample-request-9">
+  <a name="sample-request-9" class="anchor" href="#sample-request-9">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    https://localhost:4646/v1/job/my-job/summary
+</code></pre></div><h3 id="sample-response-9">
+  <a name="sample-response-9" class="anchor" href="#sample-response-9">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"JobID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Summary"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"cache"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"Queued"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Complete"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Failed"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Running"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Starting"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Lost"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"Children"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"Pending"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Running"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Dead"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id="update-existing-job">
+  <a name="update-existing-job" class="anchor" href="#update-existing-job">&raquo;</a>
+  Update Existing Job
+</h2>
+<p>This endpoint registers a new job or updates an existing job.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/v1/job/:job_id</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>namespace:submit-job</code><br><code>namespace:sentinel-override</code> if <code>PolicyOverride</code> set</td>
+</tr>
+</tbody></table>
+<h3 id="parameters-10">
+  <a name="parameters-10" class="anchor" href="#parameters-10">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><p><a name="job_id-7" /><a href="#job_id-7"><code>:job_id</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified in
+the job file during submission). This is specified as part of the path.</p>
+</li>
+<li><p><a name="job-1" /><a href="#job-1"><code>Job</code></a> <code>(Job: &lt;required&gt;)</code> - Specifies the JSON definition of the job.</p>
+</li>
+<li><p><a name="enforceindex-1" /><a href="#enforceindex-1"><code>EnforceIndex</code></a> <code>(bool: false)</code> - If set, the job will only be registered if the
+passed <code>JobModifyIndex</code> matches the current job&#39;s index. If the index is zero,
+the register only occurs if the job is new. This paradigm allows check-and-set
+style job updating.</p>
+</li>
+<li><p><a name="jobmodifyindex-1" /><a href="#jobmodifyindex-1"><code>JobModifyIndex</code></a> <code>(int: 0)</code> - Specifies the <code>JobModifyIndex</code> to enforce the
+current job is at.</p>
+</li>
+<li><p><a name="policyoverride-1" /><a href="#policyoverride-1"><code>PolicyOverride</code></a> <code>(bool: false)</code> - If set, any soft mandatory Sentinel policies
+will be overridden. This allows a job to be registered when it would be denied
+by policy.</p>
+</li>
+</ul>
+<h3 id="sample-payload-2">
+  <a name="sample-payload-2" class="anchor" href="#sample-payload-2">&raquo;</a>
+  Sample Payload
+</h3>
+<div class="highlight"><pre class="highlight javascript"><code><span class="p">{</span>
+  <span class="s2">"Job"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+  <span class="p">},</span>
+  <span class="s2">"EnforceIndex"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="s2">"JobModifyIndex"</span><span class="p">:</span> <span class="mi">4</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="sample-request-10">
+  <a name="sample-request-10" class="anchor" href="#sample-request-10">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    --request POST \
+    --data @payload.json \
+    https://localhost:4646/v1/job/my-job
+</code></pre></div><h3 id="sample-response-10">
+  <a name="sample-response-10" class="anchor" href="#sample-response-10">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"EvalID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d092fdc0-e1fd-2536-67d8-43af8ca798ac"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EvalCreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">35</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">34</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id="dispatch-job">
+  <a name="dispatch-job" class="anchor" href="#dispatch-job">&raquo;</a>
+  Dispatch Job
+</h2>
+<p>This endpoint dispatches a new instance of a parameterized job.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/v1/job/:job_id/dispatch</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>namespace:dispatch-job</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-11">
+  <a name="parameters-11" class="anchor" href="#parameters-11">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><p><a name="job_id-8" /><a href="#job_id-8"><code>:job_id</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified
+in the job file during submission). This is specified as part of the path.</p>
+</li>
+<li><p><a name="payload" /><a href="#payload"><code>Payload</code></a> <code>(string: &quot;&quot;)</code> - Specifies a base64 encoded string containing the
+payload. This is limited to 15 KB.</p>
+</li>
+<li><p><a name="meta" /><a href="#meta"><code>Meta</code></a> <code>(meta&lt;string|string&gt;: nil)</code> - Specifies arbitrary metadata to pass to
+the job.</p>
+</li>
+</ul>
+<h3 id="sample-payload-3">
+  <a name="sample-payload-3" class="anchor" href="#sample-payload-3">&raquo;</a>
+  Sample Payload
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"Payload"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A28C3=="</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Value"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id="sample-request-11">
+  <a name="sample-request-11" class="anchor" href="#sample-request-11">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    --request POST \
+    --payload @payload.json \
+    https://localhost:4646/v1/job/my-job/dispatch
+</code></pre></div><h3 id="sample-response-11">
+  <a name="sample-response-11" class="anchor" href="#sample-response-11">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"Index"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"JobCreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EvalCreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EvalID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e5f55fac-bc69-119d-528a-1fc7ade5e02c"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"DispatchedJobID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example/dispatch-1485408778-81644024"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id="revert-to-older-job-version">
+  <a name="revert-to-older-job-version" class="anchor" href="#revert-to-older-job-version">&raquo;</a>
+  Revert to older Job Version
+</h2>
+<p>This endpoint reverts the job to an older version.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/v1/job/:job_id/revert</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>namespace:submit-job</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-12">
+  <a name="parameters-12" class="anchor" href="#parameters-12">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><p><a name="jobid" /><a href="#jobid"><code>JobID</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified
+in the job file during submission). This is specified as part of the path.</p>
+</li>
+<li><p><a name="jobversion" /><a href="#jobversion"><code>JobVersion</code></a> <code>(integer: 0)</code> - Specifies the job version to revert to.</p>
+</li>
+<li><p><a name="enforcepriorversion" /><a href="#enforcepriorversion"><code>EnforcePriorVersion</code></a> <code>(integer: nil)</code> - Optional value specifying the current
+job&#39;s version. This is checked and acts as a check-and-set value before
+reverting to the specified job.</p>
+</li>
+</ul>
+<h3 id="sample-payload-4">
+  <a name="sample-payload-4" class="anchor" href="#sample-payload-4">&raquo;</a>
+  Sample Payload
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"JobID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-job"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"JobVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id="sample-request-12">
+  <a name="sample-request-12" class="anchor" href="#sample-request-12">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    --request POST \
+    --payload @payload.json \
+    https://localhost:4646/v1/job/my-job/revert
+</code></pre></div><h3 id="sample-response-12">
+  <a name="sample-response-12" class="anchor" href="#sample-response-12">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"EvalID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d092fdc0-e1fd-2536-67d8-43af8ca798ac"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EvalCreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">35</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">34</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id="set-job-stability">
+  <a name="set-job-stability" class="anchor" href="#set-job-stability">&raquo;</a>
+  Set Job Stability
+</h2>
+<p>This endpoint sets the job&#39;s stability.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/v1/job/:job_id/stable</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>namespace:submit-job</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-13">
+  <a name="parameters-13" class="anchor" href="#parameters-13">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><p><a name="jobid-1" /><a href="#jobid-1"><code>JobID</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified
+in the job file during submission). This is specified as part of the path.</p>
+</li>
+<li><p><a name="jobversion-1" /><a href="#jobversion-1"><code>JobVersion</code></a> <code>(integer: 0)</code> - Specifies the job version to set the stability on.</p>
+</li>
+<li><p><a name="stable" /><a href="#stable"><code>Stable</code></a> <code>(bool: false)</code> - Specifies whether the job should be marked as
+stable or not.</p>
+</li>
+</ul>
+<h3 id="sample-payload-5">
+  <a name="sample-payload-5" class="anchor" href="#sample-payload-5">&raquo;</a>
+  Sample Payload
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"JobID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-job"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"JobVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Stable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id="sample-request-13">
+  <a name="sample-request-13" class="anchor" href="#sample-request-13">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    --request POST \
+    --payload @payload.json \
+    https://localhost:4646/v1/job/my-job/stable
+</code></pre></div><h3 id="sample-response-13">
+  <a name="sample-response-13" class="anchor" href="#sample-response-13">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">34</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id="create-job-evaluation">
+  <a name="create-job-evaluation" class="anchor" href="#create-job-evaluation">&raquo;</a>
+  Create Job Evaluation
+</h2>
+<p>This endpoint creates a new evaluation for the given job. This can be used to
+force run the scheduling logic if necessary. Since Nomad 0.8.4, this endpoint
+supports a JSON payload with additional options. Support for calling this end point
+without a JSON payload will be removed in Nomad 0.9.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/v1/job/:job_id/evaluate</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>namespace:read-job</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-14">
+  <a name="parameters-14" class="anchor" href="#parameters-14">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><p><a name="job_id-9" /><a href="#job_id-9"><code>:job_id</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified in
+the job file during submission). This is specified as part of the path.</p>
+</li>
+<li><p><a name="jobid-2" /><a href="#jobid-2"><code>JobID</code></a> <code>(string: &lt;required&gt;)</code> - Specify the ID of the job in the JSON payload</p>
+</li>
+<li><p><a name="evaloptions" /><a href="#evaloptions"><code>EvalOptions</code></a> <code>(&lt;optional&gt;)</code> - Specify additional options to be used during the forced evaluation.</p>
+
+<ul>
+<li><a name="forcereschedule" /><a href="#forcereschedule"><code>ForceReschedule</code></a> <code>(bool: false)</code> - If set, failed allocations of the job are rescheduled
+immediately. This is useful for operators to force immediate placement even if the failed allocations are past
+their reschedule limit, or are delayed by several hours because the allocation&#39;s reschedule policy has exponential delay.
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="sample-payload-6">
+  <a name="sample-payload-6" class="anchor" href="#sample-payload-6">&raquo;</a>
+  Sample Payload
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"JobID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-job"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EvalOptions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="s2">"ForceReschedule"</span><span class="p">:</span><span class="kc">true</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id="sample-request-14">
+  <a name="sample-request-14" class="anchor" href="#sample-request-14">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    --request POST \
+    -d @sample.json \
+    https://localhost:4646/v1/job/my-job/evaluate
+</code></pre></div><h3 id="sample-response-14">
+  <a name="sample-response-14" class="anchor" href="#sample-response-14">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"EvalID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d092fdc0-e1fd-2536-67d8-43af8ca798ac"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EvalCreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">35</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">34</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id="create-job-plan">
+  <a name="create-job-plan" class="anchor" href="#create-job-plan">&raquo;</a>
+  Create Job Plan
+</h2>
+<p>This endpoint invokes a dry-run of the scheduler for the job.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/v1/job/:job_id/plan</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>namespace:submit-job</code><br><code>namespace:sentinel-override</code> if <code>PolicyOverride</code> set</td>
+</tr>
+</tbody></table>
+<h3 id="parameters-15">
+  <a name="parameters-15" class="anchor" href="#parameters-15">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><a name="job_id-10" /><a href="#job_id-10"><code>:job_id</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified in
+</li>
+<li><p>the job file during submission). This is specified as part of the path.</p>
+</li>
+<li><p><a name="job-2" /><a href="#job-2"><code>Job</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the JSON definition of the job.</p>
+</li>
+<li><p><a name="diff" /><a href="#diff"><code>Diff</code></a> <code>(bool: false)</code> - Specifies whether the diff structure between the
+submitted and server side version of the job should be included in the
+response.</p>
+</li>
+<li><p><a name="policyoverride-2" /><a href="#policyoverride-2"><code>PolicyOverride</code></a> <code>(bool: false)</code> - If set, any soft mandatory Sentinel policies
+will be overridden. This allows a job to be registered when it would be denied
+by policy.</p>
+</li>
+</ul>
+<h3 id="sample-payload-7">
+  <a name="sample-payload-7" class="anchor" href="#sample-payload-7">&raquo;</a>
+  Sample Payload
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"Job"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Diff"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"PolicyOverride"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id="sample-request-15">
+  <a name="sample-request-15" class="anchor" href="#sample-request-15">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    --request POST \
+    --payload @payload.json \
+    https://localhost:4646/v1/job/my-job/plan
+</code></pre></div><h3 id="sample-response-15">
+  <a name="sample-response-15" class="anchor" href="#sample-response-15">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"Index"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"NextPeriodicLaunch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Warnings"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"Diff"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Added"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"TaskGroups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"Updates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"create"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Added"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Added"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Objects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="s2">"..."</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"redis"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Added"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Old"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"New"</span><span class="p">:</span><span class="w"> </span><span class="s2">"docker"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Driver"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Annotations"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Added"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Old"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"New"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5000000000"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KillTimeout"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"Annotations"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"Annotations"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="s2">"forces create"</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"Objects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"..."</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cache"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"..."</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"Objects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Added"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Objects"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Datacenters"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"..."</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Added"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Objects"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Constraint"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"..."</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Added"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Objects"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Update"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"..."</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"..."</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"CreatedEvals"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"ModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"CreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"SnapshotIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"AnnotatePlan"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"EscapedComputedClass"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"NodeModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"NodeID"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"JobID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"TriggeredBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"job-register"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"batch"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Priority"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"312e6a6d-8d01-0daf-9105-14919a66dba3"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"blocked"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"StatusDescription"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created to place remaining allocations"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Wait"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"NextEval"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"PreviousEval"</span><span class="p">:</span><span class="w"> </span><span class="s2">"80318ae4-7eda-e570-e59d-bc11df134817"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"BlockedEval"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"FailedTGAllocs"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ClassEligibility"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"v1:7968290453076422024"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"FailedTGAllocs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"cache"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"CoalescedFailures"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"AllocationTime"</span><span class="p">:</span><span class="w"> </span><span class="mi">46415</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"Scores"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"NodesEvaluated"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"NodesFiltered"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"NodesAvailable"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"dc1"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"ClassFiltered"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ConstraintFiltered"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"NodesExhausted"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ClassExhausted"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"DimensionExhausted"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"cpu"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"Annotations"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"DesiredTGUpdates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"cache"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"DestructiveUpdate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"InPlaceUpdate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Stop"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Migrate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Place"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Ignore"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h4 id="field-reference">
+  <a name="field-reference" class="anchor" href="#field-reference">&raquo;</a>
+  Field Reference
+</h4>
+
+<ul>
+<li><p><a name="diff-1" /><a href="#diff-1"><code>Diff</code></a> - A diff structure between the submitted job and the server side
+version. The top-level object is a Job Diff which contains Task Group Diffs,
+which in turn contain Task Diffs. Each of these objects then has Object and
+Field Diff structures embedded.</p>
+</li>
+<li><p><a name="nextperiodiclaunch" /><a href="#nextperiodiclaunch"><code>NextPeriodicLaunch</code></a> - If the job being planned is periodic, this field will
+include the next launch time for the job.</p>
+</li>
+<li><p><a name="createdevals" /><a href="#createdevals"><code>CreatedEvals</code></a> - A set of evaluations that were created as a result of the
+dry-run. These evaluations can signify a follow-up rolling update evaluation
+or a blocked evaluation.</p>
+</li>
+<li><p><a name="jobmodifyindex-2" /><a href="#jobmodifyindex-2"><code>JobModifyIndex</code></a> - The <code>JobModifyIndex</code> of the server side version of this job.</p>
+</li>
+<li><p><a name="failedtgallocs" /><a href="#failedtgallocs"><code>FailedTGAllocs</code></a> - A set of metrics to understand any allocation failures that
+occurred for the Task Group.</p>
+</li>
+<li><p><a name="annotations" /><a href="#annotations"><code>Annotations</code></a> - Annotations include the <code>DesiredTGUpdates</code>, which tracks what</p>
+</li>
+<li><p>the scheduler would do given enough resources for each Task Group.</p>
+</li>
+</ul>
+<h2 id="force-new-periodic-instance">
+  <a name="force-new-periodic-instance" class="anchor" href="#force-new-periodic-instance">&raquo;</a>
+  Force New Periodic Instance
+</h2>
+<p>This endpoint forces a new instance of the periodic job. A new instance will be
+created even if it violates the job&#39;s
+<a href="/docs/job-specification/periodic.html#prohibit_overlap"><code>prohibit_overlap</code></a>
+settings. As such, this should be only used to immediately run a periodic job.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/v1/job/:job_id/periodic/force</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>namespace:submit-job</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-16">
+  <a name="parameters-16" class="anchor" href="#parameters-16">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><a name="job_id-11" /><a href="#job_id-11"><code>:job_id</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified in
+the job file during submission). This is specified as part of the path.
+</li>
+</ul>
+<h3 id="sample-request-16">
+  <a name="sample-request-16" class="anchor" href="#sample-request-16">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    --request POST \
+    https://localhost:4646/v1/job/my-job/periodic/force
+</code></pre></div><h3 id="sample-response-16">
+  <a name="sample-response-16" class="anchor" href="#sample-response-16">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"EvalCreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EvalID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"57983ddd-7fcf-3e3a-fd24-f699ccfb36f4"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id="stop-a-job">
+  <a name="stop-a-job" class="anchor" href="#stop-a-job">&raquo;</a>
+  Stop a Job
+</h2>
+<p>This endpoint deregisters a job, and stops all allocations part of it.</p>
+
+<table><thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Produces</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>DELETE</code></td>
+<td><code>/v1/job/:job_id</code></td>
+<td><code>application/json</code></td>
+</tr>
+</tbody></table>
+<p>The table below shows this endpoint&#39;s support for
+<a href="/api/index.html#blocking-queries">blocking queries</a> and
+<a href="/api/index.html#acls">required ACLs</a>.</p>
+
+<table><thead>
+<tr>
+<th>Blocking Queries</th>
+<th>ACL Required</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>NO</code></td>
+<td><code>namespace:submit-job</code></td>
+</tr>
+</tbody></table>
+<h3 id="parameters-17">
+  <a name="parameters-17" class="anchor" href="#parameters-17">&raquo;</a>
+  Parameters
+</h3>
+
+<ul>
+<li><p><a name="job_id-12" /><a href="#job_id-12"><code>:job_id</code></a> <code>(string: &lt;required&gt;)</code> - Specifies the ID of the job (as specified in
+the job file during submission). This is specified as part of the path.</p>
+</li>
+<li><p><a name="purge" /><a href="#purge"><code>Purge</code></a> <code>(bool: false)</code> - Specifies that the job should stopped and purged
+immediately. This means the job will not be queryable after being stopped. If
+not set, the job will be purged by the garbage collector.</p>
+</li>
+</ul>
+<h3 id="sample-request-17">
+  <a name="sample-request-17" class="anchor" href="#sample-request-17">&raquo;</a>
+  Sample Request
+</h3>
+<div class="highlight"><pre class="highlight plaintext"><code>$ curl \
+    --request DELETE \
+    https://localhost:4646/v1/job/my-job?purge=true
+</code></pre></div><h3 id="sample-response-17">
+  <a name="sample-response-17" class="anchor" href="#sample-response-17">&raquo;</a>
+  Sample Response
+</h3>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"EvalID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d092fdc0-e1fd-2536-67d8-43af8ca798ac"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"EvalCreateIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">35</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"JobModifyIndex"</span><span class="p">:</span><span class="w"> </span><span class="mi">34</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/guides/index.html">Guides</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/api/index.html">API</a></li>
+              <li><a href="/resources.html">Resources</a></li>
+              <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+              <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/nomad/blob/master/website/source/api/jobs.html.md">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Nomad",
+        "alternateName": "Nomad by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.nomadproject.io",
+        "logo": "https://www.nomadproject.io/assets/images/logo-hashicorp-039941e4.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/nomad"
+        ]
+      }
+    </script>
+  </body>
+</html>

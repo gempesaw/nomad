@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The agent command is the main entrypoint to running a Nomad client or server. ">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-d0ced218.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-194x194-bb8de46a.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/android-chrome-192x192-9f336178.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-10aa6ba6.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-330a0dd1.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-479e3179.svg" color="#25BA81">
+    <meta name="apple-mobile-web-app-title" content="HashiCorp Nomad">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="application-name" content="HashiCorp Nomad">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="msapplication-TileColor" content="#25BA81">
+    <meta name="msapplication-TileImage" content="/assets/images/favicons/mstile-144x144-7f37eaf2.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:url" content="https://www.nomadproject.io/docs/commands/agent.html" />
+    <meta property="og:title" content="Commands: agent - Nomad by HashiCorp" />
+    <meta property="og:site_name" content="Nomad by HashiCorp"/>
+    <meta property="og:image" content="https://www.nomadproject.io/assets/images/og-image-e0e8d18d.png"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="1200"/>
+    <meta property="og:description" content="The agent command is the main entrypoint to running a Nomad client or server. " />
+
+    <title>Commands: agent - Nomad by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-b44b5029.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-4af6ff56.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("qW11yxgipKMsKFKQUCpTVgQUYftYsJj0")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-commands-_agent" class="layout-docs page-commands-agent">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Nomad fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" class="logo" height="50">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/api/index.html">API</a></li>
+                  <li><a href="/resources.html">Resources</a></li>
+                  <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+                  <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/nomad">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 207 60" height="42">
+  <g fill="none">
+    <path class="top" fill="#25BA81" d="M26.03.01L0 15.05l17.56 10.32 3.56-2.17 8.63 4.82v-10l8.27-4.97v10.02l14.48-8.02v-.04"></path>
+    <path class="left" fill="#25BA81" d="M22.75 32.03v9.99l-7.88 5v-20l2.99-1.83L.15 15.05H0v29.96l26.25 15V34.03"></path>
+    <path class="right" fill="#1F9967" d="M38.02 23.07v9.95l-6.93 4.01-4.84-3v25.98h.14l26.11-15V15.05l-.49-.01"></path>
+    <path class="text" fill="#000" d="M78.49 21.83v24.24h-5.9v-32h8.06l12.14 24.32V14.1h5.9v32h-8.06m22.46.45c-8 0-10.18-4.42-10.18-9.22v-5.9c0-4.8 2.16-9.22 10.18-9.22s10.18 4.42 10.18 9.22v5.91c0 4.79-2.16 9.21-10.18 9.21zm0-19.35c-3.12 0-4.32 1.39-4.32 4v6.29c0 2.64 1.2 4 4.32 4s4.32-1.39 4.32-4v-6.25c0-2.64-1.2-4.04-4.32-4.04zm27.99 18.87V29.75c0-1.25-.53-1.87-1.87-1.87-2.147.252-4.22.932-6.1 2v16.19h-5.86V22.69h4.46l.58 2c2.916-1.46 6.104-2.293 9.36-2.45 1.852-.175 3.616.823 4.42 2.5 2.922-1.495 6.13-2.348 9.41-2.5 3.89 0 5.28 2.74 5.28 6.91v16.92h-5.86V29.75c0-1.25-.53-1.87-1.87-1.87-2.15.234-4.23.915-6.1 2v16.19h-5.85zm41.81 0h-4.8l-.43-1.58c-2.084 1.352-4.516 2.068-7 2.06-4.27 0-6.1-2.93-6.1-7 0-4.75 2.06-6.58 6.82-6.58H177v-2.41c0-2.59-.72-3.5-4.46-3.5-2.18.024-4.35.265-6.48.72l-.72-4.46c2.606-.72 5.296-1.09 8-1.1 7.34 0 9.5 2.59 9.5 8.45l.05 15.4zM177 37.24h-4.32c-1.92 0-2.45.53-2.45 2.3 0 1.77.53 2.35 2.35 2.35 1.55-.02 3.07-.434 4.42-1.2v-3.45zm9.48-6.77c0-5.18 2.3-8.26 7.73-8.26 2.097.02 4.187.244 6.24.67v-9.74l5.86-.82v33.75h-4.66l-.58-2c-2.133 1.595-4.726 2.454-7.39 2.45-4.7 0-7.2-2.79-7.2-8.11v-7.94zm14-2.64c-1.702-.38-3.437-.588-5.18-.62-2.11 0-2.93 1-2.93 3.12v8.26c0 1.92.72 3 2.88 3 1.937-.07 3.787-.816 5.23-2.11V27.83z"></path>
+  </g>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/api/index.html">API</a></li>
+    <li><a href="/community.html">Community</a></li>
+    <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+    <li><a href="/security.html">Security</a></li>
+    <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/nomad">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <ul class="nav docs-sidenav">
+      <li>
+        <a href="/docs/install/index.html">Installing Nomad</a>
+      </li>
+
+      <li>
+        <a href="/docs/runtime/index.html">Runtime</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/runtime/environment.html">Environment</a>
+          </li>
+          <li>
+            <a href="/docs/runtime/interpolation.html">Interpolation</a>
+          </li>
+          <li>
+            <a href="/docs/runtime/schedulers.html">Schedulers</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/job-specification/index.html">Job Specification</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/job-specification/artifact.html">artifact</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/check_restart.html">check_restart</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/constraint.html">constraint</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/dispatch_payload.html">dispatch_payload</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/env.html">env</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/ephemeral_disk.html">ephemeral_disk</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/group.html">group</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/job.html">job</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/logs.html">logs</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/meta.html">meta</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/migrate.html">migrate</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/network.html">network</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/parameterized.html">parameterized</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/periodic.html">periodic</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/reschedule.html">reschedule</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/resources.html">resources</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/restart.html">restart</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/service.html">service</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/task.html">task</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/template.html">template</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/update.html">update</a>
+          </li>
+          <li>
+            <a href="/docs/job-specification/vault.html">vault</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/service-discovery/index.html">Service Discovery</a>
+      </li>
+
+      <li>
+        <a href="/docs/vault-integration/index.html">Vault Integration</a>
+      </li>
+
+      <li>
+        <a href="/docs/drivers/index.html">Drivers</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/drivers/docker.html">Docker</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/exec.html">Isolated Fork/Exec</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/java.html">Java</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/lxc.html">LXC</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/qemu.html">Qemu</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/raw_exec.html">Raw Fork/Exec</a>
+          </li>
+
+
+          <li>
+            <a href="/docs/drivers/rkt.html">Rkt</a>
+          </li>
+
+          <li>
+            <a href="/docs/drivers/custom.html">Custom</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="active">
+        <a href="/docs/commands/index.html">Commands (CLI)</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/commands/acl.html">acl</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/acl/bootstrap.html">bootstrap</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/policy-apply.html">policy apply</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/policy-delete.html">policy delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/policy-info.html">policy info</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/policy-list.html">policy list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-create.html">token create</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-delete.html">token delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-info.html">token info</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-self.html">token self</a>
+              </li>
+              <li>
+                <a href="/docs/commands/acl/token-update.html">token update</a>
+              </li>
+            </ul>
+          </li>
+          <li class="active">
+            <a href="/docs/commands/agent.html">agent</a>
+          </li>
+          <li>
+            <a href="/docs/commands/agent-info.html">agent-info</a>
+          </li>
+          <li>
+            <a href="/docs/commands/alloc.html">alloc</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/alloc/fs.html">fs</a>
+              </li>
+              <li>
+                <a href="/docs/commands/alloc/logs.html">logs</a>
+              </li>
+              <li>
+                <a href="/docs/commands/alloc/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/deployment.html">deployment</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/deployment/fail.html">fail</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/list.html">list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/pause.html">pause</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/promote.html">promote</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/resume.html">resume</a>
+              </li>
+              <li>
+                <a href="/docs/commands/deployment/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/eval-status.html">eval status</a>
+          </li>
+          <li>
+            <a href="/docs/commands/job.html">job</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/job/deployments.html">deployments</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/dispatch.html">dispatch</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/eval.html">eval</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/history.html">history</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/init.html">init</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/inspect.html">inspect</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/plan.html">plan</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/promote.html">promote</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/revert.html">revert</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/run.html">run</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/status.html">status</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/stop.html">stop</a>
+              </li>
+              <li>
+                <a href="/docs/commands/job/validate.html">validate</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/namespace.html">namespace</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/namespace/apply.html">apply</a>
+              </li>
+              <li>
+                <a href="/docs/commands/namespace/delete.html">delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/namespace/inspect.html">inspect</a>
+              </li>
+              <li>
+                <a href="/docs/commands/namespace/list.html">list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/namespace/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/node.html">node</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/node/config.html">config</a>
+              </li>
+              <li>
+                <a href="/docs/commands/node/drain.html">drain</a>
+              </li>
+              <li>
+                <a href="/docs/commands/node/eligibility.html">eligibility</a>
+              </li>
+              <li>
+                <a href="/docs/commands/node/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/operator.html">operator</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/operator/autopilot-get-config.html">autopilot get-config</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/autopilot-set-config.html">autopilot set-config</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/keygen.html">keygen</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/keyring.html">keyring</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/raft-list-peers.html">raft list-peers</a>
+              </li>
+              <li>
+                <a href="/docs/commands/operator/raft-remove-peer.html">raft remove-peer</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/quota.html">quota</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/quota/apply.html">apply</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/delete.html">delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/init.html">init</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/inspect.html">inspect</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/list.html">list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/quota/status.html">status</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/sentinel.html">sentinel</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/sentinel/apply.html">apply</a>
+              </li>
+              <li>
+                <a href="/docs/commands/sentinel/delete.html">delete</a>
+              </li>
+              <li>
+                <a href="/docs/commands/sentinel/list.html">list</a>
+              </li>
+              <li>
+                <a href="/docs/commands/sentinel/read.html">read</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/server.html">server</a>
+            <ul class="nav">
+              <li>
+                <a href="/docs/commands/server/force-leave.html">force-leave</a>
+              </li>
+              <li>
+                <a href="/docs/commands/server/join.html">join</a>
+              </li>
+              <li>
+                <a href="/docs/commands/server/members.html">members</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="/docs/commands/status.html">status</a>
+          </li>
+          <li>
+            <a href="/docs/commands/ui.html">ui</a>
+          </li>
+          <li>
+            <a href="/docs/commands/version.html">version</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/agent/index.html">Nomad Agent</a>
+
+        <ul class="nav">
+          <li >
+            <a href="/docs/agent/cloud_auto_join.html">Cloud Auto-join</a>
+          </li>
+          <li>
+            <a href="/docs/agent/configuration/index.html">Configuration</a>
+            <ul class="nav">
+              <li >
+                <a href="/docs/agent/configuration/acl.html">acl</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/autopilot.html">autopilot</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/client.html">client</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/consul.html">consul</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/sentinel.html">sentinel</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/server.html">server</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/server_join.html">server_join</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/telemetry.html">telemetry</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/tls.html">tls</a>
+              </li>
+              <li >
+                <a href="/docs/agent/configuration/vault.html">vault</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="/docs/agent/encryption.html">Encryption</a>
+          </li>
+          <li>
+            <a href="/docs/agent/telemetry.html">Telemetry</a>
+          </li>
+        </ul>
+      </li>
+
+      <hr>
+
+      <li>
+        <a href="/docs/internals/index.html">Internals</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/internals/architecture.html">Architecture</a>
+          </li>
+
+          <li>
+            <a href="/docs/internals/consensus.html">Consensus Protocol</a>
+          </li>
+
+          <li>
+            <a href="/docs/internals/gossip.html">Gossip Protocol</a>
+          </li>
+
+          <li>
+            <a href="/docs/internals/scheduling.html">Scheduling</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/upgrade/index.html">Upgrading</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/upgrade/index.html">Upgrading Nomad</a>
+          </li>
+          <li>
+            <a href="/docs/upgrade/upgrade-specific.html">Specific Version Details</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="/docs/faq.html">FAQ</a>
+      </li>
+
+      <hr>
+
+      <li>
+        <a href="/docs/enterprise/index.html">Nomad Enterprise</a>
+        <ul class="nav">
+          <li>
+            <a href="/docs/enterprise/namespaces/index.html">Namespaces</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/quotas/index.html">Resource Quotas</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/sentinel/index.html">Sentinel Policies</a>
+          </li>
+          <li>
+            <a href="/docs/enterprise/autopilot/index.html">Advanced Autopilot</a>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="command-agent">
+  <a name="command-agent" class="anchor" href="#command-agent">&raquo;</a>
+  Command: agent
+</h1>
+<p>The agent command is the heart of Nomad: it runs the agent that handles client
+or server functionality, including exposing interfaces for client consumption
+and running jobs.</p>
+<p>Due to the power and flexibility of this command, the Nomad agent is documented
+in its own section. See the <a href="/docs/agent/index.html">Nomad Agent</a> section for
+more information on how to use this command and the options it has.</p>
+<h2 id="command-line-options">
+  <a name="command-line-options" class="anchor" href="#command-line-options">&raquo;</a>
+  Command-line Options
+</h2>
+<p>A subset of the available Nomad agent configuration can optionally be passed in
+via CLI arguments. The <code>agent</code> command accepts the following arguments:</p>
+
+<ul>
+<li><a name="alloc-dir-lt-path-gt-" /><a href="#alloc-dir-lt-path-gt-"><code>-alloc-dir=&lt;path&gt;</code></a>: Equivalent to the Client <a href="#alloc_dir">alloc_dir</a> config
+option.
+</li>
+<li><a name="acl-enabled" /><a href="#acl-enabled"><code>-acl-enabled</code></a>: Equivalent to the ACL <a href="/docs/agent/configuration/acl.html#enabled">enabled</a> config option.
+</li>
+<li><a name="acl-replication-token" /><a href="#acl-replication-token"><code>-acl-replication-token</code></a>: Equivalent to the ACL <a href="/docs/agent/configuration/acl.html#replication_token">replication_token</a> config option.
+</li>
+<li><a name="bind-lt-address-gt-" /><a href="#bind-lt-address-gt-"><code>-bind=&lt;address&gt;</code></a>: Equivalent to the <a href="#bind_addr">bind_addr</a> config option.
+</li>
+<li><a name="bootstrap-expect-lt-num-gt-" /><a href="#bootstrap-expect-lt-num-gt-"><code>-bootstrap-expect=&lt;num&gt;</code></a>: Equivalent to the
+<a href="#bootstrap_expect">bootstrap_expect</a> config option.
+</li>
+<li><a name="client" /><a href="#client"><code>-client</code></a>: Enable client mode on the local agent.
+</li>
+<li><a name="config-lt-path-gt-" /><a href="#config-lt-path-gt-"><code>-config=&lt;path&gt;</code></a>: Specifies the path to a configuration file or a directory of
+configuration files to load. Can be specified multiple times.
+</li>
+<li><a name="consul-address-lt-addr-gt-" /><a href="#consul-address-lt-addr-gt-"><code>-consul-address=&lt;addr&gt;</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#address">address</a> config option.
+</li>
+<li><a name="consul-auth-lt-auth-gt-" /><a href="#consul-auth-lt-auth-gt-"><code>-consul-auth=&lt;auth&gt;</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#auth">auth</a> config option.
+</li>
+<li><a name="consul-auto-advertise" /><a href="#consul-auto-advertise"><code>-consul-auto-advertise</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#auto_advertise">auto_advertise</a> config option.
+</li>
+<li><a name="consul-ca-file-lt-path-gt-" /><a href="#consul-ca-file-lt-path-gt-"><code>-consul-ca-file=&lt;path&gt;</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#ca_file">ca_file</a> config option.
+</li>
+<li><a name="consul-cert-file-lt-path-gt-" /><a href="#consul-cert-file-lt-path-gt-"><code>-consul-cert-file=&lt;path&gt;</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#cert_file">cert_file</a> config option.
+</li>
+<li><a name="consul-checks-use-advertise" /><a href="#consul-checks-use-advertise"><code>-consul-checks-use-advertise</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#checks_use_advertise">checks_use_advertise</a> config option.
+</li>
+<li><a name="consul-client-auto-join" /><a href="#consul-client-auto-join"><code>-consul-client-auto-join</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#client_auto_join">client_auto_join</a> config option.
+</li>
+<li><a name="consul-client-service-name-lt-name-gt-" /><a href="#consul-client-service-name-lt-name-gt-"><code>-consul-client-service-name=&lt;name&gt;</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#client_service_name">client_service_name</a> config option.
+</li>
+<li><a name="consul-client-http-check-name-lt-name-gt-" /><a href="#consul-client-http-check-name-lt-name-gt-"><code>-consul-client-http-check-name=&lt;name&gt;</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#client_http_check_name">client_http_check_name</a> config option.
+</li>
+<li><a name="consul-key-file-lt-path-gt-" /><a href="#consul-key-file-lt-path-gt-"><code>-consul-key-file=&lt;path&gt;</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#key_file">key_file</a> config option.
+</li>
+<li><a name="consul-server-service-name-lt-name-gt-" /><a href="#consul-server-service-name-lt-name-gt-"><code>-consul-server-service-name=&lt;name&gt;</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#server_service_name">server_service_name</a> config option.
+</li>
+<li><a name="consul-server-http-check-name-lt-name-gt-" /><a href="#consul-server-http-check-name-lt-name-gt-"><code>-consul-server-http-check-name=&lt;name&gt;</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#server_http_check_name">server_http_check_name</a> config option.
+</li>
+<li><a name="consul-server-serf-check-name-lt-name-gt-" /><a href="#consul-server-serf-check-name-lt-name-gt-"><code>-consul-server-serf-check-name=&lt;name&gt;</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#server_serf_check_name">server_serf_check_name</a> config option.
+</li>
+<li><a name="consul-server-rpc-check-name-lt-name-gt-" /><a href="#consul-server-rpc-check-name-lt-name-gt-"><code>-consul-server-rpc-check-name=&lt;name&gt;</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#server_rpc_check_name">server_rpc_check_name</a> config option.
+</li>
+<li><a name="consul-server-auto-join" /><a href="#consul-server-auto-join"><code>-consul-server-auto-join</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#server_auto_join">server_auto_join</a> config option.
+</li>
+<li><a name="consul-ssl" /><a href="#consul-ssl"><code>-consul-ssl</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#ssl">ssl</a> config option.
+</li>
+<li><a name="consul-token-lt-token-gt-" /><a href="#consul-token-lt-token-gt-"><code>-consul-token=&lt;token&gt;</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#token">token</a> config option.
+</li>
+<li><a name="consul-verify-ssl" /><a href="#consul-verify-ssl"><code>-consul-verify-ssl</code></a>: Equivalent to the <a href="/docs/agent/configuration/consul.html#verify_ssl">verify_ssl</a> config option.
+</li>
+<li><a name="data-dir-lt-path-gt-" /><a href="#data-dir-lt-path-gt-"><code>-data-dir=&lt;path&gt;</code></a>: Equivalent to the <a href="#data_dir">data_dir</a> config option.
+</li>
+<li><a name="dc-lt-datacenter-gt-" /><a href="#dc-lt-datacenter-gt-"><code>-dc=&lt;datacenter&gt;</code></a>: Equivalent to the <a href="#datacenter">datacenter</a> config option.
+</li>
+<li><a name="dev" /><a href="#dev"><code>-dev</code></a>: Start the agent in development mode. This enables a pre-configured
+dual-role agent (client + server) which is useful for developing or testing
+Nomad. No other configuration is required to start the agent in this mode.
+</li>
+<li><a name="encrypt" /><a href="#encrypt"><code>-encrypt</code></a>: Set the Serf encryption key. See <a href="/docs/agent/encryption.html">Agent
+Encryption</a> for more details.
+</li>
+<li><a name="join-lt-address-gt-" /><a href="#join-lt-address-gt-"><code>-join=&lt;address&gt;</code></a>: Address of another agent to join upon starting up. This can
+be specified multiple times to specify multiple agents to join.
+</li>
+<li><a name="log-level-lt-level-gt-" /><a href="#log-level-lt-level-gt-"><code>-log-level=&lt;level&gt;</code></a>: Equivalent to the <a href="#log_level">log_level</a> config option.
+</li>
+<li><a name="meta-lt-key-value-gt-" /><a href="#meta-lt-key-value-gt-"><code>-meta=&lt;key=value&gt;</code></a>: Equivalent to the Client <a href="#meta">meta</a> config option.
+</li>
+<li><a name="network-interface-lt-interface-gt-" /><a href="#network-interface-lt-interface-gt-"><code>-network-interface=&lt;interface&gt;</code></a>: Equivalent to the Client
+<a href="#network_interface">network_interface</a> config option.
+</li>
+<li><a name="network-speed-lt-mbits-gt-" /><a href="#network-speed-lt-mbits-gt-"><code>-network-speed=&lt;MBits&gt;</code></a>: Equivalent to the Client
+<a href="#network_speed">network_speed</a> config option.
+</li>
+<li><a name="node-lt-name-gt-" /><a href="#node-lt-name-gt-"><code>-node=&lt;name&gt;</code></a>: Equivalent to the <a href="#name">name</a> config option.
+</li>
+<li><a name="node-class-lt-class-gt-" /><a href="#node-class-lt-class-gt-"><code>-node-class=&lt;class&gt;</code></a>: Equivalent to the Client <a href="#node_class">node_class</a>
+config option.
+</li>
+<li><a name="region-lt-region-gt-" /><a href="#region-lt-region-gt-"><code>-region=&lt;region&gt;</code></a>: Equivalent to the <a href="#region">region</a> config option.
+</li>
+<li><a name="rejoin" /><a href="#rejoin"><code>-rejoin</code></a>: Equivalent to the <a href="#rejoin_after_leave">rejoin_after_leave</a> config option.
+</li>
+<li><a name="retry-interval" /><a href="#retry-interval"><code>-retry-interval</code></a>: Equivalent to the <a href="#retry_interval">retry_interval</a> config option.
+</li>
+<li><p><a name="retry-join" /><a href="#retry-join"><code>-retry-join</code></a>: Similar to <code>-join</code> but allows retrying a join if the first attempt fails.</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>nomad agent <span class="nt">-retry-join</span> <span class="s2">"127.0.0.1:4648"</span>
+</code></pre></div><p><code>retry-join</code> can be defined as a command line flag only for servers. Clients
+can configure <code>retry-join</code> only in configuration files.</p>
+</li>
+<li><p><a name="retry-max" /><a href="#retry-max"><code>-retry-max</code></a>: Similar to the <a href="#retry_max">retry_max</a> config option.</p>
+</li>
+<li><p><a name="server" /><a href="#server"><code>-server</code></a>: Enable server mode on the local agent.</p>
+</li>
+<li><p><a name="servers-lt-host-port-gt-" /><a href="#servers-lt-host-port-gt-"><code>-servers=&lt;host:port&gt;</code></a>: Equivalent to the Client <a href="#servers">servers</a> config
+option.</p>
+</li>
+<li><p><a name="state-dir-lt-path-gt-" /><a href="#state-dir-lt-path-gt-"><code>-state-dir=&lt;path&gt;</code></a>: Equivalent to the Client <a href="#state_dir">state_dir</a> config
+option.</p>
+</li>
+<li><p><a name="vault-enabled" /><a href="#vault-enabled"><code>-vault-enabled</code></a>: Whether to enable or disabled Vault integration.</p>
+</li>
+<li><p><a name="vault-address-lt-addr-gt-" /><a href="#vault-address-lt-addr-gt-"><code>-vault-address=&lt;addr&gt;</code></a>: The address to communicate with Vault.</p>
+</li>
+<li><p><a name="vault-token-lt-token-gt-" /><a href="#vault-token-lt-token-gt-"><code>-vault-token=&lt;token&gt;</code></a>: The Vault token used to derive tokens. Only needs to
+be set on Servers. Overrides the Vault token read from the VAULT_TOKEN
+environment variable.</p>
+</li>
+<li><p><a name="vault-create-from-role-lt-role-gt-" /><a href="#vault-create-from-role-lt-role-gt-"><code>-vault-create-from-role=&lt;role&gt;</code></a>: The role name to create tokens for tasks from.</p>
+</li>
+<li><p><a name="vault-ca-file-lt-path-gt-" /><a href="#vault-ca-file-lt-path-gt-"><code>-vault-ca-file=&lt;path&gt;</code></a>: Path to a PEM-encoded CA cert file used to verify the
+Vault server SSL certificate.</p>
+</li>
+<li><p><a name="vault-ca-path-lt-path-gt-" /><a href="#vault-ca-path-lt-path-gt-"><code>-vault-ca-path=&lt;path&gt;</code></a>: Path to a directory of PEM-encoded CA cert files used
+to verify the Vault server SSL certificate.Whether to enable or disabled Vault
+integration.</p>
+</li>
+<li><p><a name="vault-cert-file-lt-path-gt-" /><a href="#vault-cert-file-lt-path-gt-"><code>vault-cert-file=&lt;path&gt;</code></a>: The path to the certificate for Vault communication.</p>
+</li>
+<li><p><a name="vault-key-file-lt-path-gt-" /><a href="#vault-key-file-lt-path-gt-"><code>vault-key-file=&lt;path&gt;</code></a>: The path to the private key for Vault communication.</p>
+</li>
+<li><p><a name="vault-tls-skip-verify" /><a href="#vault-tls-skip-verify"><code>vault-tls-skip-verify</code></a>: A boolean that determines whether to skip SSL
+certificate verification.</p>
+</li>
+<li><p><a name="vault-tls-server-name-lt-name-gt-" /><a href="#vault-tls-server-name-lt-name-gt-"><code>vault-tls-server-name=&lt;name&gt;</code></a>: Used to set the SNI host when connecting to
+Vault over TLS.</p>
+</li>
+</ul>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/guides/index.html">Guides</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/api/index.html">API</a></li>
+              <li><a href="/resources.html">Resources</a></li>
+              <li><a href="https://www.hashicorp.com/products/nomad/?utm_source=oss&utm_medium=header-nav&utm_campaign=nomad">Enterprise</a></li>
+              <li><a href="https://demo.nomadproject.io">UI Demo</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/nomad/blob/master/website/source/docs/commands/agent.html.md.erb">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Nomad",
+        "alternateName": "Nomad by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.nomadproject.io",
+        "logo": "https://www.nomadproject.io/assets/images/logo-hashicorp-039941e4.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/nomad"
+        ]
+      }
+    </script>
+  </body>
+</html>
