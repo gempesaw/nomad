@@ -1,1387 +1,1387 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.nomadproject.io/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/vs/yarn.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/vs/yarn.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/vs/terraform.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/vs/terraform.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/vs/htcondor.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/vs/htcondor.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/vs/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/vs/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/vs/swarm.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/vs/swarm.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/vs/kubernetes.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/vs/kubernetes.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/vs/custom.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/vs/custom.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/vs/ecs.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/vs/ecs.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/vs/mesos.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/vs/mesos.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/use-cases.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/use-cases.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/getting-started/jobs.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/getting-started/jobs.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/getting-started/next-steps.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/getting-started/next-steps.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/getting-started/install.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/getting-started/install.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/getting-started/cluster.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/getting-started/cluster.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/getting-started/ui.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/getting-started/ui.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/intro/getting-started/running.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/intro/getting-started/running.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/vault-integration/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/vault-integration/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/upgrade/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/upgrade/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/upgrade/upgrade-specific.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/upgrade/upgrade-specific.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/install/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/install/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/drivers/qemu.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/drivers/qemu.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/drivers/custom.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/drivers/custom.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/drivers/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/drivers/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/drivers/exec.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/drivers/exec.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/drivers/lxc.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/drivers/lxc.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/drivers/java.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/drivers/java.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/drivers/rkt.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/drivers/rkt.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/drivers/raw_exec.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/drivers/raw_exec.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/drivers/docker.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/drivers/docker.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/enterprise/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/enterprise/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/enterprise/quotas/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/enterprise/quotas/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/enterprise/sentinel/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/enterprise/sentinel/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/enterprise/namespaces/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/enterprise/namespaces/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/enterprise/autopilot/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/enterprise/autopilot/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/runtime/schedulers.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/runtime/schedulers.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/runtime/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/runtime/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/runtime/environment.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/runtime/environment.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/runtime/interpolation.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/runtime/interpolation.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/encryption.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/encryption.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/configuration/sentinel.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/configuration/sentinel.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/configuration/acl.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/configuration/acl.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/configuration/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/configuration/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/configuration/consul.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/configuration/consul.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/configuration/telemetry.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/configuration/telemetry.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/configuration/server.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/configuration/server.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/configuration/client.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/configuration/client.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/configuration/tls.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/configuration/tls.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/configuration/server_join.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/configuration/server_join.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/configuration/autopilot.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/configuration/autopilot.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/configuration/vault.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/configuration/vault.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/telemetry.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/telemetry.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/agent/cloud_auto_join.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/agent/cloud_auto_join.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/internals/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/internals/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/internals/consensus.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/internals/consensus.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/internals/architecture.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/internals/architecture.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/internals/scheduling.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/internals/scheduling.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/internals/gossip.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/internals/gossip.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/resources.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/resources.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/group.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/group.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/template.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/template.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/logs.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/logs.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/meta.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/meta.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/network.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/network.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/periodic.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/periodic.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/service.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/service.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/parameterized.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/parameterized.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/env.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/env.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/artifact.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/artifact.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/check_restart.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/check_restart.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/migrate.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/migrate.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/ephemeral_disk.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/ephemeral_disk.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/constraint.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/constraint.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/dispatch_payload.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/dispatch_payload.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/reschedule.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/reschedule.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/update.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/update.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/job.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/job.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/restart.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/restart.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/task.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/task.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/job-specification/vault.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/job-specification/vault.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/service-discovery/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/service-discovery/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/namespace.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/namespace.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/sentinel.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/sentinel.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/alloc/logs.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/alloc/logs.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/alloc/fs.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/alloc/fs.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/alloc/status.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/alloc/status.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/ui.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/ui.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/namespace/inspect.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/namespace/inspect.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/namespace/list.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/namespace/list.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/namespace/status.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/namespace/status.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/namespace/delete.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/namespace/delete.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/namespace/apply.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/namespace/apply.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/status.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/status.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/server/members.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/server/members.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/server/force-leave.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/server/force-leave.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/server/join.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/server/join.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/agent.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/agent.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/sentinel/list.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/sentinel/list.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/sentinel/delete.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/sentinel/delete.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/sentinel/read.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/sentinel/read.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/sentinel/apply.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/sentinel/apply.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/deployment/pause.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/deployment/pause.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/deployment/promote.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/deployment/promote.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/deployment/list.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/deployment/list.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/deployment/status.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/deployment/status.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/deployment/resume.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/deployment/resume.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/deployment/fail.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/deployment/fail.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/node.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/node.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job/run.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job/run.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job/plan.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job/plan.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job/stop.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job/stop.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job/inspect.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job/inspect.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job/promote.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job/promote.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job/status.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job/status.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job/validate.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job/validate.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job/eval.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job/eval.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job/deployments.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job/deployments.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job/dispatch.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job/dispatch.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job/init.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job/init.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job/revert.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job/revert.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/job/history.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/job/history.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/acl.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/acl.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/quota.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/quota.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/deployment.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/deployment.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/quota/inspect.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/quota/inspect.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/quota/list.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/quota/list.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/quota/status.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/quota/status.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/quota/delete.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/quota/delete.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/quota/apply.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/quota/apply.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/quota/init.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/quota/init.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/operator.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/operator.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/node/config.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/node/config.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/node/eligibility.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/node/eligibility.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/node/status.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/node/status.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/node/drain.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/node/drain.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/version.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/version.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/agent-info.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/agent-info.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/acl/token-self.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/acl/token-self.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/acl/policy-list.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/acl/policy-list.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/acl/token-info.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/acl/token-info.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/acl/bootstrap.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/acl/bootstrap.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/acl/policy-delete.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/acl/policy-delete.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/acl/token-update.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/acl/token-update.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/acl/policy-info.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/acl/policy-info.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/acl/token-create.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/acl/token-create.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/acl/policy-apply.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/acl/policy-apply.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/acl/token-delete.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/acl/token-delete.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/operator/keyring.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/operator/keyring.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/operator/keygen.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/operator/keygen.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/operator/raft-list-peers.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/operator/raft-list-peers.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/operator/raft-remove-peer.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/operator/raft-remove-peer.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/operator/autopilot-set-config.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/operator/autopilot-set-config.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/operator/autopilot-get-config.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/operator/autopilot-get-config.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/alloc.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/alloc.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/eval-status.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/eval-status.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/server.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/server.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/commands/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/commands/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/docs/faq.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/docs/faq.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/downloads.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/downloads.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/cluster/manual.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/cluster/manual.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/cluster/automatic.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/cluster/automatic.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/cluster/federation.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/cluster/federation.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/cluster/bootstrapping.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/cluster/bootstrapping.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/cluster/autopilot.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/cluster/autopilot.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/cluster/requirements.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/cluster/requirements.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/outage.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/outage.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/configuring-tasks.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/configuring-tasks.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/submitting-jobs.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/submitting-jobs.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/resource-utilization.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/resource-utilization.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/accessing-logs.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/accessing-logs.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/inspecting-state.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/inspecting-state.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/update-strategies/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/update-strategies/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/update-strategies/blue-green-and-canary-deployments.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/update-strategies/blue-green-and-canary-deployments.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/update-strategies/handling-signals.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/update-strategies/handling-signals.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/update-strategies/rolling-upgrades.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/update-strategies/rolling-upgrades.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/failure-handling-strategies/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/failure-handling-strategies/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/failure-handling-strategies/reschedule.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/failure-handling-strategies/reschedule.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/failure-handling-strategies/restart.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/failure-handling-strategies/restart.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/operating-a-job/failure-handling-strategies/check-restart.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/operating-a-job/failure-handling-strategies/check-restart.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/sentinel-policy.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/sentinel-policy.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/securing-nomad.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/securing-nomad.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/node-draining.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/node-draining.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/sentinel/job.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/sentinel/job.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/nomad-metrics.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/nomad-metrics.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/quotas.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/quotas.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/ui.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/ui.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/acl.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/acl.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/namespaces.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/namespaces.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/spark/monitoring.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/spark/monitoring.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/spark/template.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/spark/template.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/spark/submit.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/spark/submit.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/spark/customizing.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/spark/customizing.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/spark/pre.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/spark/pre.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/spark/spark.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/spark/spark.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/spark/resource.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/spark/resource.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/spark/dynamic.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/spark/dynamic.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/spark/configuration.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/spark/configuration.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/security.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/security.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/resources.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/resources.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/namespaces.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/namespaces.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/acl-policies.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/acl-policies.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/regions.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/regions.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/jobs.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/jobs.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/validate.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/validate.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/operator.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/operator.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/status.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/status.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/metrics.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/metrics.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/index.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/index.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/evaluations.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/evaluations.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/acl-tokens.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/acl-tokens.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/nodes.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/nodes.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/system.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/system.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/allocations.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/allocations.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/quotas.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/quotas.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/libraries-and-sdks.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/libraries-and-sdks.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/client.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/client.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/sentinel-policies.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/sentinel-policies.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/ui.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/ui.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/json-jobs.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/json-jobs.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/agent.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/agent.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/deployments.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/deployments.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/api/search.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/api/search.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/community.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/community.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.nomadproject.io/guides/spark/hdfs.html</loc>
+    <loc>http://nomad084.danielgempesaw.com/guides/spark/hdfs.html</loc>
     <lastmod>2020-03-27T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
